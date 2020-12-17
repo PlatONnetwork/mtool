@@ -1,0 +1,9 @@
+{
+"nodePublicKey":"0abaf3219f454f3d07b6cbcf3c10b6b4ccf605202868e2043b6f5db12b745df0604ef01ef4cb523adc6d9e14b83a76dd09f862e3fe77205d8ac83df707969b47",
+"nodeAddress": "http://192.168.120.146",
+"nodePort": "16789",
+"nodeRpcPort": "6789",
+"nodeVersion":10,
+"blsPubKey":"82d740cbc0314ec558c5426f88fdad6f07a07f9846c6be4e40cd628b74b9f641ddad01e4c281a2c3693f8ff2a73a410297aff379ee0575127d51de99b97acc9a1b7bc8ca132ef6f0379a3ec9d76a603d623176e49e1c53e87fead36317895099",
+"certificate": "/path/to/ssl_ca"
+}

@@ -1,0 +1,16 @@
+{
+"nodePublicKey":"439d6fc6dec066d1666cb23fa323fdb98f4dc97f7d2c486fced988d4aa87d9a50f6e52e984ea3a4c8783f8a77110d351d321c841996f6145afe929aa99df9f6e", 
+"nodeAddress": "http://127.0.0.1",
+"nodePort": "16784",
+"nodeRpcPort": "6789",
+"nodeName": "liyf-test",
+"externalId": "liyftestid",
+"nodeVersion":10,
+"benefitAddress": "0xe3b2f96e0c256bd8c243a321c8daea125d7aa49e",
+"webSite": "http://www.baidu.com",
+"details": "details", 
+"chainId":"201018",
+"blsPubKey":"a97e835c8f304b91c9eebb22e7e84614c136d3739dd5fc07a6fa4258388cef918a82d1937cdfbc7806f34ff022e3a7032ad107080d0aaa22fbecfdd3b6a2c08c33ee776a73cd2ed73da1be06b3f6e51cb272f0772afd0883817c1e9c064d5794",
+"certificate": "/path/to/ssl_ca",
+"delegatedRewardRate": 10000
+}

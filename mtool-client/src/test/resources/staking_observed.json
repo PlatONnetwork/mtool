@@ -1,0 +1,7 @@
+{
+  "address": {
+    "mainnet": "atp1cy2uat0eukfrxv897s5s8lnljfka5ewjj943gf",
+    "testnet": "atx1cy2uat0eukfrxv897s5s8lnljfka5ewjcrfmmr"
+  },
+  "type": "OBSERVE"
+}

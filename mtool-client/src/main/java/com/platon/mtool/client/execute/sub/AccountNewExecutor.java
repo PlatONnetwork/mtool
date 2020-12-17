@@ -1,0 +1,137 @@
+package com.platon.mtool.client.execute.sub;
+
+import com.alaya.crypto.Credentials;
+import com.alaya.crypto.ECKeyPair;
+import com.alaya.crypto.WalletUtils;
+import com.alaya.parameters.NetworkParameters;
+import com.beust.jcommander.JCommander;
+import com.platon.mtool.client.execute.MtoolExecutor;
+import com.platon.mtool.client.options.AccountOptions.NewOption;
+import com.platon.mtool.client.tools.PrintUtils;
+import com.platon.mtool.client.tools.ResourceUtils;
+import com.platon.mtool.common.AllCommands.Account;
+import com.platon.mtool.common.exception.MtoolClientException;
+import com.platon.mtool.common.logger.Log;
+import com.platon.mtool.common.utils.LogUtils;
+import com.platon.mtool.common.utils.MnemonicUtil;
+import com.platon.mtool.common.web3j.Keystore.Type;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
+import java.math.BigInteger;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * 创建钱包
+ *
+ * <p>Created by liyf
+ */
+public class AccountNewExecutor extends MtoolExecutor<NewOption> {
+  private static final Logger logger = LoggerFactory.getLogger(AccountNewExecutor.class);
+
+  public AccountNewExecutor(JCommander commander, NewOption commonOption) {
+    super(commander, commonOption);
+  }
+
+  @Override
+  public void execute(NewOption option) throws Exception {
+    LogUtils.info(logger, () -> Log.newBuilder().msg(Account.NEW).kv("option", option));
+    String nameRegex = ".{1,12}";
+    String name = option.getName();
+
+    if (name != null && !name.matches(nameRegex)) {
+      throw new MtoolClientException("Incorrect name format");
+    }
+
+    if (StringUtils.isEmpty(name)) {
+      name = getAccountName();
+    }
+
+    Path dir = ResourceUtils.getKeystorePath().toAbsolutePath();
+    String filename = name + ".json";
+
+    if (dir.resolve(filename).toFile().exists()) {
+      throw new MtoolClientException("Existed wallet name");
+    }
+
+    char[] pass = PrintUtils.readPassword("Enter a passphrase to encrypt your key to disk: ");
+    if (pass.length == 0) {
+      throw new MtoolClientException("Password required");
+    }
+    if (pass.length < 6) {
+      throw new MtoolClientException("6 characters at least");
+    }
+    String passStr = new String(pass);
+
+    String pswRegex = "^\\S{6,}$";
+    if (!passStr.matches(pswRegex)) {
+      throw new MtoolClientException("Incorrect password format");
+    }
+
+    char[] confirmPass = PrintUtils.readPassword("Repeat the passphrase: ");
+    if (!Arrays.equals(pass, confirmPass)) {
+      throw new MtoolClientException("Password mismatch");
+    }
+    String mnemonic = MnemonicUtil.generateMnemonic();
+    ECKeyPair ecKeyPair = MnemonicUtil.generateECKeyPair(mnemonic);
+
+
+    String originName =
+        WalletUtils.generatePlatONWalletFile(new String(pass), ecKeyPair, dir.toFile());
+    LogUtils.info(logger, () -> Log.newBuilder().msg(originName));
+    File originFile = new File(dir.resolve(originName).toAbsolutePath().toString());
+    File destFile = new File(dir.resolve(filename).toAbsolutePath().toString());
+    boolean ret = originFile.renameTo(destFile);
+    if (ret) {
+      LogUtils.info(logger, () -> Log.newBuilder().msg("create wallet success"));
+      Credentials credentials = WalletUtils.loadCredentials(passStr, destFile);
+      PrintUtils.echo("-name: %s", name);
+      PrintUtils.echo("-type: %s", Type.NORMAL.name());
+      PrintUtils.echo("-address: ");
+      PrintUtils.echo(" mainnet: %s", credentials.getAddress(NetworkParameters.MainNetParams));
+      PrintUtils.echo(" testnet: %s", credentials.getAddress(NetworkParameters.TestNetParams));
+      PrintUtils.echo("-public key: 0x%s", credentials.getEcKeyPair().getPublicKey().toString(16));
+      PrintUtils.echo("\n\n");
+      PrintUtils.echo("**Important** write this Private Key in a safe place.");
+      PrintUtils.echo(
+          "It is the important way to recover your account if you ever forget your password.");
+      BigInteger priKey = credentials.getEcKeyPair().getPrivateKey();
+      PrintUtils.echo(StringUtils.leftPad(priKey.toString(16), 64, '0'));
+      PrintUtils.echo("**Important** write this mnemonic phrase in a safe place.");
+      PrintUtils.echo(
+          "It is the important way to recover your account if you ever forget your password.");
+      PrintUtils.echo(mnemonic);
+
+    } else {
+      PrintUtils.echo("create wallet failed");
+    }
+  }
+
+  protected String getAccountName() throws IOException {
+
+    Path rewardPath = ResourceUtils.getKeystorePath();
+    String prefix = "Account";
+    int num = 0;
+    try (DirectoryStream<Path> stream =
+        Files.newDirectoryStream(rewardPath, prefix + "{,[0-9]*}")) {
+
+      for (Path entry : stream) {
+        Pattern pattern = Pattern.compile("(\\d+)\\.json$");
+        Matcher matcher = pattern.matcher(entry.toString());
+        if (matcher.find()) {
+          int tmp = Integer.parseInt(matcher.group(1));
+          num = Math.max(num, tmp);
+        }
+      }
+    }
+    return prefix + (num + 1);
+  }
+}

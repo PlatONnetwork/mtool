@@ -1,0 +1,189 @@
+apply plugin: 'idea'
+apply plugin: "de.undercouch.download"
+apply plugin: 'org.sonarqube'
+apply plugin: "com.github.ben-manes.versions"
+
+allprojects {
+    group 'com.platon'
+}
+
+buildscript {
+    repositories {
+        mavenLocal()
+        maven {url "http://maven.aliyun.com/nexus/content/groups/public/"}
+        maven {url "http://192.168.9.39:8081/repository/maven-releases/"}
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.ajoberstar:grgit:1.7.2'
+        classpath "de.undercouch:gradle-download-task:4.0.2"
+        classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.7.1'
+        classpath "com.github.ben-manes:gradle-versions-plugin:0.27.0"
+        classpath 'org.owasp:dependency-check-gradle:5.2.4'
+    }
+}
+
+ext {
+    // Open the Git repository in the current directory.
+    git = org.ajoberstar.grgit.Grgit.open(file('.'))
+    // Get commit id of HEAD.
+    gitRevision = git.head().id
+    // Get abbreviated commit Id of HEAD
+    gitAbbRevision = git.head().abbreviatedId
+    // sdk version
+    sdkVersion = '0.15.0.0-SNAPSHOT'
+    // sdk发包时间， 无用字段， 测试部门要求添加
+    sdkTime = '2020-11-30'
+    // timestamp
+    buildTimestamp = new Date().format('yyyy-MM-dd HH:mm:ss')
+}
+
+sonarqube {
+    properties {
+        property "sonar.sourceEncoding", "UTF-8"
+    }
+}
+
+
+subprojects {
+    apply plugin: 'java'
+
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven {
+            url 'https://sdk.platon.network/nexus/content/repositories/releases/'
+        }
+        maven {
+            url 'https://sdk.platon.network/nexus/content/repositories/snapshots/'
+        }
+    }
+
+    buildscript {
+    }
+
+    configurations {
+        all {
+            exclude module: "junit"
+//            默认24小时 这样配置jar包会直接去配置的仓库拿
+            resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+        }
+    }
+
+    dependencies {
+        testImplementation('org.junit.jupiter:junit-jupiter-params:5.5.2') { force = true }
+        testImplementation('org.junit.jupiter:junit-jupiter-api:5.5.2') { force = true }
+        testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.5.2') { force = true }
+        testImplementation('org.junit.jupiter:junit-jupiter:5.5.2') { force = true }
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-migrationsupport:5.5.2'
+        testImplementation('org.junit.platform:junit-platform-launcher:1.5.2') { force = true }
+        testImplementation('org.junit.platform:junit-platform-engine:1.5.2') { force = true }
+        testImplementation('org.junit.platform:junit-platform-commons:1.5.2') { force = true }
+
+        testImplementation('org.mockito:mockito-core:3.2.4') { force = true }
+        testImplementation('org.mockito:mockito-junit-jupiter:3.2.4')
+
+        testImplementation 'io.github.overstart:dtotest:1.1'
+        testImplementation 'org.awaitility:awaitility:4.0.1'
+
+        compile 'ch.qos.logback:logback-classic:1.2.3'
+        compile 'org.slf4j:slf4j-api:1.7.25'
+        compile 'org.codehaus.janino:janino:3.1.0'
+
+        compile 'commons-io:commons-io:2.6'
+        compile 'org.apache.commons:commons-lang3:3.9'
+        compile 'commons-codec:commons-codec:1.13'
+        compile 'commons-beanutils:commons-beanutils:1.9.4'
+        compile 'com.warrenstrange:googleauth:1.4.0'
+        compile 'com.alibaba:fastjson:1.2.66'
+        compile "com.alaya.client:alaya-core:${sdkVersion}"
+        compile 'org.bitcoinj:bitcoinj-core:0.14.7'
+
+    }
+
+    test {
+        jvmArgs = [
+                '-Dfile.encoding=utf-8', '-DjunitTest'
+        ]
+        useJUnitPlatform()
+    }
+
+    [compileJava, compileTestJava].each { task ->
+        task.options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation" << "-Werror"
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+    }
+
+}
+
+dependencyUpdates {
+    outputFormatter = { result ->
+        file("$buildDir/dependencyUpdates").mkdirs()
+        def writer = new FileWriter(new File("$buildDir/", 'dependencyUpdates/report.html'))
+        def html = new groovy.xml.MarkupBuilder(writer)
+
+        html.html {
+            head {
+                meta(charset: 'UTF-8')
+            }
+            body {
+                table(border: '1', cellpadding: '2', cellspacing: '0') {
+                    thead {
+                        tr {
+                            td("Group")
+                            td("Module")
+                            td("Version")
+                            td("Remark")
+                        }
+                    }
+
+                    tbody {
+                        tr { td(colspan: "4", "已更新最新") }
+                        result.current.dependencies.each { dependency ->
+                            tr {
+                                td(dependency.group)
+                                td(dependency.name)
+                                td(dependency.version)
+                                td()
+                            }
+                        }
+                        tr { td(colspan: "4", "版本超前") }
+                        result.exceeded.dependencies.each { dependency ->
+                            tr {
+                                td(dependency.group)
+                                td(dependency.name)
+                                td(dependency.version)
+                                td()
+                            }
+                        }
+                        tr { td(colspan: "4", "版本过时") }
+                        result.outdated.dependencies.each { dependency ->
+                            tr {
+                                td(dependency.group)
+                                td(dependency.name)
+                                td(dependency.version)
+                                td(dependency.available.release ?: dependency.available.milestone)
+                            }
+                        }
+                        tr { td(colspan: "4", "无法判断") }
+                        result.unresolved.dependencies.each { dependency ->
+                            tr {
+                                td(dependency.group)
+                                td(dependency.name)
+                                td(dependency.version)
+                                td()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        writer.flush()
+    }
+}

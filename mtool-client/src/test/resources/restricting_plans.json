@@ -1,0 +1,8 @@
+{
+  "account":"atp12jn6835z96ez93flwezrwu4xpv8e4zatwxj7ju",
+  "plans":[
+    {"epoch": 5000,"amount": 100},
+    {"epoch": 6000,"amount": 100},
+    {"epoch": 7000,"amount": 100}
+  ]
+}

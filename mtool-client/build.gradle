@@ -1,0 +1,101 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+apply plugin: 'application'
+
+compileJava {
+    options.compilerArgs << "-parameters"
+}
+
+application {
+    applicationDefaultJvmArgs = ['-Xms256m','-Dfile.encoding=utf-8']
+    mainClassName = "com.platon.mtool.client.MtoolClient"
+}
+
+tasks.withType(CreateStartScripts).each { task ->
+    task.doLast {
+        task.windowsScript.write task.windowsScript.text.replaceFirst(/(set CLASSPATH=%APP_HOME%\\lib\\).*/, { "${it[1]}*" })
+        task.unixScript.write task.unixScript.text.replaceFirst(/(CLASSPATH=.APP_HOME\/lib\/).*/, { "CLASSPATH=\$(echo \$APP_HOME/lib/*.jar | tr ' ' ':')" })
+    }
+}
+
+dependencies {
+    compile project(':common')
+    compile 'com.beust:jcommander:1.72'
+    compile 'org.asynchttpclient:async-http-client:2.10.4'
+    compile 'de.vandermeer:asciitable:0.3.2'
+    compile 'me.tongfei:progressbar:0.7.4'
+}
+
+jar {
+    exclude("config.properties")
+}
+
+processResources {
+    filesMatching('build-info.properties') {
+        filter ReplaceTokens, tokens: [
+                'build.version': project.property("version"),
+                'build.timestamp': project.buildTimestamp,
+                'build.revision' : rootProject.gitRevision,
+                'build.sdkVersion': rootProject.sdkVersion
+        ]
+    }
+    doLast {
+        copy {
+            from file("$buildDir/resources/main/config.properties")
+            into "$buildDir/classes"
+        }
+    }
+}
+
+task copyLicense {
+    outputs.file new File("$buildDir/README.md")
+    doLast {
+        copy {
+            from file("README.md")
+            into "$buildDir"
+        }
+    }
+}
+
+task copyValidator {
+    outputs.file new File("$buildDir/resources/main/validator/validator_config.json.example")
+    outputs.file new File("$buildDir/resources/main/validator/restricting_plans.json.example")
+}
+
+task copyKeystore {
+    def validatorDir = file("$buildDir/keystore")
+    outputs.dir validatorDir
+    doLast {
+        validatorDir.mkdirs()
+        new File(validatorDir, 'IGNORE.me').write("keystore")
+    }
+}
+
+task copyConfig {
+    outputs.file new File("$buildDir/resources/main/config.properties")
+}
+
+distributions {
+    main {
+        contents {
+            from(copyLicense) {
+                into ''
+            }
+            from(copyValidator) {
+                into 'validator'
+            }
+            from(copyKeystore) {
+                into 'keystore'
+            }
+            from(copyConfig) {
+                into ''
+            }
+        }
+    }
+}
+
+/*
+distTar {
+    archiveFileName = "mtool-client_${version}.tar"
+}
+*/

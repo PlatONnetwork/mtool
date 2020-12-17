@@ -1,0 +1,15 @@
+{
+ 	"staking":{
+ 		"rewardMethod": "AVERAGE",
+		"commissionRatio": 0.1
+ 	},
+ 	"block":{
+ 		"rewardMethod": "AVERAGE",
+		"commissionRatio": 0.2
+ 	},
+ 	"trade":{
+ 		"rewardMethod": "AVERAGE",
+		"commissionRatio": 0.3
+	},
+	"feePayer": "DELEGATOR"
+}

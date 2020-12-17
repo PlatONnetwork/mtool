@@ -1,0 +1,14 @@
+Period:block1441-block1600
+"Plan:block reward(20.00%,AVERAGE), fee reward(30.00%,AVERAGE), staking reward(10.00%,AVERAGE), Fee payer:(DELEGATOR)"
+Validator: liyf-test
+Reward address: 0xa1548dd61010a742cd66fb86324ab3e29355864a (Balance: 50000 ATP)
+Total reward: 60000 ATP
+Total block reward: 20000 ATP
+Total fee reward: 30000 ATP
+Total staking reward: 10000 ATP
+Delegators: 1
+Total distribution: 46000 ATP
+Adjusted Total Distribution : 46000 ATP (Actual distribution award has been adjusted)
+Total txn fee: 0.000021 ATP
+Delegator,Block reward,Fee reward,Staking reward,Issued reward,Distribute rewards,Actual distribute reward,Tx fee,Actual reward,Txn hash," status"
+0xc1553f9deadecdbb304e4f557fca196f81ea02cd,20000,30000,10000,6000,54000,54000,0.000021,53999.999979,0x4e5e2f63c8c3d63424749fccfafa4f08e73ce7cdfb1f2fdad5da2147357a72d9,Success

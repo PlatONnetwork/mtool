@@ -1,0 +1,3 @@
+rootProject.name = 'mtool-project'
+include 'mtool-client'
+include 'common'

@@ -1,0 +1,30 @@
+# idea ignore
+.idea/
+*.ipr
+*.iml
+*.iws
+
+# eclipse ignore
+.settings/
+.project
+.classpath
+
+# maven ignore
+target/
+
+# gradle ignore
+.gradle
+build
+out
+
+node_modules
+package-lock.json
+keystore
+*.log
+**/logs
+**/rebel.xml
+
+
+# store
+data
+reward_data/

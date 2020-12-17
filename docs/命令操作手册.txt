@@ -1,0 +1,318 @@
+Usage: mtool [options] [command] [command options]
+  Options:
+    --help, -h
+      显示命令帮助说明
+    --version, -v
+      Show version
+  Commands:
+    create_restricting      创建锁仓计划
+      Usage: create_restricting [options]
+        Options:
+        * --help
+            显示命令帮助说明
+        * --config
+            验证人配置文件
+        * --keystore, --address
+            keystore: 钱包文件，加密文件 address: 观察钱包文件
+        * --file
+            锁仓计划json文件
+    staking      创建验证人，提交质押信息
+      Usage: staking [options]
+        Options:
+        * --help
+            显示命令帮助说明
+        * --config
+            验证人配置文件
+        * --keystore, --address
+            keystore: 钱包文件，加密文件 address: 观察钱包文件
+        * --amount , --restrictedamount, --autoamount
+            质押金额, 不能低于 1000000ATP. 支持账户余额(--amount)，或者锁仓余额(--restrictedamount)，或者支持锁仓+余额（首先扣除锁仓，再扣除账户余额）
+        * --benefit_address
+            收益地址。出块奖励，质押奖励将发放到此地址。
+        * --delegated_reward_rate
+            委托分红比例（0 ~ 10000, 万分比）
+          --node_name
+            节点名称（最多30个字节）
+          --website
+            节点官网地址（最多140个字节）
+          --details
+            节点介绍（最多280个字节）
+          --external_id
+            节点外部系统标识（最多70个字节）
+    update_validator      更新验证人
+      Usage: update_validator [options]
+        Options:
+        * --help
+            显示命令帮助说明
+        * --config
+            验证人配置文件
+        * --keystore, --address
+            keystore: 钱包文件，加密文件 address: 观察钱包文件
+          --benefit_address
+            [可选]收益地址。出块奖励，质押奖励将发放到此地址。
+          --delegated_reward_rate
+            [可选]委托分红比例（0 ~ 10000, 万分比）
+          --node_name
+            [可选]节点名称（最多30个字节）
+          --website
+            [可选]节点官网地址（最多140个字节）
+          --details
+            [可选]节点介绍（最多280个字节）
+          --external_id
+            [可选]节点外部系统标识（最多70个字节）
+    increasestaking      增持质押
+      Usage: increasestaking [options]
+        Options:
+        * --config
+            验证人配置文件
+          --help
+            显示命令帮助说明
+        * --keystore, --address
+            keystore: 钱包文件，加密文件 address: 观察钱包文件
+        * --amount, --restrictedamount
+            质押金额, 不能低于 10ATP. 支持账户余额和锁仓余额
+
+    unstaking      退出质押
+      Usage: unstaking [options]
+        Options:
+        * --config
+            验证人配置文件
+          --help
+            显示命令帮助说明
+        * --keystore, --address
+            keystore: 钱包文件，加密文件 address: 观察钱包文件
+
+    submit_versionproposal      提交版本提案
+      Usage: submit_versionproposal [options]
+        Options:
+        * --config
+            验证人配置文件
+        * --end_voting_rounds
+            投票共识轮，一轮大约8分钟
+          --help
+            显示命令帮助说明
+        * --keystore, --address
+            keystore: 钱包文件，加密文件 address: 观察钱包文件
+        * --newversion
+            版本提案号，例如 1.0.1
+        * --pid_id
+            proposal pip number in github.
+
+    vote_versionproposal      对版本提案投票
+      Usage: vote_versionproposal [options]
+        Options:
+        * --config
+            验证人配置文件
+          --help
+            显示命令帮助说明
+        * --keystore, --address
+            keystore: 钱包文件，加密文件 address: 观察钱包文件
+        * --proposalid
+            提案id
+
+    declare_version      声明提案
+      Usage: declare_version [options]
+        Options:
+        * --config
+            验证人配置文件
+          --help
+            显示命令帮助说明
+        * --keystore, --address
+            keystore: 钱包文件，加密文件 address: 观察钱包文件
+
+    submit_cancelproposal      提交取消提案
+      Usage: submit_cancelproposal [options]
+        Options:
+        * --config
+            验证人配置文件
+        * --end_voting_rounds
+            投票共识轮，一轮大约8分钟
+          --help
+            显示命令帮助说明
+        * --keystore, --address
+            keystore: 钱包文件，加密文件 address: 观察钱包文件
+        * --pid_id
+            proposal pip number in github.
+        * --proposalid
+            proposal ID of target cancellation.only cancel the version 
+            proposal. 
+
+    submit_textproposal      提交文本提案
+      Usage: submit_textproposal [options]
+        Options:
+        * --config
+            验证人配置文件
+          --help
+            显示命令帮助说明
+        * --keystore, --address
+            keystore: 钱包文件，加密文件 address: 观察钱包文件
+        * --pid_id
+            proposal pip number in github.
+
+    vote_cancelproposal      对取消提案投票
+      Usage: vote_cancelproposal [options]
+        Options:
+        * --config
+            验证人配置文件
+          --help
+            显示命令帮助说明
+        * --keystore, --address
+            keystore: 钱包文件，加密文件 address: 观察钱包文件
+        * --opinion
+            投票选项，支持参数:yes,no,abstain.
+            
+        * --proposalid
+            提案id
+
+    vote_textproposal      对文本提案投票
+      Usage: vote_textproposal [options]
+        Options:
+        * --config
+            验证人配置文件
+          --help
+            显示命令帮助说明
+        * --keystore, --address
+            keystore: 钱包文件，加密文件 address: 观察钱包文件
+        * --opinion
+            投票选项，支持参数:yes,no,abstain.
+            
+        * --proposalid
+            提案id
+
+    create_observewallet      创建观察钱包
+      Usage: create_observewallet [options]
+        Options:
+          --help
+            显示命令帮助说明
+        * --keystore
+            钱包文件，加密文件
+
+    offlinesign      对交易做离线签名
+      Usage: offlinesign [options]
+        Options:
+        * --filelocation
+            离线交易文件地址
+          --help
+            显示命令帮助说明
+
+    send_signedtx      发送签名文件上链
+      Usage: send_signedtx [options]
+        Options:
+        * --config
+            验证人配置文件
+        * --filelocation
+            离线交易文件地址
+          --help
+            显示命令帮助说明
+
+    submit_paramproposal      提交参数提案
+      Usage: submit_paramproposal [options]
+        Options:
+        * --config
+            验证人配置文件
+          --help
+            显示命令帮助说明
+        * --keystore, --address
+            keystore: 钱包文件，加密文件 address: 观察钱包文件
+        * --module
+            治理模块参数
+        * --paramname
+            治理模块参数名，注意字母大小写
+        * --paramvalue
+            治理模块参数值
+        * --pid_id
+            proposal pip number in github.
+
+    vote_paramproposal      对参数提案投票
+      Usage: vote_paramproposal [options]
+        Options:
+        * --config
+            验证人配置文件
+          --help
+            显示命令帮助说明
+        * --keystore, --address
+            keystore: 钱包文件，加密文件 address: 观察钱包文件
+        * --opinion
+            投票选项，支持参数:yes,no,abstain.
+            
+        * --proposalid
+            提案id
+
+    account      管理账户
+      Usage: account [options]       [command] [command options]
+        Options:
+          --help
+            显示命令帮助说明
+        Commands:
+          new      创建新用户
+            Usage: new [options] accountName
+              Options:
+                --help
+                  显示命令帮助说明
+
+          recover      恢复账户
+            Usage: recover [options] accountName
+              Options:
+                --help
+                  显示命令帮助说明
+                -k, --key
+                  私钥恢复
+                  Default: false
+                -m, --mnemonics
+                  助记词恢复
+                  Default: false
+
+          list      查看账户列表
+            Usage: list [options]
+              Options:
+                --help
+                  显示命令帮助说明
+
+          balance      检查账户余额
+            Usage: balance [options] keystorename
+              Options:
+                -a, --address
+                  address
+              * --config
+                  验证人配置文件
+                --help
+                  显示命令帮助说明
+
+
+    tx      管理交易
+      Usage: tx [options]       [command] [command options]
+        Options:
+          --help
+            显示命令帮助说明
+        Commands:
+          transfer      转账
+            Usage: transfer [options]
+              Options:
+              * --amount
+                  发送金额
+              * --config
+                  验证人配置文件
+                --gaslimit
+                  交易使用的最大gas数量
+                --gasprice
+                  交易的Gas price， ATP为单位
+                --help
+                  显示命令帮助说明
+              * --keystore, --address
+                  keystore: 钱包文件，加密文件 address: 观察钱包文件
+              * --recipient
+                  接收账户地址
+
+          delegate      委托
+            Usage: delegate [options]
+              Options:
+              * --config
+                  验证人配置文件
+                --help
+                  Show command help
+              * --keystore, --address
+                  keystore: 钱包文件，加密文件 address: 观察钱包文件
+              * --node_id
+                  委托给节点id
+              * --amount, --restrictedamount
+                  委托金额
