@@ -111,6 +111,7 @@ public class BlockChainService {
           throw MtoolClientExceptionCode.BALANCE_NO_ENOUGH.create(PlatOnUnit.vonToLat(total));
         }
         if (freeBalance.compareTo(fee) < 0) {
+          System.out.printf("The wallet balance(%.8f) is insufficient to pay the transaction fee(%.8f).", PlatOnUnit.vonToLat(freeBalance), PlatOnUnit.vonToLat(fee));
           throw MtoolClientExceptionCode.BALANCE_NO_ENOUGH.create(PlatOnUnit.vonToLat(total));
         }
         break;
@@ -119,10 +120,11 @@ public class BlockChainService {
         restrictBalance = queryRestrictingBalance(targetChainAddress,web3j);
         BigInteger totalBalance = restrictBalance.add(freeBalance);
 
-        if(totalBalance.compareTo(amount)<0){
+        if(totalBalance.compareTo(total)<0){
           throw MtoolClientExceptionCode.BALANCE_NO_ENOUGH.create(PlatOnUnit.vonToLat(total));
         }
         if (freeBalance.compareTo(fee) < 0) {
+          System.out.printf("The wallet balance(%.8f) is insufficient to pay the transaction fee(%.8f).", PlatOnUnit.vonToLat(freeBalance), PlatOnUnit.vonToLat(fee));
           throw MtoolClientExceptionCode.BALANCE_NO_ENOUGH.create(PlatOnUnit.vonToLat(total));
         }
         break;
@@ -130,7 +132,7 @@ public class BlockChainService {
   }
 
   /**
-   * 取用户的锁仓余额
+   * 取用户的锁仓余额，这个余额是指，可以用来继续做锁仓，或者委托的金额，所以，需要balance-pledge;
    * @param userAddress
    * @param web3j
    * @return
@@ -140,9 +142,12 @@ public class BlockChainService {
     BigInteger result = BigInteger.ZERO;
     RestrictingPlanContract restrictingPlanContract = RestrictingPlanContract.load(web3j, CLIENT_CONFIG.getTargetChainId());
     CallResponse<RestrictingItem> baseResponse = restrictingPlanContract.getRestrictingInfo(userAddress).send();
-    System.out.println(baseResponse.toString());
-    RestrictingItem restrictingItem = baseResponse.getData();
-    result = restrictingItem.getBalance().subtract(restrictingItem.getPledge());
+    if(baseResponse.getCode() == 0){
+      RestrictingItem restrictingItem = baseResponse.getData();
+      result = restrictingItem.getBalance().subtract(restrictingItem.getPledge());
+    }else{
+      System.out.println(baseResponse.getErrMsg());
+    }
     return result;
   }
 
