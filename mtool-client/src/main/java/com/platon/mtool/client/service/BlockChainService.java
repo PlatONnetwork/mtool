@@ -105,8 +105,8 @@ public class BlockChainService {
         }
         break;
       case RESTRICTING_AMOUNT_TYPE:
-        // 钱包锁仓余额
-        BigInteger restrictBalance = queryRestrictingBalance(targetChainAddress,web3j);
+        // 钱包锁仓可用余额
+        BigInteger restrictBalance = queryRestrictingBalanceAvailableForStakingOrDelegation(targetChainAddress,web3j);
         if(restrictBalance.compareTo(amount)<0){
           throw MtoolClientExceptionCode.BALANCE_NO_ENOUGH.create(PlatOnUnit.vonToLat(total));
         }
@@ -116,8 +116,8 @@ public class BlockChainService {
         }
         break;
       case AUTO_AMOUNT_TYPE:
-        // 钱包锁仓余额
-        restrictBalance = queryRestrictingBalance(targetChainAddress,web3j);
+        // 钱包锁仓可用余额
+        restrictBalance = queryRestrictingBalanceAvailableForStakingOrDelegation(targetChainAddress,web3j);
         BigInteger totalBalance = restrictBalance.add(freeBalance);
 
         if(totalBalance.compareTo(total)<0){
@@ -138,17 +138,20 @@ public class BlockChainService {
    * @return
    * @throws Exception
    */
-  public BigInteger queryRestrictingBalance(String userAddress,Web3j web3j) throws Exception {
-    BigInteger result = BigInteger.ZERO;
+  public BigInteger queryRestrictingBalanceAvailableForStakingOrDelegation(String userAddress, Web3j web3j) throws Exception {
+    BigInteger available = BigInteger.ZERO;
     RestrictingPlanContract restrictingPlanContract = RestrictingPlanContract.load(web3j, CLIENT_CONFIG.getTargetChainId());
     CallResponse<RestrictingItem> baseResponse = restrictingPlanContract.getRestrictingInfo(userAddress).send();
     if(baseResponse.getCode() == 0){
       RestrictingItem restrictingItem = baseResponse.getData();
-      result = restrictingItem.getBalance().subtract(restrictingItem.getPledge());
+      BigInteger sub = restrictingItem.getBalance().subtract(restrictingItem.getPledge());
+      if (sub.signum()==1){//可用余额>0才返回，否则返回0
+        available = sub;
+      }
     }else{
       System.out.println(baseResponse.getErrMsg());
     }
-    return result;
+    return available;
   }
 
   public BigInteger getCostAmount(BigInteger amount, GasProvider gasProvider) {
