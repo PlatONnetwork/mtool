@@ -106,7 +106,7 @@ class BlockChainServiceTest {
   @Test
   void queryRestrictingBalance(){
     try {
-      blockChainService.queryRestrictingBalance(config.getNodeAddress(), web3j);
+      blockChainService.queryRestrictingBalanceAvailableForStakingOrDelegation(config.getNodeAddress(), web3j);
     } catch (Exception e) {
       e.printStackTrace();
     }
