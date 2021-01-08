@@ -48,6 +48,7 @@ sonarqube {
 
 subprojects {
     apply plugin: 'java'
+    apply plugin: 'jacoco'
 
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
@@ -118,6 +119,26 @@ subprojects {
 
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
+    }
+
+    jacoco {
+        toolVersion = '0.8.4'
+    }
+
+    jacocoTestReport {
+        reports {
+            xml.enabled true
+            xml.destination file("${buildDir}/reports/jacoco/report.xml")
+            html.enabled true
+        }
+//        afterEvaluate {
+//            classDirectories.from = files(classDirectories.files.collect {
+//                fileTree(dir: it,
+//                        exclude: ['**/model/*',
+//                                  '**/entity/*',
+//                                  '**/enums/*'])
+//            })
+//        }
     }
 
 }

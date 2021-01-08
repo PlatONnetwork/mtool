@@ -51,6 +51,9 @@
 ## 日志
 > 默认日志运行级别为`INFO`，只打印跟mtool相关的日志，当需要充分了解sdk与节点的请求情况需要配置环境变量
 
+## 代码质量统计报告上传
+> gradlew clean build jacocoTestReport sonarqube -x check -info
+>
 ```bash
 # linux
 JAVA_OPTS="-Dlog.level=debug" ./bin/mtool-client [options] [command] [command options]
