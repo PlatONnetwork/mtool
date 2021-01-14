@@ -1,11 +1,11 @@
 package com.platon.mtool.common.utils;
 
 import com.platon.mtool.common.exception.MtoolException;
+import com.platon.protocol.Web3j;
+import com.platon.tx.Transfer;
+import com.platon.tx.gas.GasProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.alaya.protocol.Web3j;
-import com.alaya.tx.Transfer;
-import com.alaya.tx.gas.GasProvider;
 
 import java.io.IOException;
 import java.math.BigInteger;

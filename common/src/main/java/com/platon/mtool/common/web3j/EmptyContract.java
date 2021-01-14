@@ -1,7 +1,7 @@
 package com.platon.mtool.common.web3j;
 
-import com.alaya.contracts.ppos.BaseContract;
-import com.alaya.protocol.Web3j;
+import com.platon.contracts.ppos.BaseContract;
+import com.platon.protocol.Web3j;
 
 /**
  * 自定义空合约， 为了使用部分合约方法

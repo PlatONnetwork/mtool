@@ -2,20 +2,16 @@ package com.platon.mtool.common.web3j;
 
 import com.platon.mtool.common.entity.ValidatorConfig;
 import com.platon.mtool.common.exception.MtoolException;
+import com.platon.protocol.Web3j;
+import com.platon.protocol.http.HttpService;
 import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.alaya.protocol.Web3j;
-import com.alaya.protocol.http.HttpService;
 
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.TrustManagerFactory;
-import javax.net.ssl.X509TrustManager;
+import javax.net.ssl.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

@@ -1,6 +1,7 @@
 package com.platon.mtool.client.execute;
 
 import com.beust.jcommander.JCommander;
+import com.platon.contracts.ppos.dto.TransactionResponse;
 import com.platon.mtool.client.ClientConsts;
 import com.platon.mtool.client.options.SendSignedTxOption;
 import com.platon.mtool.client.tools.PrintUtils;
@@ -15,13 +16,12 @@ import com.platon.mtool.common.utils.TransactionStatusUtil;
 import com.platon.mtool.common.web3j.EmptyContract;
 import com.platon.mtool.common.web3j.MtoolTransactionManager;
 import com.platon.mtool.common.web3j.TransactionEntity;
-import com.alaya.contracts.ppos.dto.TransactionResponse;
+import com.platon.protocol.Web3j;
+import com.platon.protocol.core.methods.response.PlatonSendTransaction;
+import com.platon.protocol.core.methods.response.TransactionReceipt;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.alaya.protocol.Web3j;
-import com.alaya.protocol.core.methods.response.PlatonSendTransaction;
-import com.alaya.protocol.core.methods.response.TransactionReceipt;
 
 import java.util.List;
 

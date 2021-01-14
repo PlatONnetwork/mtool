@@ -2,7 +2,7 @@ package com.platon.mtool.client.converter;
 
 import com.beust.jcommander.ParameterException;
 import com.beust.jcommander.converters.BaseConverter;
-import com.alaya.contracts.ppos.dto.enums.VoteOption;
+import com.platon.contracts.ppos.dto.enums.VoteOption;
 
 /**
  * 投票选项转换器

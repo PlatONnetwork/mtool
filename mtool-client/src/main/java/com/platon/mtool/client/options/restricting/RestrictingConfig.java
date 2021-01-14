@@ -1,6 +1,6 @@
 package com.platon.mtool.client.options.restricting;
 
-import com.alaya.contracts.ppos.dto.RestrictingPlan;
+import com.platon.contracts.ppos.dto.RestrictingPlan;
 
 public class RestrictingConfig {
     private  String account;

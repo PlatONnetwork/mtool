@@ -1,6 +1,5 @@
 package com.platon.mtool.client.options;
 
-import com.alaya.tx.gas.GasProvider;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import com.beust.jcommander.ParametersDelegate;
@@ -14,6 +13,7 @@ import com.platon.mtool.common.entity.StakingAmount;
 import com.platon.mtool.common.entity.ValidatorConfig;
 import com.platon.mtool.common.validate.StakingAmountMin;
 import com.platon.mtool.common.web3j.Keystore;
+import com.platon.tx.gas.GasProvider;
 
 import javax.validation.Valid;
 import javax.validation.constraints.DecimalMin;

@@ -1,6 +1,6 @@
 package com.platon.mtool.client;
 
-import com.alaya.crypto.Address;
+import com.platon.crypto.Address;
 import com.platon.mtool.client.parser.BaseOptionParser;
 import com.platon.mtool.client.tools.ResourceUtils;
 import org.junit.jupiter.api.Assertions;

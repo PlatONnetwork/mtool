@@ -1,16 +1,17 @@
 package com.platon.mtool.client.test;
 
+import com.platon.contracts.ppos.RestrictingPlanContract;
+import com.platon.contracts.ppos.dto.BaseResponse;
+import com.platon.protocol.Web3j;
+import com.platon.protocol.core.RemoteCall;
+import com.platon.protocol.core.Request;
+import com.platon.protocol.core.Response;
+import org.mockito.CheckReturnValue;
+
+import java.io.IOException;
+
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
-
-import com.alaya.contracts.ppos.RestrictingPlanContract;
-import com.alaya.contracts.ppos.dto.BaseResponse;
-import java.io.IOException;
-import org.mockito.CheckReturnValue;
-import com.alaya.protocol.Web3j;
-import com.alaya.protocol.core.RemoteCall;
-import com.alaya.protocol.core.Request;
-import com.alaya.protocol.core.Response;
 
 /** Created by liyf. */
 public abstract class PlatonMockHelp {

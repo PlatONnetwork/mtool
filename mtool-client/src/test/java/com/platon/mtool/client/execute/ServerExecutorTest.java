@@ -19,7 +19,7 @@
 //import com.platon.mtool.common.utils.PlatOnUnit;
 //import com.platon.mtool.common.web3j.EmptyContract;
 //import com.platon.mtool.common.web3j.Keystore;
-//import com.alaya.contracts.ppos.dto.TransactionResponse;
+//import com.platon.contracts.ppos.dto.TransactionResponse;
 //import java.io.File;
 //import java.io.IOException;
 //import java.io.InputStream;
@@ -42,14 +42,14 @@
 //import org.mockito.junit.jupiter.MockitoExtension;
 //import org.mockito.junit.jupiter.MockitoSettings;
 //import org.mockito.quality.Strictness;
-//import com.alaya.protocol.admin.Admin;
-//import com.alaya.protocol.core.RemoteCall;
-//import com.alaya.protocol.core.methods.response.PlatonGasPrice;
-//import com.alaya.protocol.core.methods.response.PlatonGetBalance;
-//import com.alaya.protocol.core.methods.response.PlatonGetTransactionReceipt;
-//import com.alaya.protocol.core.methods.response.PlatonSendTransaction;
-//import com.alaya.protocol.core.methods.response.TransactionReceipt;
-//import com.alaya.tx.Transfer;
+//import com.platon.protocol.admin.Admin;
+//import com.platon.protocol.core.RemoteCall;
+//import com.platon.protocol.core.methods.response.PlatonGasPrice;
+//import com.platon.protocol.core.methods.response.PlatonGetBalance;
+//import com.platon.protocol.core.methods.response.PlatonGetTransactionReceipt;
+//import com.platon.protocol.core.methods.response.PlatonSendTransaction;
+//import com.platon.protocol.core.methods.response.TransactionReceipt;
+//import com.platon.tx.Transfer;
 //
 ///** Created by liyf. */
 //@ExtendWith(MockitoExtension.class)

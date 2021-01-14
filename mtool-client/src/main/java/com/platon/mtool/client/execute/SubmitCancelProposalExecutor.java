@@ -1,22 +1,22 @@
 package com.platon.mtool.client.execute;
 
-import com.alaya.contracts.ppos.dto.enums.StakingAmountType;
 import com.beust.jcommander.JCommander;
+import com.platon.contracts.ppos.ProposalContract;
+import com.platon.contracts.ppos.dto.BaseResponse;
+import com.platon.contracts.ppos.dto.enums.StakingAmountType;
+import com.platon.contracts.ppos.dto.resp.Proposal;
+import com.platon.crypto.Credentials;
 import com.platon.mtool.client.options.SubmitCancelProposalOption;
 import com.platon.mtool.client.service.BlockChainService;
 import com.platon.mtool.client.tools.ProgressBar;
 import com.platon.mtool.common.entity.ValidatorConfig;
 import com.platon.mtool.common.logger.Log;
 import com.platon.mtool.common.utils.LogUtils;
-import com.alaya.contracts.ppos.ProposalContract;
-import com.alaya.contracts.ppos.dto.BaseResponse;
-import com.alaya.contracts.ppos.dto.resp.Proposal;
+import com.platon.protocol.Web3j;
+import com.platon.protocol.core.methods.response.PlatonSendTransaction;
+import com.platon.tx.gas.GasProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.alaya.crypto.Credentials;
-import com.alaya.protocol.Web3j;
-import com.alaya.protocol.core.methods.response.PlatonSendTransaction;
-import com.alaya.tx.gas.GasProvider;
 
 import java.math.BigInteger;
 

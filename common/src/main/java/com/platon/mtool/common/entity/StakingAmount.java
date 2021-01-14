@@ -1,6 +1,7 @@
 package com.platon.mtool.common.entity;
 
-import com.alaya.contracts.ppos.dto.enums.StakingAmountType;
+import com.platon.contracts.ppos.dto.enums.StakingAmountType;
+
 import java.math.BigInteger;
 
 /** Created by liyf. */

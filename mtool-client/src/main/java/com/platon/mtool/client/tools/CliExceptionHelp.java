@@ -2,10 +2,10 @@ package com.platon.mtool.client.tools;
 
 import com.platon.mtool.common.exception.MtoolException;
 import com.platon.mtool.common.exception.MtoolPlatonException;
+import com.platon.protocol.exceptions.NoTransactionReceiptException;
+import com.platon.protocol.exceptions.TransactionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.alaya.protocol.exceptions.NoTransactionReceiptException;
-import com.alaya.protocol.exceptions.TransactionException;
 
 import java.net.ConnectException;
 import java.nio.file.NoSuchFileException;

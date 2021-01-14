@@ -2,25 +2,22 @@ package com.platon.mtool.client.execute.sub;
 
 import com.alibaba.fastjson.JSON;
 import com.beust.jcommander.JCommander;
+import com.platon.crypto.Address;
+import com.platon.crypto.WalletFile;
 import com.platon.mtool.client.execute.MtoolExecutor;
 import com.platon.mtool.client.options.AccountOptions.ListOption;
 import com.platon.mtool.client.tools.PrintUtils;
 import com.platon.mtool.client.tools.ResourceUtils;
 import com.platon.mtool.common.AllCommands.Account;
 import com.platon.mtool.common.logger.Log;
-import com.platon.mtool.common.utils.AddressUtil;
 import com.platon.mtool.common.utils.LogUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.alaya.crypto.Address;
-import com.alaya.crypto.WalletFile;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 

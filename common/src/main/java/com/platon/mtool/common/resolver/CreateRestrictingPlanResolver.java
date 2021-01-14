@@ -1,10 +1,10 @@
 package com.platon.mtool.common.resolver;
 
-import com.alaya.contracts.ppos.dto.RestrictingPlan;
-import com.alaya.rlp.solidity.RlpDecoder;
-import com.alaya.rlp.solidity.RlpList;
-import com.alaya.rlp.solidity.RlpString;
-import com.alaya.rlp.solidity.RlpType;
+import com.platon.contracts.ppos.dto.RestrictingPlan;
+import com.platon.rlp.solidity.RlpDecoder;
+import com.platon.rlp.solidity.RlpList;
+import com.platon.rlp.solidity.RlpString;
+import com.platon.rlp.solidity.RlpType;
 
 import java.util.ArrayList;
 import java.util.List;

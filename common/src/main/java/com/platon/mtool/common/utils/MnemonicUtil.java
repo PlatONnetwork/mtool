@@ -1,13 +1,9 @@
 package com.platon.mtool.common.utils;
 
+import com.platon.crypto.ECKeyPair;
+import com.platon.crypto.MnemonicUtils;
 import com.platon.mtool.common.exception.MtoolClientException;
-import org.bitcoinj.crypto.ChildNumber;
-import org.bitcoinj.crypto.DeterministicHierarchy;
-import org.bitcoinj.crypto.DeterministicKey;
-import org.bitcoinj.crypto.HDKeyDerivation;
-import org.bitcoinj.crypto.HDUtils;
-import com.alaya.crypto.ECKeyPair;
-import com.alaya.crypto.MnemonicUtils;
+import org.bitcoinj.crypto.*;
 
 import java.security.SecureRandom;
 import java.util.List;

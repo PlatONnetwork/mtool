@@ -17,7 +17,7 @@
         </then>
     </if>
 
-    <logger name="com.alaya.protocol.http.HttpService">
+    <logger name="com.platon.protocol.http.HttpService">
         <level value="debug" />
     </logger>
 

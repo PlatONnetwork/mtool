@@ -1,7 +1,6 @@
 package com.platon.mtool.common.web3j;
 
-import com.alaya.crypto.Address;
-import com.alaya.crypto.Credentials;
+import com.platon.crypto.Credentials;
 
 /**
  * 钱包model
@@ -10,16 +9,16 @@ import com.alaya.crypto.Credentials;
  */
 public class Keystore {
 
-  private Address address;
+  private String address;
   private Credentials credentials;
   private Type type;
   private String filepath;
 
-  public Address getAddress() {
+  public String getAddress() {
     return address;
   }
 
-  public void setAddress(Address address) {
+  public void setAddress(String address) {
     this.address = address;
   }
 

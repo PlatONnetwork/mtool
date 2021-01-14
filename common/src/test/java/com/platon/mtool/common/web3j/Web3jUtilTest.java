@@ -1,15 +1,16 @@
 package com.platon.mtool.common.web3j;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import com.alibaba.fastjson.JSON;
 import com.platon.mtool.common.entity.ValidatorConfig;
+import com.platon.protocol.Web3j;
+import org.junit.jupiter.api.Test;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import org.junit.jupiter.api.Test;
-import com.alaya.protocol.Web3j;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /** Created by liyf */
 class Web3jUtilTest {

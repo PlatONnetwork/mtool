@@ -1,9 +1,10 @@
 package com.platon.mtool.common.resolver;
 
+import com.platon.contracts.ppos.dto.enums.VoteOption;
 import com.platon.mtool.common.exception.MtoolException;
-import com.alaya.contracts.ppos.dto.enums.VoteOption;
+import com.platon.rlp.solidity.RlpType;
+
 import java.util.List;
-import com.alaya.rlp.solidity.RlpType;
 
 /** Created by liyf. */
 public class VoteParamResolver implements Resolver<VoteParamResolver.VoteParam> {

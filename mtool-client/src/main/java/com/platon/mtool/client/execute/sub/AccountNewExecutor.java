@@ -1,10 +1,9 @@
 package com.platon.mtool.client.execute.sub;
 
-import com.alaya.crypto.Credentials;
-import com.alaya.crypto.ECKeyPair;
-import com.alaya.crypto.WalletUtils;
-import com.alaya.parameters.NetworkParameters;
 import com.beust.jcommander.JCommander;
+import com.platon.crypto.Credentials;
+import com.platon.crypto.ECKeyPair;
+import com.platon.crypto.WalletUtils;
 import com.platon.mtool.client.execute.MtoolExecutor;
 import com.platon.mtool.client.options.AccountOptions.NewOption;
 import com.platon.mtool.client.tools.PrintUtils;
@@ -95,9 +94,7 @@ public class AccountNewExecutor extends MtoolExecutor<NewOption> {
       Credentials credentials = WalletUtils.loadCredentials(passStr, destFile);
       PrintUtils.echo("-name: %s", name);
       PrintUtils.echo("-type: %s", Type.NORMAL.name());
-      PrintUtils.echo("-address: ");
-      PrintUtils.echo(" mainnet: %s", credentials.getAddress(NetworkParameters.MainNetParams));
-      PrintUtils.echo(" testnet: %s", credentials.getAddress(NetworkParameters.TestNetParams));
+      PrintUtils.echo("-address: %s", credentials.getAddress());
       PrintUtils.echo("-public key: 0x%s", credentials.getEcKeyPair().getPublicKey().toString(16));
       PrintUtils.echo("\n\n");
       PrintUtils.echo("**Important** write this Private Key in a safe place.");

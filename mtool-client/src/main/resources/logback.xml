@@ -32,11 +32,11 @@
         </encoder>
     </appender>
 
-    <logger name="com.alaya.tx.PlatOnContract">
+    <logger name="com.platon.tx.PlatOnContract">
         <level value="debug" />
     </logger>
 
-    <logger name="com.alaya.protocol.http.HttpService">
+    <logger name="com.platon.protocol.http.HttpService">
         <level value="debug" />
     </logger>
 

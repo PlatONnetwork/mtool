@@ -1,7 +1,7 @@
 package com.platon.mtool.client.execute.observe;
 
-import com.alaya.contracts.ppos.dto.enums.VoteOption;
 import com.alibaba.fastjson.JSON;
+import com.platon.contracts.ppos.dto.enums.VoteOption;
 import com.platon.mtool.client.MtoolClient;
 import com.platon.mtool.client.converter.KeystoreConverter;
 import com.platon.mtool.client.converter.ValidatorConfigConverter;

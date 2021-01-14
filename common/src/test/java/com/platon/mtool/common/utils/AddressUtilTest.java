@@ -1,8 +1,8 @@
 package com.platon.mtool.common.utils;
 
-import com.alaya.bech32.Bech32;
-import com.alaya.crypto.Credentials;
-import com.alaya.parameters.NetworkParameters;
+import com.platon.bech32.Bech32;
+import com.platon.crypto.Credentials;
+import com.platon.parameters.NetworkParameters;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

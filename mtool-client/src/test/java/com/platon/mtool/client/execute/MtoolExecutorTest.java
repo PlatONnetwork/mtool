@@ -1,8 +1,6 @@
 package com.platon.mtool.client.execute;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
+import com.platon.contracts.ppos.dto.BaseResponse;
 import com.platon.mtool.client.test.MtoolParameterResolver;
 import com.platon.mtool.common.entity.ValidatorConfig;
 import com.platon.mtool.common.exception.MtoolClientException;
@@ -10,11 +8,14 @@ import com.platon.mtool.common.exception.MtoolException;
 import com.platon.mtool.common.exception.MtoolPlatonException;
 import com.platon.mtool.common.exception.MtoolPlatonExceptionCode;
 import com.platon.mtool.common.utils.PlatOnUnit;
-import com.alaya.contracts.ppos.dto.BaseResponse;
-import java.math.BigInteger;
+import com.platon.protocol.core.methods.response.PlatonSendTransaction;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import com.alaya.protocol.core.methods.response.PlatonSendTransaction;
+
+import java.math.BigInteger;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /** Created by liyf. */
 @ExtendWith(MtoolParameterResolver.class)

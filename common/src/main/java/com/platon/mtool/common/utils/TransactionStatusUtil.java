@@ -3,9 +3,9 @@ package com.platon.mtool.common.utils;
 import com.platon.mtool.common.enums.TransactionStatus;
 import com.platon.mtool.common.logger.Log;
 import com.platon.mtool.common.resolver.ReceiptDataResponseResolver;
+import com.platon.protocol.core.methods.response.TransactionReceipt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.alaya.protocol.core.methods.response.TransactionReceipt;
 
 import java.util.Arrays;
 import java.util.List;

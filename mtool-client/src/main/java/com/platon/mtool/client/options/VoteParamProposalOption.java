@@ -2,6 +2,7 @@ package com.platon.mtool.client.options;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
+import com.platon.contracts.ppos.dto.enums.VoteOption;
 import com.platon.mtool.client.CommonOption;
 import com.platon.mtool.client.converter.KeystoreConverter;
 import com.platon.mtool.client.converter.ValidatorConfigConverter;
@@ -10,7 +11,6 @@ import com.platon.mtool.common.AllCommands;
 import com.platon.mtool.common.AllParams;
 import com.platon.mtool.common.entity.ValidatorConfig;
 import com.platon.mtool.common.web3j.Keystore;
-import com.alaya.contracts.ppos.dto.enums.VoteOption;
 
 /** Created by liyf. */
 @Parameters(

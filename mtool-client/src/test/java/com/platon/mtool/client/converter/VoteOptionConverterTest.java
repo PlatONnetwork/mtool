@@ -1,12 +1,12 @@
 package com.platon.mtool.client.converter;
 
+import com.beust.jcommander.ParameterException;
+import com.platon.contracts.ppos.dto.enums.VoteOption;
+import com.platon.mtool.common.AllParams;
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import com.beust.jcommander.ParameterException;
-import com.platon.mtool.common.AllParams;
-import com.alaya.contracts.ppos.dto.enums.VoteOption;
-import org.junit.jupiter.api.Test;
 
 /** Created by liyf. */
 class VoteOptionConverterTest {

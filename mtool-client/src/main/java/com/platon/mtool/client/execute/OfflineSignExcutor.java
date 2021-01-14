@@ -2,6 +2,8 @@ package com.platon.mtool.client.execute;
 
 import com.beust.jcommander.JCommander;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.platon.crypto.Credentials;
+import com.platon.crypto.TransactionEncoder;
 import com.platon.mtool.client.ClientConsts;
 import com.platon.mtool.client.converter.KeystoreConverter;
 import com.platon.mtool.client.options.OfflineSignOption;
@@ -18,17 +20,13 @@ import com.platon.mtool.common.utils.MtoolCsvFileUtil;
 import com.platon.mtool.common.utils.PlatOnUnit;
 import com.platon.mtool.common.web3j.Keystore;
 import com.platon.mtool.common.web3j.TransactionEntity;
-import com.alaya.parameters.NetworkParameters;
+import com.platon.utils.Numeric;
 import de.vandermeer.asciitable.AsciiTable;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.alaya.crypto.Address;
-import com.alaya.crypto.Credentials;
-import com.alaya.crypto.TransactionEncoder;
-import com.alaya.utils.Numeric;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -39,7 +37,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.platon.mtool.client.tools.CliConfigUtils.CLIENT_CONFIG;
 
 /**
  * 离线签名
@@ -108,17 +105,13 @@ public class OfflineSignExcutor extends MtoolExecutor<OfflineSignOption> {
     }
     KeystoreConverter converter = new KeystoreConverter(AllParams.KEYSTORE);
     for (Path keystorePath : keystorePaths) {
-      Address address = getAddress(keystorePath);
+      String address = getAddress(keystorePath);
       if(address==null) continue;
-      if (addressSet.contains(address.getMainnet())|addressSet.contains(address.getTestnet())) {
+      if (addressSet.contains(address)) {
         Keystore keystore = new Keystore();
         keystore.setAddress(address);
         keystore.setFilepath(keystorePath.toAbsolutePath().toString());
-        if(NetworkParameters.MainNetParams.getChainId()==CLIENT_CONFIG.getTargetChainId()){
-          keystoreMap.put(address.getMainnet(),keystore);
-        }else{
-          keystoreMap.put(address.getTestnet(),keystore);
-        }
+        keystoreMap.put(address,keystore);
       }
     }
     if (addressSet.size() != keystoreMap.size()) {
@@ -168,7 +161,7 @@ public class OfflineSignExcutor extends MtoolExecutor<OfflineSignOption> {
   }
 
   private static final ObjectMapper objectMapper = new ObjectMapper();
-  private Address getAddress(Path keystorePath) {
+  private String getAddress(Path keystorePath) {
     ObservedWalletFile walletFile;
     try {
       walletFile = objectMapper.readValue(keystorePath.toFile(), ObservedWalletFile.class);
@@ -179,8 +172,7 @@ public class OfflineSignExcutor extends MtoolExecutor<OfflineSignOption> {
           logger, () -> Log.newBuilder().msg("wallet format error!").kv("name", keystorePath));
       return null;
     }
-    Address address = walletFile.getAddress();
-    return address;
+    return walletFile.getAddress();
   }
 
   private void echoTransaction(List<TransactionEntity> entityList) {

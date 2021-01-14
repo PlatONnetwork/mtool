@@ -1,25 +1,15 @@
 package com.platon.mtool.client.execute;
 
-import com.alaya.contracts.ppos.DelegateContract;
-import com.alaya.contracts.ppos.ProposalContract;
-import com.alaya.contracts.ppos.RestrictingPlanContract;
-import com.alaya.contracts.ppos.StakingContract;
-import com.alaya.contracts.ppos.dto.TransactionResponse;
-import com.alaya.contracts.ppos.dto.enums.VoteOption;
-import com.alaya.contracts.ppos.dto.resp.Node;
-import com.alaya.crypto.Address;
-import com.alaya.crypto.Credentials;
-import com.alaya.crypto.WalletUtils;
-import com.alaya.parameters.NetworkParameters;
-import com.alaya.protocol.Web3j;
-import com.alaya.protocol.core.RemoteCall;
-import com.alaya.protocol.core.methods.response.PlatonGetTransactionReceipt;
-import com.alaya.protocol.core.methods.response.PlatonSendTransaction;
-import com.alaya.protocol.core.methods.response.TransactionReceipt;
-import com.alaya.tx.Transfer;
-import com.alaya.tx.gas.DefaultGasProvider;
-import com.alaya.tx.gas.GasProvider;
 import com.alibaba.fastjson.JSON;
+import com.platon.contracts.ppos.DelegateContract;
+import com.platon.contracts.ppos.ProposalContract;
+import com.platon.contracts.ppos.RestrictingPlanContract;
+import com.platon.contracts.ppos.StakingContract;
+import com.platon.contracts.ppos.dto.TransactionResponse;
+import com.platon.contracts.ppos.dto.enums.VoteOption;
+import com.platon.contracts.ppos.dto.resp.Node;
+import com.platon.crypto.Credentials;
+import com.platon.crypto.WalletUtils;
 import com.platon.mtool.client.MtoolClient;
 import com.platon.mtool.client.converter.KeystoreConverter;
 import com.platon.mtool.client.converter.StakingAmountConverter;
@@ -42,6 +32,14 @@ import com.platon.mtool.common.exception.MtoolClientException;
 import com.platon.mtool.common.web3j.EmptyContract;
 import com.platon.mtool.common.web3j.Keystore;
 import com.platon.mtool.common.web3j.TransactionEntity;
+import com.platon.protocol.Web3j;
+import com.platon.protocol.core.RemoteCall;
+import com.platon.protocol.core.methods.response.PlatonGetTransactionReceipt;
+import com.platon.protocol.core.methods.response.PlatonSendTransaction;
+import com.platon.protocol.core.methods.response.TransactionReceipt;
+import com.platon.tx.Transfer;
+import com.platon.tx.gas.DefaultGasProvider;
+import com.platon.tx.gas.GasProvider;
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -621,9 +619,7 @@ class ExecutorTest {
         Credentials credentials =
                 WalletUtils.loadCredentials("123456", STAKING_KEYSTORE_PATH.toAbsolutePath().toString());
         keystore.setCredentials(credentials);
-        String mainNetAddress = credentials.getAddress(NetworkParameters.MainNetParams.getChainId());
-        String testNetAddress = credentials.getAddress(NetworkParameters.TestNetParams.getChainId());
-        Address address = new Address(mainNetAddress,testNetAddress);
+        String address = credentials.getAddress();
         keystore.setAddress(address);
         option.setKeystore(keystore);
         ValidatorConfig validatorConfig =
@@ -651,9 +647,7 @@ class ExecutorTest {
         Credentials credentials =
                 WalletUtils.loadCredentials("123456", STAKING_KEYSTORE_PATH.toAbsolutePath().toString());
         keystore.setCredentials(credentials);
-        String mainNetAddress = credentials.getAddress(NetworkParameters.MainNetParams.getChainId());
-        String testNetAddress = credentials.getAddress(NetworkParameters.TestNetParams.getChainId());
-        Address address = new Address(mainNetAddress,testNetAddress);
+        String address = credentials.getAddress();
         keystore.setAddress(address);
         option.setKeystore(keystore);
 
@@ -690,9 +684,7 @@ class ExecutorTest {
         Credentials credentials =
                 WalletUtils.loadCredentials("123456", STAKING_KEYSTORE_PATH.toAbsolutePath().toString());
         keystore.setCredentials(credentials);
-        String mainNetAddress = credentials.getAddress(NetworkParameters.MainNetParams.getChainId());
-        String testNetAddress = credentials.getAddress(NetworkParameters.TestNetParams.getChainId());
-        Address address = new Address(mainNetAddress,testNetAddress);
+        String address = credentials.getAddress();
         keystore.setAddress(address);
         option.setKeystore(keystore);
 
@@ -755,7 +747,7 @@ class ExecutorTest {
         option.setKeystore(keystore);
 
         SubmitVersionProposalExecutor executor = Mockito.spy(submitVersionProposalExecutor);
-        doReturn(proposalContract).when(executor).getProposalContract(any(), any(), anyLong());
+        doReturn(proposalContract).when(executor).getProposalContract(any(), any());
 
         when(proposalContract.submitProposalReturnTransaction(any(), any()))
                 .thenReturn(new RemoteCall<>(() -> transaction));
@@ -834,9 +826,7 @@ class ExecutorTest {
         Credentials credentials =
                 WalletUtils.loadCredentials("123456", STAKING_KEYSTORE_PATH.toAbsolutePath().toString());
         keystore.setCredentials(credentials);
-        String mainNetAddress = credentials.getAddress(NetworkParameters.MainNetParams.getChainId());
-        String testNetAddress = credentials.getAddress(NetworkParameters.TestNetParams.getChainId());
-        Address address = new Address(mainNetAddress,testNetAddress);
+        String address = credentials.getAddress();
         keystore.setAddress(address);
         option.setKeystore(keystore);
 
@@ -982,9 +972,7 @@ class ExecutorTest {
         option.setConfig(validatorConfig);
         Credentials credentials =
                 WalletUtils.loadCredentials("123456", STAKING_KEYSTORE_PATH.toAbsolutePath().toString());
-        String mainNetAddress = credentials.getAddress(NetworkParameters.MainNetParams.getChainId());
-        String testNetAddress = credentials.getAddress(NetworkParameters.TestNetParams.getChainId());
-        Address address = new Address(mainNetAddress,testNetAddress);
+        String address = credentials.getAddress();
         Keystore keystore = new Keystore();
         keystore.setAddress(address);
         keystore.setCredentials(credentials);
@@ -1027,9 +1015,7 @@ class ExecutorTest {
         Credentials credentials =
                 WalletUtils.loadCredentials("123456", STAKING_KEYSTORE_PATH.toAbsolutePath().toString());
         Keystore keystore = new Keystore();
-        String mainNetAddress = credentials.getAddress(NetworkParameters.MainNetParams.getChainId());
-        String testNetAddress = credentials.getAddress(NetworkParameters.TestNetParams.getChainId());
-        Address address = new Address(mainNetAddress,testNetAddress);
+        String address = credentials.getAddress();
         keystore.setAddress(address);
         keystore.setCredentials(credentials);
         keystore.setType(Keystore.Type.NORMAL);
@@ -1060,7 +1046,7 @@ class ExecutorTest {
         TransactionEntity entity = JSON.parseObject(
                 Files.newInputStream(resourceDirectory.resolve("transaction_detail.json")),
                 TransactionEntity.class);
-        entity.setChainId(CLIENT_CONFIG.getTargetChainId());
+        entity.setChainId(CLIENT_CONFIG.getChainId());
         transaction.setResult(JSON.toJSONString(entity));
         return transaction;
     }

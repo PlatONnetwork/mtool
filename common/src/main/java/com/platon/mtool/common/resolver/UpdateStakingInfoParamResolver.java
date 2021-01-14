@@ -1,10 +1,11 @@
 package com.platon.mtool.common.resolver;
 
 import com.platon.mtool.common.exception.MtoolException;
-import java.util.List;
+import com.platon.rlp.solidity.RlpType;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
-import com.alaya.rlp.solidity.RlpType;
+
+import java.util.List;
 
 /** Created by liyf. */
 public class UpdateStakingInfoParamResolver

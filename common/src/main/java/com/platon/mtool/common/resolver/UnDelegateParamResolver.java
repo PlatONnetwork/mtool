@@ -1,8 +1,9 @@
 package com.platon.mtool.common.resolver;
 
+import com.platon.rlp.solidity.RlpType;
+
 import java.math.BigInteger;
 import java.util.List;
-import com.alaya.rlp.solidity.RlpType;
 
 /** Created by liyf. */
 public class UnDelegateParamResolver implements Resolver<UnDelegateParamResolver.UnDelegateParam> {

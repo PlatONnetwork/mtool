@@ -1,7 +1,7 @@
 package com.platon.mtool.client.converter;
 
-import com.alaya.contracts.ppos.dto.enums.StakingAmountType;
 import com.beust.jcommander.ParameterException;
+import com.platon.contracts.ppos.dto.enums.StakingAmountType;
 import com.platon.mtool.common.AllParams;
 import com.platon.mtool.common.entity.StakingAmount;
 import com.platon.mtool.common.utils.PlatOnUnit;

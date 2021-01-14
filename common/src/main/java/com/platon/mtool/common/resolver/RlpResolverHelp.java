@@ -1,15 +1,16 @@
 package com.platon.mtool.common.resolver;
 
-import com.alaya.rlp.solidity.RlpDecoder;
-import com.alaya.rlp.solidity.RlpList;
-import com.alaya.rlp.solidity.RlpString;
-import com.alaya.rlp.solidity.RlpType;
 import com.platon.mtool.common.exception.MtoolException;
-import java.math.BigInteger;
-import java.util.List;
+import com.platon.rlp.solidity.RlpDecoder;
+import com.platon.rlp.solidity.RlpList;
+import com.platon.rlp.solidity.RlpString;
+import com.platon.rlp.solidity.RlpType;
+import com.platon.utils.Numeric;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
-import com.alaya.utils.Numeric;
+
+import java.math.BigInteger;
+import java.util.List;
 
 /** Created by liyf. */
 public interface RlpResolverHelp {

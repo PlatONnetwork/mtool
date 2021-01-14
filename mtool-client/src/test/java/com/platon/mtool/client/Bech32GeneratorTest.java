@@ -1,9 +1,9 @@
 package com.platon.mtool.client;
 
-import com.alaya.bech32.Bech32;
 import com.alibaba.fastjson.JSON;
-import com.alaya.parameters.NetworkParameters;
-import com.alaya.crypto.Address;
+import com.platon.bech32.Bech32;
+import com.platon.crypto.Address;
+import com.platon.parameters.NetworkParameters;
 // Bech32地址生成
 public class Bech32GeneratorTest {
     public static void main(String[] args) {

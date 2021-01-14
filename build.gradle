@@ -32,7 +32,7 @@ ext {
     // Get abbreviated commit Id of HEAD
     gitAbbRevision = git.head().abbreviatedId
     // sdk version
-    sdkVersion = '0.15.0.0-SNAPSHOT'
+    sdkVersion = '0.15.1.0-SNAPSHOT'
     // sdk发包时间， 无用字段， 测试部门要求添加
     sdkTime = '2020-11-30'
     // timestamp
@@ -101,7 +101,7 @@ subprojects {
         compile 'commons-beanutils:commons-beanutils:1.9.4'
         compile 'com.warrenstrange:googleauth:1.4.0'
         compile 'com.alibaba:fastjson:1.2.66'
-        compile "com.alaya.client:alaya-core:${sdkVersion}"
+        compile "com.platon.sdk:core:${sdkVersion}"
         compile 'org.bitcoinj:bitcoinj-core:0.14.7'
 
     }

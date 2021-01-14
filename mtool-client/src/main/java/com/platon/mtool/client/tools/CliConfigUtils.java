@@ -1,7 +1,7 @@
 package com.platon.mtool.client.tools;
 
 import com.platon.mtool.common.exception.MtoolClientException;
-import com.alaya.parameters.NetworkParameters;
+import com.platon.parameters.NetworkParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,12 +23,10 @@ public class CliConfigUtils {
       p.load(Files.newInputStream(ResourceUtils.getRootPath().resolve("config.properties")));
       CLIENT_CONFIG.host=p.getProperty("host", "");
       CLIENT_CONFIG.port=Integer.valueOf(p.getProperty("port", "80"));
-      CLIENT_CONFIG.targetChainId=Long.valueOf(p.getProperty("chainId", String.valueOf(NetworkParameters.TestNetParams.getChainId())));
-      CLIENT_CONFIG.mainNetChainId=Long.valueOf(p.getProperty("mainNetChainId", String.valueOf(NetworkParameters.MainNetParams.getChainId())));
-      CLIENT_CONFIG.testNetChainId=Long.valueOf(p.getProperty("testNetChainId", String.valueOf(NetworkParameters.TestNetParams.getChainId())));
+      CLIENT_CONFIG.chainId=Long.valueOf(p.getProperty("chainId"));
+      CLIENT_CONFIG.hrp= p.getProperty("hrp");
       // 使用配置中的链ID覆盖SDK默认值(如果有配置)
-      NetworkParameters.MainNetParams.setChainId(CLIENT_CONFIG.mainNetChainId);
-      NetworkParameters.TestNetParams.setChainId(CLIENT_CONFIG.testNetChainId);
+      NetworkParameters.init(CLIENT_CONFIG.chainId, CLIENT_CONFIG.hrp);
     } catch (IOException e) {
       logger.error("Unable to read file {}", ResourceUtils.getRootPath(), e);
       throw new MtoolClientException("Unable to read file "+ResourceUtils.getKeystorePath()+":"+e.getMessage());
@@ -41,9 +39,9 @@ public class CliConfigUtils {
 
     private String host;
     private Integer port;
-    private Long targetChainId;
-    private Long mainNetChainId;
-    private Long testNetChainId;
+    private Long chainId;
+    private String hrp;
+
 
     public String getHost() {
       return host;
@@ -52,16 +50,20 @@ public class CliConfigUtils {
       return port;
     }
 
-    public Long getTargetChainId() {
-      return targetChainId;
+    public Long getChainId() {
+      return chainId;
     }
 
-    public Long getMainNetChainId() {
-      return mainNetChainId;
+    public void setChainId(Long chainId) {
+      this.chainId = chainId;
     }
 
-    public Long getTestNetChainId() {
-      return testNetChainId;
+    public String getHrp() {
+      return hrp;
+    }
+
+    public void setHrp(String hrp) {
+      this.hrp = hrp;
     }
 
     public String getAddress() {

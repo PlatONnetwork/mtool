@@ -1,7 +1,7 @@
 package com.platon.mtool.common.resolver;
 
-import com.alaya.contracts.ppos.dto.enums.StakingAmountType;
-import com.alaya.rlp.solidity.RlpType;
+import com.platon.contracts.ppos.dto.enums.StakingAmountType;
+import com.platon.rlp.solidity.RlpType;
 
 import java.math.BigInteger;
 import java.util.List;

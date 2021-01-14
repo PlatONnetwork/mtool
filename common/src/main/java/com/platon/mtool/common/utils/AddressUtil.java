@@ -1,10 +1,10 @@
 package com.platon.mtool.common.utils;
 
-import com.alaya.bech32.Bech32;
-import com.alaya.parameters.NetworkParameters;
+import com.platon.bech32.Bech32;
+import com.platon.crypto.Keys;
+import com.platon.crypto.WalletUtils;
 import com.platon.mtool.common.exception.MtoolClientException;
-import com.alaya.crypto.Keys;
-import com.alaya.crypto.WalletUtils;
+import com.platon.parameters.NetworkParameters;
 
 /**
  * 账户地址格式化工具

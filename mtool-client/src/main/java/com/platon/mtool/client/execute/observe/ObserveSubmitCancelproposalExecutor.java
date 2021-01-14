@@ -1,8 +1,10 @@
 package com.platon.mtool.client.execute.observe;
 
-import com.alaya.contracts.ppos.dto.enums.StakingAmountType;
 import com.alibaba.fastjson.JSON;
 import com.beust.jcommander.JCommander;
+import com.platon.contracts.ppos.ProposalContract;
+import com.platon.contracts.ppos.dto.enums.StakingAmountType;
+import com.platon.contracts.ppos.dto.resp.Proposal;
 import com.platon.mtool.client.ClientConsts;
 import com.platon.mtool.client.execute.MtoolExecutor;
 import com.platon.mtool.client.options.SubmitCancelProposalOption;
@@ -20,16 +22,14 @@ import com.platon.mtool.common.utils.LogUtils;
 import com.platon.mtool.common.utils.MtoolCsvFileUtil;
 import com.platon.mtool.common.web3j.MtoolTransactionManager;
 import com.platon.mtool.common.web3j.TransactionEntity;
-import com.alaya.contracts.ppos.ProposalContract;
-import com.alaya.contracts.ppos.dto.resp.Proposal;
+import com.platon.protocol.Web3j;
+import com.platon.protocol.core.methods.response.PlatonSendTransaction;
+import com.platon.tx.TransactionManager;
+import com.platon.tx.gas.GasProvider;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.alaya.protocol.Web3j;
-import com.alaya.protocol.core.methods.response.PlatonSendTransaction;
-import com.alaya.tx.TransactionManager;
-import com.alaya.tx.gas.GasProvider;
 
 import java.io.File;
 import java.math.BigInteger;

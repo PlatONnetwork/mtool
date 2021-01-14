@@ -1,6 +1,6 @@
 package com.platon.mtool.common.exception;
 
-import com.alaya.contracts.ppos.dto.common.ProposalType;
+import com.platon.contracts.ppos.dto.common.ProposalType;
 
 /**
  * mtool客户端异常码
