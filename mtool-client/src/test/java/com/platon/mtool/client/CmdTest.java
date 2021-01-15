@@ -1,6 +1,6 @@
 package com.platon.mtool.client;
 
-import com.platon.crypto.Address;
+
 import com.platon.mtool.client.parser.BaseOptionParser;
 import com.platon.mtool.client.tools.ResourceUtils;
 import org.junit.jupiter.api.Assertions;
@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(MockitoExtension.class)
 class CmdTest {
 
-  private final static Address ADDRESS = new Address("atp1k92gm4sszzn59ntxlwrryj4nu2f4tpjtjkv55w","atx1k92gm4sszzn59ntxlwrryj4nu2f4tpjtcss78y");
+  private final static String ADDRESS = "atp1k92gm4sszzn59ntxlwrryj4nu2f4tpjtjkv55w";
   private static String WHITE_SPACE = "\\s+";
   private static String VALIDATOR_CONFIG_PATH =
       ResourceUtils.getResource("validator_config.json").toAbsolutePath().toString();
@@ -289,7 +289,7 @@ class CmdTest {
     String args =
         String.format(
             "update_validator --node_name asdf --website asdf --external_id asdf --benefit_address %s --details asdf --keystore %s --config %s",
-            ADDRESS.getMainnet(),
+            ADDRESS,
             KEYSTORE_PATH, VALIDATOR_CONFIG_PATH);
     parser.parse(args.split(WHITE_SPACE));
     assertTrue(true);
@@ -407,7 +407,7 @@ class CmdTest {
   void accountBalance() {
     String args =
         String.format("account balance -a %s --config %s liyf",
-            ADDRESS.getMainnet(),
+            ADDRESS,
             VALIDATOR_CONFIG_PATH);
     parser.parse(args.split(WHITE_SPACE));
     assertTrue(true);
@@ -418,7 +418,7 @@ class CmdTest {
     String args =
         String.format(
             "tx transfer --recipient %s --keystore %s --config %s --amount 1",
-            ADDRESS.getMainnet(),
+            ADDRESS,
             KEYSTORE_PATH, VALIDATOR_CONFIG_PATH);
     parser.parse(args.split(WHITE_SPACE));
     assertTrue(true);
@@ -429,7 +429,7 @@ class CmdTest {
     String args =
         String.format(
             "tx transfer --recipient %s --address %s --config %s --amount 1",
-            ADDRESS.getMainnet(),
+            ADDRESS,
             OBSERVED_KEYSTORE_PATH, VALIDATOR_CONFIG_PATH);
     parser.parse(args.split(WHITE_SPACE));
     assertTrue(true);

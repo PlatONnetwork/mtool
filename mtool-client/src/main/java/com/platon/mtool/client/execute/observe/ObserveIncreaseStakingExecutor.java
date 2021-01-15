@@ -14,7 +14,6 @@ import com.platon.mtool.common.entity.AdditionalInfo;
 import com.platon.mtool.common.entity.ValidatorConfig;
 import com.platon.mtool.common.enums.FuncTypeEnum;
 import com.platon.mtool.common.logger.Log;
-import com.platon.mtool.common.utils.AddressUtil;
 import com.platon.mtool.common.utils.HashUtil;
 import com.platon.mtool.common.utils.LogUtils;
 import com.platon.mtool.common.utils.MtoolCsvFileUtil;
@@ -33,8 +32,6 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
-
-import static com.platon.mtool.client.tools.CliConfigUtils.CLIENT_CONFIG;
 
 /**
  * 观察钱包增持质押
@@ -64,11 +61,10 @@ public class ObserveIncreaseStakingExecutor extends MtoolExecutor<IncreaseStakin
     // 检查当前金额是否满足链上的最小增持质押金额
     blockChainService.validAmount(web3j,"staking","operatingThreshold",option.getAmount().getAmount());
 
-    String targetChainAddress = AddressUtil.getTargetChainAccountAddress(CLIENT_CONFIG.getTargetChainId(),option.getKeystore().getAddress().getMainnet());
+    String targetChainAddress = option.getKeystore().getAddress();
     TransactionManager transactionManager =
-        new MtoolTransactionManager(
-            web3j, targetChainAddress, CLIENT_CONFIG.getTargetChainId());
-    StakingContract stakingContract = StakingContract.load(web3j, transactionManager,CLIENT_CONFIG.getTargetChainId());
+        new MtoolTransactionManager(web3j, targetChainAddress);
+    StakingContract stakingContract = StakingContract.load(web3j);
     GasProvider gasProvider =
         stakingContract.getAddStakingGasProvider(
             validatorConfig.getNodePublicKey(),

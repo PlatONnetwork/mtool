@@ -21,8 +21,6 @@ import org.slf4j.LoggerFactory;
 
 import java.math.BigInteger;
 
-import static com.platon.mtool.client.tools.CliConfigUtils.CLIENT_CONFIG;
-
 /**
  * 提交参数提案
  *
@@ -42,8 +40,8 @@ public class SubmitParamProposalExecutor extends MtoolExecutor<SubmitParamPropos
   }
 
   protected ProposalContract getProposalContract(
-      Web3j web3j, Credentials credentials, Long chainId) {
-    return ProposalContract.load(web3j, credentials, chainId);
+      Web3j web3j, Credentials credentials) {
+    return ProposalContract.load(web3j, credentials);
   }
 
   @Override
@@ -59,7 +57,7 @@ public class SubmitParamProposalExecutor extends MtoolExecutor<SubmitParamPropos
 
     Credentials credentials = option.getKeystore().getCredentials();
     ProposalContract proposalContract =
-        getProposalContract(web3j, credentials, CLIENT_CONFIG.getTargetChainId());
+        getProposalContract(web3j, credentials);
 
     Proposal proposal =
         Proposal.createSubmitParamProposalParam(

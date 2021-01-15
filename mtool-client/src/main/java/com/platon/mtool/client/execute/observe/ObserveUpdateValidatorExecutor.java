@@ -19,7 +19,6 @@ import com.platon.mtool.common.entity.ValidatorConfig;
 import com.platon.mtool.common.enums.FuncTypeEnum;
 import com.platon.mtool.common.exception.MtoolClientException;
 import com.platon.mtool.common.logger.Log;
-import com.platon.mtool.common.utils.AddressUtil;
 import com.platon.mtool.common.utils.HashUtil;
 import com.platon.mtool.common.utils.LogUtils;
 import com.platon.mtool.common.utils.MtoolCsvFileUtil;
@@ -63,15 +62,15 @@ public class ObserveUpdateValidatorExecutor extends MtoolExecutor<UpdateValidato
     ProgressBar.start();
 
     ValidatorConfig validatorConfig = option.getConfig();
-    String targetChainAddress = AddressUtil.getTargetChainAccountAddress(CLIENT_CONFIG.getTargetChainId(),option.getKeystore().getAddress().getMainnet());
+    String targetChainAddress = option.getKeystore().getAddress();
 
     Web3j web3j = com.platon.mtool.common.web3j.Web3jUtil.getFromConfig(validatorConfig);
 
     //设置TransactionManager = MtoolTransactionManager, 并不会真发送交易，而是返回交易数据对象TransactionEntity，用于生成待签名的交易数据的
     TransactionManager transactionManager =
         new MtoolTransactionManager(
-            web3j, targetChainAddress, CLIENT_CONFIG.getTargetChainId());
-    StakingContract stakingContract = StakingContract.load(web3j, transactionManager,CLIENT_CONFIG.getTargetChainId());
+            web3j, targetChainAddress);
+    StakingContract stakingContract = StakingContract.load(web3j);
 
     blockChainService.validSelfStakingAddress(
         web3j, validatorConfig.getNodePublicKey(), option.getKeystore().getAddress());
@@ -107,7 +106,7 @@ public class ObserveUpdateValidatorExecutor extends MtoolExecutor<UpdateValidato
     //把节点信息，以及命令行输入参数信息，存放到AdditionalInfo
     AdditionalInfo additionalInfo = new AdditionalInfo();
     BeanUtils.copyProperties(additionalInfo, validatorConfig);
-    additionalInfo.setChainId(CLIENT_CONFIG.getTargetChainId().toString());
+    additionalInfo.setChainId(CLIENT_CONFIG.getChainId().toString());
     additionalInfo.setNodeName(option.getNodeName());
     additionalInfo.setWebSite(option.getWebsite());
 

@@ -15,7 +15,6 @@ import com.platon.mtool.common.entity.AdditionalInfo;
 import com.platon.mtool.common.entity.ValidatorConfig;
 import com.platon.mtool.common.enums.FuncTypeEnum;
 import com.platon.mtool.common.logger.Log;
-import com.platon.mtool.common.utils.AddressUtil;
 import com.platon.mtool.common.utils.HashUtil;
 import com.platon.mtool.common.utils.LogUtils;
 import com.platon.mtool.common.utils.MtoolCsvFileUtil;
@@ -35,8 +34,6 @@ import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
-
-import static com.platon.mtool.client.tools.CliConfigUtils.CLIENT_CONFIG;
 
 /**
  * 观察钱包质押
@@ -65,13 +62,13 @@ public class ObserveStakingExecutor extends MtoolExecutor<StakingOption> {
     blockChainService.validSelfStakingAddress(
         web3j, validatorConfig.getNodePublicKey(), option.getKeystore().getAddress());
 
-    String targetChainAddress = AddressUtil.getTargetChainAccountAddress(CLIENT_CONFIG.getTargetChainId(),option.getKeystore().getAddress().getMainnet());
+    String targetChainAddress = option.getKeystore().getAddress();
 
     //设置TransactionManager = MtoolTransactionManager, 并不会真发送交易，而是返回交易数据对象TransactionEntity，用于生成待签名的交易数据的
     TransactionManager transactionManager =
         new MtoolTransactionManager(
-            web3j, targetChainAddress, CLIENT_CONFIG.getTargetChainId());
-    StakingContract stakingContract = StakingContract.load(web3j, transactionManager,CLIENT_CONFIG.getTargetChainId());
+            web3j, targetChainAddress);
+    StakingContract stakingContract = StakingContract.load(web3j, transactionManager);
 
     // 交易参数
     StakingParam stakingParam =

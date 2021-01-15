@@ -15,7 +15,6 @@ import com.platon.mtool.common.entity.AdditionalInfo;
 import com.platon.mtool.common.entity.ValidatorConfig;
 import com.platon.mtool.common.enums.FuncTypeEnum;
 import com.platon.mtool.common.logger.Log;
-import com.platon.mtool.common.utils.AddressUtil;
 import com.platon.mtool.common.utils.HashUtil;
 import com.platon.mtool.common.utils.LogUtils;
 import com.platon.mtool.common.utils.MtoolCsvFileUtil;
@@ -36,8 +35,6 @@ import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
-
-import static com.platon.mtool.client.tools.CliConfigUtils.CLIENT_CONFIG;
 
 /**
  * 委托
@@ -63,7 +60,7 @@ public class TxDelegateExecutor extends MtoolExecutor<TxOptions.DelegateOption> 
     Credentials credentials = option.getKeystore().getCredentials();
     if (option.getKeystore().getType().equals(Keystore.Type.NORMAL)) {
       DelegateContract delegateContract =
-          getDelegateContract(web3j, credentials, CLIENT_CONFIG.getTargetChainId());
+          getDelegateContract(web3j, credentials);
       GasProvider gasProvider =
           delegateContract.getDelegateGasProvider(
               option.getNodeId(),
@@ -104,10 +101,10 @@ public class TxDelegateExecutor extends MtoolExecutor<TxOptions.DelegateOption> 
           validatorConfig.getNodePublicKey(),
           blockChainService.getCostAmount(option.getAmount().getAmount(), gasProvider));
     } else if (option.getKeystore().getType().equals(Keystore.Type.OBSERVE)) {
-        String targetChainAddress = AddressUtil.getTargetChainAccountAddress(CLIENT_CONFIG.getTargetChainId(),option.getKeystore().getAddress().getMainnet());
+        String targetChainAddress = option.getKeystore().getAddress();
 
         DelegateContract delegateContract =
-          getDelegateContract(web3j, targetChainAddress, CLIENT_CONFIG.getTargetChainId());
+          getDelegateContract(web3j, targetChainAddress);
       GasProvider gasProvider =
           delegateContract.getDelegateGasProvider(
               option.getNodeId(),
@@ -164,13 +161,13 @@ public class TxDelegateExecutor extends MtoolExecutor<TxOptions.DelegateOption> 
   }
 
   public DelegateContract getDelegateContract(
-      Web3j web3j, Credentials credentials, Long chainId) {
-    return DelegateContract.load(web3j, credentials, chainId);
+      Web3j web3j, Credentials credentials) {
+    return DelegateContract.load(web3j, credentials);
   }
 
-  public DelegateContract getDelegateContract(Web3j web3j, String fromAddress, Long chainId) {
+  public DelegateContract getDelegateContract(Web3j web3j, String fromAddress) {
     TransactionManager transactionManager =
-        new MtoolTransactionManager(web3j, fromAddress, chainId);
-    return DelegateContract.load(web3j, transactionManager,chainId);
+        new MtoolTransactionManager(web3j, fromAddress);
+    return DelegateContract.load(web3j, transactionManager);
   }
 }

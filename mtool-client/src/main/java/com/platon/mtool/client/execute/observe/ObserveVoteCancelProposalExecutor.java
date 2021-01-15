@@ -16,7 +16,6 @@ import com.platon.mtool.common.entity.AdditionalInfo;
 import com.platon.mtool.common.entity.ValidatorConfig;
 import com.platon.mtool.common.enums.FuncTypeEnum;
 import com.platon.mtool.common.logger.Log;
-import com.platon.mtool.common.utils.AddressUtil;
 import com.platon.mtool.common.utils.HashUtil;
 import com.platon.mtool.common.utils.LogUtils;
 import com.platon.mtool.common.utils.MtoolCsvFileUtil;
@@ -37,8 +36,6 @@ import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
-
-import static com.platon.mtool.client.tools.CliConfigUtils.CLIENT_CONFIG;
 
 /**
  * 观察钱包取消提案投票
@@ -67,12 +64,12 @@ public class ObserveVoteCancelProposalExecutor extends MtoolExecutor<VoteCancelP
         web3j, validatorConfig.getNodePublicKey(), option.getKeystore().getAddress());
     blockChainService.validVoteProposal(
         web3j, ProposalType.CANCEL_PROPOSAL, option.getProposalid());
-    String targetChainAddress = AddressUtil.getTargetChainAccountAddress(CLIENT_CONFIG.getTargetChainId(),option.getKeystore().getAddress().getMainnet());
+    String targetChainAddress = option.getKeystore().getAddress();
 
     TransactionManager transactionManager =
         new MtoolTransactionManager(
-            web3j, targetChainAddress, CLIENT_CONFIG.getTargetChainId());
-    ProposalContract proposalContract = ProposalContract.load(web3j, transactionManager,CLIENT_CONFIG.getTargetChainId());
+            web3j, targetChainAddress);
+    ProposalContract proposalContract = ProposalContract.load(web3j, transactionManager);
     ProgramVersion programVersion = web3j.getProgramVersion().send().getAdminProgramVersion();
     GasProvider gasProvider =
         proposalContract.getVoteProposalGasProvider(

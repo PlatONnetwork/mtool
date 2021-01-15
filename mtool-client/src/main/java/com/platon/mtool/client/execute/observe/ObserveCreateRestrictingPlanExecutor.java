@@ -19,7 +19,6 @@ import com.platon.mtool.common.entity.ValidatorConfig;
 import com.platon.mtool.common.enums.FuncTypeEnum;
 import com.platon.mtool.common.exception.MtoolClientException;
 import com.platon.mtool.common.logger.Log;
-import com.platon.mtool.common.utils.AddressUtil;
 import com.platon.mtool.common.utils.HashUtil;
 import com.platon.mtool.common.utils.LogUtils;
 import com.platon.mtool.common.utils.MtoolCsvFileUtil;
@@ -64,13 +63,13 @@ public class ObserveCreateRestrictingPlanExecutor extends MtoolExecutor<CreateRe
 
         blockChainService.validSelfStakingAddress(web3j, validatorConfig.getNodePublicKey(), option.getKeystore().getAddress());
 
-        String targetChainAddress = AddressUtil.getTargetChainAccountAddress(CLIENT_CONFIG.getTargetChainId(),option.getKeystore().getAddress().getMainnet());
+        String targetChainAddress = option.getKeystore().getAddress();
 
         //查询链上的治理参数值（创建锁仓计划时，每次释放金额的最小值）
         BigInteger minimumReleaseAtp = BigInteger.ZERO;
         String paramValue = blockChainService.getGovernParamValue(web3j, GovernParamItemSupported.Restricting_minimumRelease);
         if (StringUtils.isNotBlank(paramValue)) {
-            minimumReleaseAtp = Convert.fromVon(paramValue, Convert.Unit.ATP).toBigInteger();
+            minimumReleaseAtp = Convert.fromVon(paramValue, Convert.Unit.KPVON).toBigInteger();
             if(minimumReleaseAtp.signum()<=0){
                 throw new MtoolClientException("invalid minimum amount of restricting release");
             }
@@ -85,7 +84,7 @@ public class ObserveCreateRestrictingPlanExecutor extends MtoolExecutor<CreateRe
             for(RestrictingPlan plan : option.getRestrictingConfig().getPlans()){
                 //锁仓计划amoount的单位是ATP
                 BigInteger atpAmount = plan.getAmount();
-                BigInteger vonAmount = Convert.toVon(atpAmount.toString(), Convert.Unit.ATP).toBigInteger();
+                BigInteger vonAmount = Convert.toVon(atpAmount.toString(), Convert.Unit.KPVON).toBigInteger();
                 plan.setAmount(vonAmount);
 
                 if (atpAmount.compareTo(minimumReleaseAtp)<0){
@@ -100,10 +99,10 @@ public class ObserveCreateRestrictingPlanExecutor extends MtoolExecutor<CreateRe
 
 
         //设置TransactionManager = MtoolTransactionManager, 并不会真发送交易，而是返回交易数据对象TransactionEntity，用于生成待签名的交易数据的
-        TransactionManager transactionManager = new MtoolTransactionManager(web3j, targetChainAddress, CLIENT_CONFIG.getTargetChainId());
+        TransactionManager transactionManager = new MtoolTransactionManager(web3j, targetChainAddress);
 
         //用MtoolTransactionManager加载合约
-        RestrictingPlanContract restrictingPlanContract = RestrictingPlanContract.load(web3j, transactionManager,CLIENT_CONFIG.getTargetChainId());
+        RestrictingPlanContract restrictingPlanContract = RestrictingPlanContract.load(web3j, transactionManager);
 
         //准备调用合约方法的参数
         CreateRestrictingParam createRestrictingParam =  new CreateRestrictingParam();
@@ -128,7 +127,7 @@ public class ObserveCreateRestrictingPlanExecutor extends MtoolExecutor<CreateRe
         //把节点信息，以及命令行输入参数信息，存放到AdditionalInfo
         AdditionalInfo additionalInfo = new AdditionalInfo();
         BeanUtils.copyProperties(additionalInfo, validatorConfig);
-        additionalInfo.setChainId(CLIENT_CONFIG.getTargetChainId().toString());
+        additionalInfo.setChainId(CLIENT_CONFIG.getChainId().toString());
         entity.setAdditionalInfo(JSON.toJSONString(additionalInfo));
 
 

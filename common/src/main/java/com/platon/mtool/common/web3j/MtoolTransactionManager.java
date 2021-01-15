@@ -19,14 +19,12 @@ import java.time.LocalDateTime;
  * Created by liyf. */
 public class MtoolTransactionManager extends TransactionManager {
 
-  private final Long chainId;
   private final Web3j web3j;
   private final String fromAddress;
   private BigInteger nonce = null;
 
-  public MtoolTransactionManager(Web3j web3j, String fromAddress, Long chainId) {
+  public MtoolTransactionManager(Web3j web3j, String fromAddress) {
     super(web3j, fromAddress);
-    this.chainId = chainId;
     this.web3j = web3j;
     this.fromAddress = fromAddress;
   }
@@ -70,7 +68,7 @@ public class MtoolTransactionManager extends TransactionManager {
     entity.setCreateTime(LocalDateTime.now());
     entity.setFee(gasLimit.multiply(gasPrice));
     entity.setFrom(fromAddress);
-    entity.setChainId(chainId);
+    //entity.setChainId(chainId);
     PlatonSendTransaction platonSendTransaction = new PlatonSendTransaction();
     platonSendTransaction.setResult(JSON.toJSONString(entity));
     return platonSendTransaction;

@@ -16,7 +16,6 @@ import com.platon.mtool.common.logger.Log;
 import com.platon.mtool.common.utils.LogUtils;
 import com.platon.mtool.common.utils.MnemonicUtil;
 import com.platon.mtool.common.web3j.Keystore.Type;
-import com.platon.parameters.NetworkParameters;
 import com.platon.utils.Numeric;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -118,9 +117,7 @@ public class AccountRecoverExecutor extends MtoolExecutor<RecoverOption> {
       Credentials credentials = WalletUtils.loadCredentials(passStr, destFile);
       PrintUtils.echo("-name: %s", name);
       PrintUtils.echo("-type: %s", Type.NORMAL.name());
-      PrintUtils.echo("-address: ");
-      PrintUtils.echo(" mainnet: %s", credentials.getAddress(NetworkParameters.MainNetParams));
-      PrintUtils.echo(" testnet: %s", credentials.getAddress(NetworkParameters.TestNetParams));
+      PrintUtils.echo("-address: %s", credentials.getAddress());
       PrintUtils.echo("-public key: 0x%s", credentials.getEcKeyPair().getPublicKey().toString(16));
     }
   }

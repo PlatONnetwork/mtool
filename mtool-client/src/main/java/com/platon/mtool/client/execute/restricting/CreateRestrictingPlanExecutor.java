@@ -28,8 +28,6 @@ import org.slf4j.LoggerFactory;
 import java.math.BigInteger;
 import java.util.Arrays;
 
-import static com.platon.mtool.client.tools.CliConfigUtils.CLIENT_CONFIG;
-
 public class CreateRestrictingPlanExecutor extends MtoolExecutor<CreateRestrictingPlanOption> {
 
     private static final Logger logger = LoggerFactory.getLogger(CreateRestrictingPlanExecutor.class);
@@ -45,8 +43,8 @@ public class CreateRestrictingPlanExecutor extends MtoolExecutor<CreateRestricti
     }
 
     public RestrictingPlanContract getRestrictingPlanContract(
-            Web3j web3j, Credentials credentials, Long chainId) {
-        return RestrictingPlanContract.load(web3j, credentials, chainId);
+            Web3j web3j, Credentials credentials) {
+        return RestrictingPlanContract.load(web3j, credentials);
     }
 
     @Override
@@ -62,7 +60,7 @@ public class CreateRestrictingPlanExecutor extends MtoolExecutor<CreateRestricti
         BigInteger minimumReleaseAtp = BigInteger.ZERO;
         String paramValue = blockChainService.getGovernParamValue(web3j, GovernParamItemSupported.Restricting_minimumRelease);
         if (StringUtils.isNotBlank(paramValue)) {
-            minimumReleaseAtp = Convert.fromVon(paramValue, Convert.Unit.ATP).toBigInteger();
+            minimumReleaseAtp = Convert.fromVon(paramValue, Convert.Unit.KPVON).toBigInteger();
             if(minimumReleaseAtp.signum()<=0){
                 throw new MtoolClientException("invalid minimum amount of restricting release");
             }
@@ -76,7 +74,7 @@ public class CreateRestrictingPlanExecutor extends MtoolExecutor<CreateRestricti
             for(RestrictingPlan plan : option.getRestrictingConfig().getPlans()){
                 //锁仓计划amoount的单位是ATP
                 BigInteger atpAmount = plan.getAmount();
-                BigInteger vonAmount = Convert.toVon(atpAmount.toString(), Convert.Unit.ATP).toBigInteger();
+                BigInteger vonAmount = Convert.toVon(atpAmount.toString(), Convert.Unit.KPVON).toBigInteger();
                 plan.setAmount(vonAmount);
 
                 if (atpAmount.compareTo(minimumReleaseAtp)<0){
@@ -92,7 +90,7 @@ public class CreateRestrictingPlanExecutor extends MtoolExecutor<CreateRestricti
 
         //加载合约JAVA包装类
         Credentials credentials = option.getKeystore().getCredentials();
-        RestrictingPlanContract restrictingPlanContract = getRestrictingPlanContract(web3j, credentials, CLIENT_CONFIG.getTargetChainId());
+        RestrictingPlanContract restrictingPlanContract = getRestrictingPlanContract(web3j, credentials);
 
         //准备调用合约方法的参数
         CreateRestrictingParam createRestrictingParam =  new CreateRestrictingParam();

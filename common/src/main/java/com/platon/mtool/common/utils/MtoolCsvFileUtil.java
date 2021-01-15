@@ -1,7 +1,5 @@
 package com.platon.mtool.common.utils;
 
-import com.platon.bech32.Bech32;
-import com.platon.crypto.Address;
 import com.platon.mtool.common.entity.CsvDelegateReward;
 import com.platon.mtool.common.entity.CsvRewardSummary;
 import com.platon.mtool.common.entity.RewardConfigDetail;
@@ -9,7 +7,7 @@ import com.platon.mtool.common.entity.RewardConfigTotal;
 import com.platon.mtool.common.enums.*;
 import com.platon.mtool.common.logger.Log;
 import com.platon.mtool.common.web3j.TransactionEntity;
-import com.platon.parameters.NetworkParameters;
+import com.platon.parameters.InnerContracts;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
@@ -27,7 +25,9 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -40,7 +40,7 @@ import java.util.stream.Collectors;
 public class MtoolCsvFileUtil {
 
   // 内置合约地址
-  private static final List<String> INNER_ADDRESS = Arrays.asList(
+  /*private static final List<String> INNER_ADDRESS = Arrays.asList(
           "0x1000000000000000000000000000000000000001",
           "0x1000000000000000000000000000000000000002",
           "0x1000000000000000000000000000000000000003",
@@ -61,7 +61,7 @@ public class MtoolCsvFileUtil {
       CONTRACT_ADDRESS_SET.add(address.getMainnet());
       CONTRACT_ADDRESS_SET.add(address.getTestnet());
     });
-  }
+  }*/
 
   private static final Logger logger = LoggerFactory.getLogger(MtoolCsvFileUtil.class);
 
@@ -513,7 +513,7 @@ public class MtoolCsvFileUtil {
                   DateTimeFormatter.ISO_LOCAL_DATE_TIME));
       transactionEntity.setSignData(record.get(CsvHeaderTransactionDetail.SIGNED_DATA));
       // 内置合约value为0， 非内置合约为amount
-      if (CONTRACT_ADDRESS_SET.contains(transactionEntity.getTo())) {
+      if (InnerContracts.isInnerAddr(transactionEntity.getTo())) {
         transactionEntity.setValue(BigInteger.ZERO);
       } else {
         transactionEntity.setValue(transactionEntity.getAmount());

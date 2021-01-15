@@ -24,8 +24,6 @@ import org.slf4j.LoggerFactory;
 
 import java.math.BigInteger;
 
-import static com.platon.mtool.client.tools.CliConfigUtils.CLIENT_CONFIG;
-
 /**
  * 更新验证人
  *
@@ -45,8 +43,8 @@ public class UpdateValidatorExecutor extends MtoolExecutor<UpdateValidatorOption
   }
 
   protected StakingContract getStakingContract(
-      Web3j web3j, Credentials credentials, Long chainId) {
-    return StakingContract.load(web3j, credentials, chainId);
+      Web3j web3j, Credentials credentials) {
+    return StakingContract.load(web3j, credentials);
   }
 
   @Override
@@ -68,7 +66,7 @@ public class UpdateValidatorExecutor extends MtoolExecutor<UpdateValidatorOption
     Web3j web3j = getWeb3j(validatorConfig);
 
     Credentials credentials = option.getKeystore().getCredentials();
-    StakingContract stakingContract = getStakingContract(web3j, credentials, CLIENT_CONFIG.getTargetChainId());
+    StakingContract stakingContract = getStakingContract(web3j, credentials);
 
     // 参数
      UpdateStakingParam updateStakingParam =

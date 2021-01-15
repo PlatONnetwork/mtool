@@ -5,7 +5,6 @@ import com.platon.contracts.ppos.dto.common.ProposalType;
 import com.platon.contracts.ppos.dto.enums.GovernParamItemSupported;
 import com.platon.contracts.ppos.dto.enums.StakingAmountType;
 import com.platon.contracts.ppos.dto.resp.Node;
-import com.platon.crypto.Address;
 import com.platon.crypto.Credentials;
 import com.platon.mtool.client.converter.ValidatorConfigConverter;
 import com.platon.mtool.client.test.MtoolParameterResolver;
@@ -13,9 +12,7 @@ import com.platon.mtool.client.test.PlatonMockHelp;
 import com.platon.mtool.client.tools.ContractUtil;
 import com.platon.mtool.common.entity.ValidatorConfig;
 import com.platon.mtool.common.exception.MtoolClientException;
-import com.platon.mtool.common.utils.AddressUtil;
 import com.platon.mtool.common.utils.PlatOnUnit;
-import com.platon.parameters.NetworkParameters;
 import com.platon.protocol.Web3j;
 import com.platon.protocol.core.methods.response.PlatonGetBalance;
 import com.platon.tx.gas.ContractGasProvider;
@@ -35,7 +32,6 @@ import java.math.BigInteger;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 
-import static com.platon.mtool.client.tools.CliConfigUtils.CLIENT_CONFIG;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -79,25 +75,28 @@ class BlockChainServiceTest {
 
   @Test
   void validAddressNotSame(){
-    Address address = new Address("atp1p27qmgmdps","atx1p27qzy6v5u");
-    blockChainService.validAddressNotSame(address.getMainnet(), address.getTestnet());
+    String address = "atp1p27qmgmdps";
+    String another = "atx1p27qzy6v5u";
+    blockChainService.validAddressNotSame(address, another);
     assertTrue(true);
   }
 
   @Test
   void validAddressNotSame_error(){
-    Address address = new Address("atp1p27qmgmdps","atx1p27qzy6v5u");
+    String address = "atp1p27qmgmdps";
+    String another = "atx1p27qzy6v5u";
     assertThrows(
             MtoolClientException.class,
-            () -> blockChainService.validAddressNotSame(address.getMainnet(), address.getMainnet()));
+            () -> blockChainService.validAddressNotSame(address, address));
     assertTrue(true);
   }
 
   @Test
   void validAddressNotBeenUsed(){
-    Address address = new Address("atp1p27qmgmdps","atx1p27qzy6v5u");
+    String address = "atp1p27qmgmdps";
+    String another = "atx1p27qzy6v5u";
     try {
-      blockChainService.validAddressNotBeenUsed(web3j, address.getMainnet(), address.getMainnet(), config.getNodePublicKey());
+      blockChainService.validAddressNotBeenUsed(web3j, address, address, config.getNodePublicKey());
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -141,7 +140,7 @@ class BlockChainServiceTest {
     GasProvider gasProvider = new DefaultGasProvider();
     BigInteger enoughAmount =
         stakingAmount.add(gasProvider.getGasLimit().multiply(gasProvider.getGasPrice()));
-    Address address = new Address("atp1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqz4u3luxq6","atx1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqz4umeqvns");
+    String address = "atp1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqz4u3luxq6";
     assertThrows(
         MtoolClientException.class,
         () -> blockChainService.validBalanceEnough(address, stakingAmount, gasProvider, web3j, StakingAmountType.FREE_AMOUNT_TYPE));
@@ -159,7 +158,7 @@ class BlockChainServiceTest {
         .platonGetBalance(Mockito.anyString(), any());
 
     GasProvider gasProvider = new DefaultGasProvider();
-    Address address = new Address("atp1p27qmgmdps","atx1p27qzy6v5u");
+    String address = "atp1p27qmgmdps";
     assertThrows(
         MtoolClientException.class,
         () -> blockChainService.validBalanceEnough(address, stakingAmount, gasProvider, web3j, StakingAmountType.RESTRICTING_AMOUNT_TYPE));
@@ -170,10 +169,10 @@ class BlockChainServiceTest {
     Web3j web3j = com.platon.mtool.common.web3j.Web3jUtil.getFromConfig(validatorConfig);
 
     Node node= new Node();
-    node.setStakingAddress(credentials.getAddress(CLIENT_CONFIG.getTargetChainId()));
+    node.setStakingAddress(credentials.getAddress());
     when(contractUtil.getNode(any(),any())).thenReturn(node);
     boolean isSame =
-        blockChainService.isSameAddress(web3j, validatorConfig.getNodePublicKey(), credentials.getAddress(CLIENT_CONFIG.getTargetChainId()));
+        blockChainService.isSameAddress(web3j, validatorConfig.getNodePublicKey(), credentials.getAddress());
     System.out.println(isSame);
     assertTrue(isSame);
   }
@@ -182,15 +181,12 @@ class BlockChainServiceTest {
   void validSelfStakingAddress(ValidatorConfig validatorConfig, Credentials credentials) {
     Web3j web3j = com.platon.mtool.common.web3j.Web3jUtil.getFromConfig(validatorConfig);
     try {
-      String mainNetAddress = credentials.getAddress(NetworkParameters.MainNetParams.getChainId());
-      String testNetAddress = credentials.getAddress(NetworkParameters.TestNetParams.getChainId());
-      Address address = new Address(mainNetAddress,testNetAddress);
+      String mainNetAddress = credentials.getAddress();
 
-      String targetChainAddress = AddressUtil.getTargetChainAccountAddress(CLIENT_CONFIG.getTargetChainId(),address.getMainnet());
       Node node= new Node();
-      node.setStakingAddress(targetChainAddress);
+      node.setStakingAddress(mainNetAddress);
       when(contractUtil.getNode(any(),any())).thenReturn(node);
-      blockChainService.validSelfStakingAddress(web3j, validatorConfig.getNodePublicKey(), address);
+      blockChainService.validSelfStakingAddress(web3j, validatorConfig.getNodePublicKey(), mainNetAddress);
     } catch (Exception e) {
       fail();
     }

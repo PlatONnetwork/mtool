@@ -411,7 +411,7 @@ class ExecutorTest {
         // given
         createRestrictingPlanExecutor = spy(createRestrictingPlanExecutor);
 
-        doReturn(restrictingPlanContract).when(createRestrictingPlanExecutor).getRestrictingPlanContract(any(), any(), anyLong());
+        doReturn(restrictingPlanContract).when(createRestrictingPlanExecutor).getRestrictingPlanContract(any(), any());
 
         GasProvider gasProvider = new DefaultGasProvider();
         when(restrictingPlanContract.getCreateRestrictingPlanGasProvider(any())).thenReturn(gasProvider);
@@ -447,7 +447,7 @@ class ExecutorTest {
         // given
         createRestrictingPlanExecutor = spy(createRestrictingPlanExecutor);
 
-        doReturn(restrictingPlanContract).when(createRestrictingPlanExecutor).getRestrictingPlanContract(any(), any(), anyLong());
+        doReturn(restrictingPlanContract).when(createRestrictingPlanExecutor).getRestrictingPlanContract(any(), any());
 
         GasProvider gasProvider = new DefaultGasProvider();
         when(restrictingPlanContract.getCreateRestrictingPlanGasProvider(any())).thenReturn(gasProvider);
@@ -486,7 +486,7 @@ class ExecutorTest {
         // given
         createRestrictingPlanExecutor = spy(createRestrictingPlanExecutor);
 
-        doReturn(restrictingPlanContract).when(createRestrictingPlanExecutor).getRestrictingPlanContract(any(), any(), anyLong());
+        doReturn(restrictingPlanContract).when(createRestrictingPlanExecutor).getRestrictingPlanContract(any(), any());
 
         GasProvider gasProvider = new DefaultGasProvider();
         when(restrictingPlanContract.getCreateRestrictingPlanGasProvider(any())).thenReturn(gasProvider);
@@ -518,7 +518,7 @@ class ExecutorTest {
         option.setConfig(validatorConfig);
         // given
         stakingExecutor = spy(stakingExecutor);
-        doReturn(stakingContract).when(stakingExecutor).getStakingContract(any(), any(), anyLong());
+        doReturn(stakingContract).when(stakingExecutor).getStakingContract(any(), any());
 
         when(stakingContract.stakingReturnTransaction(any(), any()))
                 .thenReturn(new RemoteCall<>(() -> transaction));
@@ -547,7 +547,7 @@ class ExecutorTest {
         option.setConfig(validatorConfig);
         // given
         stakingExecutor = spy(stakingExecutor);
-        doReturn(stakingContract).when(stakingExecutor).getStakingContract(any(), any(), anyLong());
+        doReturn(stakingContract).when(stakingExecutor).getStakingContract(any(), any());
 
         when(stakingContract.stakingReturnTransaction(any(), any()))
                 .thenReturn(new RemoteCall<>(() -> transaction));
@@ -574,7 +574,7 @@ class ExecutorTest {
         option.setConfig(validatorConfig);
         // given
         stakingExecutor = spy(stakingExecutor);
-        doReturn(stakingContract).when(stakingExecutor).getStakingContract(any(), any(), anyLong());
+        doReturn(stakingContract).when(stakingExecutor).getStakingContract(any(), any());
 
         when(stakingContract.stakingReturnTransaction(any(), any()))
                 .thenReturn(new RemoteCall<>(() -> transaction));
@@ -601,7 +601,7 @@ class ExecutorTest {
         option.setConfig(validatorConfig);
         // given
         stakingExecutor = spy(stakingExecutor);
-        doReturn(stakingContract).when(stakingExecutor).getStakingContract(any(), any(), anyLong());
+        doReturn(stakingContract).when(stakingExecutor).getStakingContract(any(), any());
 
         when(stakingContract.stakingReturnTransaction(any(), any()))
                 .thenReturn(new RemoteCall<>(() -> transaction));
@@ -620,7 +620,6 @@ class ExecutorTest {
                 WalletUtils.loadCredentials("123456", STAKING_KEYSTORE_PATH.toAbsolutePath().toString());
         keystore.setCredentials(credentials);
         String address = credentials.getAddress();
-        keystore.setAddress(address);
         option.setKeystore(keystore);
         ValidatorConfig validatorConfig =
                 JSON.parseObject(
@@ -629,7 +628,7 @@ class ExecutorTest {
         option.setConfig(validatorConfig);
 
         UnstakingExecutor executor = Mockito.spy(unstakingExecutor);
-        doReturn(stakingContract).when(executor).getStakingContract(any(), any(), anyLong());
+        doReturn(stakingContract).when(executor).getStakingContract(any(), any());
 
         when(stakingContract.unStakingReturnTransaction(any(), any()))
                 .thenReturn(new RemoteCall<>(() -> transaction));
@@ -648,8 +647,7 @@ class ExecutorTest {
                 WalletUtils.loadCredentials("123456", STAKING_KEYSTORE_PATH.toAbsolutePath().toString());
         keystore.setCredentials(credentials);
         String address = credentials.getAddress();
-        keystore.setAddress(address);
-        option.setKeystore(keystore);
+         option.setKeystore(keystore);
 
         ValidatorConfig validatorConfig =
                 JSON.parseObject(
@@ -657,7 +655,7 @@ class ExecutorTest {
                         ValidatorConfig.class);
         option.setConfig(validatorConfig);
         DeclareVersionExecutor executor = Mockito.spy(declareVersionExecutor);
-        doReturn(proposalContract).when(executor).getProposalContract(any(), any(), anyLong());
+        doReturn(proposalContract).when(executor).getProposalContract(any(), any());
 
         when(proposalContract.declareVersionReturnTransaction(any(), any(), any()))
                 .thenReturn(new RemoteCall<>(() -> transaction));
@@ -685,13 +683,12 @@ class ExecutorTest {
                 WalletUtils.loadCredentials("123456", STAKING_KEYSTORE_PATH.toAbsolutePath().toString());
         keystore.setCredentials(credentials);
         String address = credentials.getAddress();
-        keystore.setAddress(address);
-        option.setKeystore(keystore);
 
+        option.setKeystore(keystore);
         increaseStakingExecutor = Mockito.spy(increaseStakingExecutor);
         doReturn(stakingContract)
                 .when(increaseStakingExecutor)
-                .getStakingContract(any(), any(), anyLong());
+                .getStakingContract(any(), any());
 
         when(stakingContract.addStakingReturnTransaction(any(), any(), any(), any()))
                 .thenReturn(new RemoteCall<>(() -> transaction));
@@ -718,7 +715,7 @@ class ExecutorTest {
         option.setKeystore(keystore);
 
         SubmitTextProposalExecutor executor = Mockito.spy(submitTextProposalExecutor);
-        doReturn(proposalContract).when(executor).getProposalContract(any(), any(), anyLong());
+        doReturn(proposalContract).when(executor).getProposalContract(any(), any());
 
         when(proposalContract.submitProposalReturnTransaction(any(), any()))
                 .thenReturn(new RemoteCall<>(() -> transaction));
@@ -776,7 +773,7 @@ class ExecutorTest {
         option.setKeystore(keystore);
 
         SubmitCancelProposalExecutor executor = Mockito.spy(submitCancelProposalExecutor);
-        doReturn(proposalContract).when(executor).getProposalContract(any(), any(), any());
+        doReturn(proposalContract).when(executor).getProposalContract(any(), any());
 
         when(proposalContract.submitProposalReturnTransaction(any(), any()))
                 .thenReturn(new RemoteCall<>(() -> transaction));
@@ -806,7 +803,7 @@ class ExecutorTest {
         option.setKeystore(keystore);
 
         SubmitParamProposalExecutor executor = Mockito.spy(submitParamProposalExecutor);
-        doReturn(proposalContract).when(executor).getProposalContract(any(), any(), any());
+        doReturn(proposalContract).when(executor).getProposalContract(any(), any());
 
         when(proposalContract.submitProposalReturnTransaction(any(), any()))
                 .thenReturn(new RemoteCall<>(() -> transaction));
@@ -827,13 +824,12 @@ class ExecutorTest {
                 WalletUtils.loadCredentials("123456", STAKING_KEYSTORE_PATH.toAbsolutePath().toString());
         keystore.setCredentials(credentials);
         String address = credentials.getAddress();
-        keystore.setAddress(address);
         option.setKeystore(keystore);
 
 
         // given
         UpdateValidatorExecutor executor = Mockito.spy(updateValidatorExecutor);
-        doReturn(stakingContract).when(executor).getStakingContract(any(), any(), anyLong());
+        doReturn(stakingContract).when(executor).getStakingContract(any(), any());
 
         when(stakingContract.updateStakingInfoReturnTransaction(any(), any()))
                 .thenReturn(new RemoteCall<>(() -> transaction));
@@ -868,7 +864,7 @@ class ExecutorTest {
         option.setKeystore(keystore);
 
         VoteTextProposalExecutor executor = Mockito.spy(voteTextProposalExecutor);
-        doReturn(proposalContract).when(executor).getProposalContract(any(), any(), any());
+        doReturn(proposalContract).when(executor).getProposalContract(any(), any());
 
         when(proposalContract.voteReturnTransaction(any(), any(), any(), any(), any()))
                 .thenReturn(new RemoteCall<>(() -> transaction));
@@ -895,7 +891,7 @@ class ExecutorTest {
         option.setKeystore(keystore);
 
         VoteVersionProposalExecutor executor = Mockito.spy(voteVersionProposalExecutor);
-        doReturn(proposalContract).when(executor).getProposalContract(any(), any(), any());
+        doReturn(proposalContract).when(executor).getProposalContract(any(), any());
 
         when(proposalContract.voteReturnTransaction(any(), any(), any(), any(), any()))
                 .thenReturn(new RemoteCall<>(() -> transaction));
@@ -923,7 +919,7 @@ class ExecutorTest {
         option.setKeystore(keystore);
 
         VoteCancelProposalExecutor executor = Mockito.spy(voteCancelProposalExecutor);
-        doReturn(proposalContract).when(executor).getProposalContract(any(), any(), any());
+        doReturn(proposalContract).when(executor).getProposalContract(any(), any());
 
         when(proposalContract.voteReturnTransaction(any(), any(), any(), any(), any()))
                 .thenReturn(new RemoteCall<>(() -> transaction));
@@ -951,7 +947,7 @@ class ExecutorTest {
         option.setKeystore(keystore);
 
         VoteParamProposalExecutor executor = Mockito.spy(voteParamProposalExecutor);
-        doReturn(proposalContract).when(executor).getProposalContract(any(), any(), any());
+        doReturn(proposalContract).when(executor).getProposalContract(any(), any());
 
         when(proposalContract.voteReturnTransaction(any(), any(), any(), any(), any()))
                 .thenReturn(new RemoteCall<>(() -> transaction));
@@ -974,7 +970,6 @@ class ExecutorTest {
                 WalletUtils.loadCredentials("123456", STAKING_KEYSTORE_PATH.toAbsolutePath().toString());
         String address = credentials.getAddress();
         Keystore keystore = new Keystore();
-        keystore.setAddress(address);
         keystore.setCredentials(credentials);
         keystore.setType(Keystore.Type.NORMAL);
         option.setKeystore(keystore);
@@ -983,7 +978,7 @@ class ExecutorTest {
         option.setGasProvider(new DefaultGasProvider());
         TxTransferExecutor executor = Mockito.spy(txTransferExecutor);
 
-        doReturn(transfer).when(executor).getTransfer(any(), any(Credentials.class), anyLong());
+        doReturn(transfer).when(executor).getTransfer(any(), any(Credentials.class));
         TransactionReceipt receipt = new TransactionReceipt();
         receipt.setTransactionHash("0xsuccess");
         when(transfer.sendFunds(anyString(), any(), any(), any(), any())).thenReturn(new RemoteCall<>(() -> receipt));
@@ -992,7 +987,7 @@ class ExecutorTest {
 
         // 离线钱包
         option.setKeystore(observedKeystore);
-        doReturn(transfer).when(executor).getTransfer(any(), anyString(), any());
+        doReturn(transfer).when(executor).getTransfer(any(), anyString());
         receipt.setTransactionHash(mockOfflineTransaction().getTransactionHash());
         when(transfer.sendFunds(anyString(), any(), any(), any(), any())).thenReturn(new RemoteCall<>(() -> receipt));
         executor.execute(option);
@@ -1016,14 +1011,13 @@ class ExecutorTest {
                 WalletUtils.loadCredentials("123456", STAKING_KEYSTORE_PATH.toAbsolutePath().toString());
         Keystore keystore = new Keystore();
         String address = credentials.getAddress();
-        keystore.setAddress(address);
         keystore.setCredentials(credentials);
         keystore.setType(Keystore.Type.NORMAL);
         option.setKeystore(keystore);
         option.setNodeId("0xasdf");
         TxDelegateExecutor executor = Mockito.spy(txDelegateExecutor);
 
-        doReturn(delegateContract).when(executor).getDelegateContract(any(), any(Credentials.class), any());
+        doReturn(delegateContract).when(executor).getDelegateContract(any(), any(Credentials.class));
         when(delegateContract.delegateReturnTransaction(anyString(), any(), any(), any())).thenReturn(new RemoteCall<>(() -> transaction));
         GasProvider gasProvider = new DefaultGasProvider();
         when(delegateContract.getDelegateGasProvider(anyString(), any(), any())).thenReturn(gasProvider);
@@ -1035,7 +1029,7 @@ class ExecutorTest {
 
         // 离线钱包
         option.setKeystore(observedKeystore);
-        doReturn(delegateContract).when(executor).getDelegateContract(any(), anyString(), any());
+        doReturn(delegateContract).when(executor).getDelegateContract(any(), anyString());
         when(delegateContract.delegateReturnTransaction(anyString(), any(), any(), any())).thenReturn(new RemoteCall<>(() -> mockOfflineTransaction()));
         executor.execute(option);
         assertTrue(true);

@@ -20,8 +20,6 @@ import org.slf4j.LoggerFactory;
 
 import java.math.BigInteger;
 
-import static com.platon.mtool.client.tools.CliConfigUtils.CLIENT_CONFIG;
-
 /**
  * 解质押
  *
@@ -41,8 +39,8 @@ public class UnstakingExecutor extends MtoolExecutor<UnstakingOption> {
   }
 
   protected StakingContract getStakingContract(
-      Web3j web3j, Credentials credentials, Long chainId) {
-    return StakingContract.load(web3j, credentials, chainId);
+      Web3j web3j, Credentials credentials) {
+    return StakingContract.load(web3j, credentials);
   }
 
   @Override
@@ -54,7 +52,7 @@ public class UnstakingExecutor extends MtoolExecutor<UnstakingOption> {
     Credentials credentials = option.getKeystore().getCredentials();
 
     StakingContract stakingContract =
-        getStakingContract(web3j, credentials, CLIENT_CONFIG.getTargetChainId());
+        getStakingContract(web3j, credentials);
     GasProvider gasProvider =
         stakingContract.getUnStakingGasProvider(validatorConfig.getNodePublicKey());
     blockChainService.validBalanceEnough(

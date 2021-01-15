@@ -2,7 +2,7 @@ package com.platon.mtool.client.execute.sub;
 
 import com.alibaba.fastjson.JSON;
 import com.beust.jcommander.JCommander;
-import com.platon.crypto.Address;
+import com.platon.bech32.Bech32;
 import com.platon.crypto.WalletFile;
 import com.platon.crypto.WalletUtils;
 import com.platon.mtool.client.execute.MtoolExecutor;
@@ -14,7 +14,6 @@ import com.platon.mtool.common.entity.ValidatorConfig;
 import com.platon.mtool.common.exception.MtoolClientException;
 import com.platon.mtool.common.exception.MtoolClientExceptionCode;
 import com.platon.mtool.common.logger.Log;
-import com.platon.mtool.common.utils.AddressUtil;
 import com.platon.mtool.common.utils.LogUtils;
 import com.platon.mtool.common.utils.PlatOnUnit;
 import com.platon.protocol.Web3j;
@@ -59,12 +58,7 @@ public class AccountBalanceExecutor extends MtoolExecutor<BalanceOption> {
       if (!keystorePath.toFile().exists()) {
         throw MtoolClientExceptionCode.FILE_NOT_FOUND.create();
       }
-      Address addressBean = getAddress(keystorePath);
-      if(CLIENT_CONFIG.getTargetChainId().equals(CLIENT_CONFIG.getMainNetChainId())){
-        address = addressBean.getMainnet();
-      }else{
-        address = addressBean.getTestnet();
-      }
+      address = getAddress(keystorePath);
     } else {
       throw MtoolClientExceptionCode.COMMAND_NOT_FOUND.create();
     }
@@ -72,8 +66,8 @@ public class AccountBalanceExecutor extends MtoolExecutor<BalanceOption> {
     if (!WalletUtils.isValidAddress(address)) {
       throw new MtoolClientException("Invalid address");
     }
-    if(!AddressUtil.isValidTargetChainAccountAddress(CLIENT_CONFIG.getTargetChainId(),address)){
-      throw new MtoolClientException("is not a legal address of chain["+CLIENT_CONFIG.getTargetChainId()+"]");
+    if(Bech32.checkBech32Addr(address)){
+      throw new MtoolClientException("is not a legal address of chain["+CLIENT_CONFIG.getChainId()+"]");
     }
 
     Web3j web3j = getWeb3j(option.getConfig());
@@ -83,7 +77,7 @@ public class AccountBalanceExecutor extends MtoolExecutor<BalanceOption> {
     PrintUtils.echo("Balanceof: %s\nATP:%s", address, formatAmount(platonGetBalance.getBalance()));
   }
 
-  private Address getAddress(Path keystorePath) {
+  private String getAddress(Path keystorePath) {
     WalletFile walletFile;
     try {
       walletFile = JSON.parseObject(Files.newInputStream(keystorePath), WalletFile.class);

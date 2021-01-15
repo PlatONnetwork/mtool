@@ -14,7 +14,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static com.platon.mtool.client.tools.CliConfigUtils.CLIENT_CONFIG;
 import static org.junit.jupiter.api.Assertions.*;
 
 /** Created by liyf. */
@@ -34,7 +33,7 @@ class KeystoreConverterTest {
     assertNotNull(keystore.getAddress());
     assertEquals(Keystore.Type.NORMAL, keystore.getType());
     assertEquals(
-        "atp1cy2uat0eukfrxv897s5s8lnljfka5ewjj943gf", keystore.getCredentials().getAddress(CLIENT_CONFIG.getTargetChainId()));
+        "atp1cy2uat0eukfrxv897s5s8lnljfka5ewjj943gf", keystore.getCredentials().getAddress());
   }
 
   @Test
@@ -43,7 +42,7 @@ class KeystoreConverterTest {
     String filepath = originPath.toAbsolutePath().toString();
 
     Keystore keystore = addressConverter.convert(filepath);
-    assertEquals("atp1cy2uat0eukfrxv897s5s8lnljfka5ewjj943gf", keystore.getAddress().getMainnet());
+    assertEquals("atp1cy2uat0eukfrxv897s5s8lnljfka5ewjj943gf", keystore.getAddress());
     assertEquals(Keystore.Type.OBSERVE, keystore.getType());
     assertNull(keystore.getCredentials());
   }
@@ -89,7 +88,7 @@ class KeystoreConverterTest {
             ParameterException.class,
             () -> addressConverter.convert(originPath.toAbsolutePath().toString()));
     System.out.println(exception.getMessage());
-    assertTrue(exception.getMessage().contains("address is not an observe keystore"));
+    assertTrue(exception.getMessage().contains("Invalid wallet observe keystore file"));
   }
 
   @Test

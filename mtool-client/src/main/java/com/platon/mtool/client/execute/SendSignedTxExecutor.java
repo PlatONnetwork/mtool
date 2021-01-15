@@ -25,8 +25,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import static com.platon.mtool.client.tools.CliConfigUtils.CLIENT_CONFIG;
-
 /**
  * 发送签名文件到链上
  *
@@ -82,7 +80,7 @@ public class SendSignedTxExecutor extends MtoolExecutor<SendSignedTxOption> {
           PlatonSendTransaction transaction =
               web3j.platonSendRawTransaction(entity.getSignData()).send();
           MtoolTransactionManager transactionManager =
-              new MtoolTransactionManager(web3j, entity.getFrom(), CLIENT_CONFIG.getTargetChainId());
+              new MtoolTransactionManager(web3j, entity.getFrom());
 
           if (FuncTypeEnum.TRANSFER.getCode() == entity.getType().getCode()) {
             // 普通转账

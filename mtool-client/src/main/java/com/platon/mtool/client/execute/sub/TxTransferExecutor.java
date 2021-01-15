@@ -2,6 +2,7 @@ package com.platon.mtool.client.execute.sub;
 
 import com.alibaba.fastjson.JSON;
 import com.beust.jcommander.JCommander;
+import com.platon.bech32.Bech32;
 import com.platon.contracts.ppos.dto.enums.StakingAmountType;
 import com.platon.crypto.Credentials;
 import com.platon.crypto.WalletUtils;
@@ -61,15 +62,15 @@ public class TxTransferExecutor extends MtoolExecutor<TransferOption> {
     return com.platon.mtool.common.web3j.Web3jUtil.getFromConfig(validatorConfig);
   }
 
-  public Transfer getTransfer(Web3j web3j, Credentials credentials, Long chainId) {
+  public Transfer getTransfer(Web3j web3j, Credentials credentials) {
     TransactionManager transactionManager =
-        new RawTransactionManager(web3j, credentials, chainId);
+        new RawTransactionManager(web3j, credentials);
     return new Transfer(web3j, transactionManager);
   }
 
-  public Transfer getTransfer(Web3j web3j, String fromAddress, Long chainId) {
+  public Transfer getTransfer(Web3j web3j, String fromAddress) {
     TransactionManager transactionManager =
-        new MtoolTransactionManager(web3j, fromAddress, chainId);
+        new MtoolTransactionManager(web3j, fromAddress);
     return new Transfer(web3j, transactionManager);
   }
 
@@ -81,12 +82,12 @@ public class TxTransferExecutor extends MtoolExecutor<TransferOption> {
       throw new MtoolClientException("Invalid recipient address");
     }
 
-    if (toAddress.equals(option.getKeystore().getAddress().getTestnet())||toAddress.equals(option.getKeystore().getAddress().getMainnet())) {
+    if (toAddress.equals(option.getKeystore().getAddress())) {
       throw new MtoolClientException("Could not send to yourself!");
     }
 
-    if(!AddressUtil.isValidTargetChainAccountAddress(CLIENT_CONFIG.getTargetChainId(),toAddress)){
-      throw new MtoolClientException("is not a legal address of chain["+CLIENT_CONFIG.getTargetChainId()+"]");
+    if(!Bech32.checkBech32Addr(toAddress)){
+      throw new MtoolClientException("is not a legal address of dest chain");
     }
 
     Web3j web3j = getWeb3j(option.getConfig());
@@ -103,13 +104,13 @@ public class TxTransferExecutor extends MtoolExecutor<TransferOption> {
     if (option.getKeystore().getType().equals(Type.NORMAL)) {
       Transfer transfer =
           getTransfer(
-              web3j, option.getKeystore().getCredentials(), CLIENT_CONFIG.getTargetChainId());
+              web3j, option.getKeystore().getCredentials());
       TransactionReceipt receipt =
           transfer
               .sendFunds(
                   toAddress,
                   option.getLat(),
-                  Unit.ATP,
+                  Unit.KPVON,
                   gasProvider.getGasPrice(),
                   gasProvider.getGasLimit())
               .send();
@@ -117,16 +118,16 @@ public class TxTransferExecutor extends MtoolExecutor<TransferOption> {
       PrintUtils.echo("Send transaction success");
       PrintUtils.echo("Txhash: %s", receipt.getTransactionHash());
     } else if (option.getKeystore().getType().equals(Keystore.Type.OBSERVE)) {
-      String targetChainAddress = AddressUtil.getTargetChainAccountAddress(CLIENT_CONFIG.getTargetChainId(),option.getKeystore().getAddress().getMainnet());
+      String targetChainAddress = option.getKeystore().getAddress();
 
       Transfer transfer =
-          getTransfer(web3j, targetChainAddress, CLIENT_CONFIG.getTargetChainId());
+          getTransfer(web3j, targetChainAddress);
       TransactionReceipt receipt =
           transfer
               .sendFunds(
                   toAddress,
                   option.getLat(),
-                  Unit.ATP,
+                  Unit.KPVON,
                   gasProvider.getGasPrice(),
                   gasProvider.getGasLimit())
               .send();
@@ -162,7 +163,7 @@ public class TxTransferExecutor extends MtoolExecutor<TransferOption> {
       transaction.setFunctionType(
           FuncTypeEnum.TRANSFER.equals(entity.getType()) ? 0 : entity.getType().getCode());
       transaction.setAmount(entity.getAmount());
-      transaction.setChainId(CLIENT_CONFIG.getTargetChainId());
+      transaction.setChainId(CLIENT_CONFIG.getChainId());
       transaction.setFrom(entity.getFrom());
       transaction.setTo(entity.getTo());
       transaction.setGasPrice(entity.getGasPrice());

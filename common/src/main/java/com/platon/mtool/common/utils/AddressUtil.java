@@ -1,10 +1,6 @@
 package com.platon.mtool.common.utils;
 
-import com.platon.bech32.Bech32;
 import com.platon.crypto.Keys;
-import com.platon.crypto.WalletUtils;
-import com.platon.mtool.common.exception.MtoolClientException;
-import com.platon.parameters.NetworkParameters;
 
 /**
  * 账户地址格式化工具
@@ -37,7 +33,7 @@ public class AddressUtil {
     }
   }
 
-  public static String getAddress(String nodeId) {
+  public static String getAddressByNodeId(String nodeId) {
     return "0x" + Keys.getAddress(nodeId);
   }
 
@@ -47,7 +43,7 @@ public class AddressUtil {
    * @param bech32Address
    * @return
    */
-  public static String getTargetChainAccountAddress(Long chainId,String bech32Address) {
+/*  public static String getTargetChainAccountAddress(Long chainId,String bech32Address) {
     if(WalletUtils.isValidAddress(bech32Address)){
         String hexAddress = Bech32.addressDecodeHex(bech32Address);
         // 默认取主链hrp
@@ -61,7 +57,7 @@ public class AddressUtil {
     }else{
       throw new MtoolClientException("address ["+bech32Address+"] is not legal bech32 format!");
     }
-  }
+  }*/
 
   /**
    * 判断bech32Address是否是目标链上的合法地址
@@ -69,8 +65,8 @@ public class AddressUtil {
    * @param bech32Address
    * @return
    */
-  public static boolean isValidTargetChainAccountAddress(Long chainId,String bech32Address){
-    if(!WalletUtils.isValidAddress(bech32Address)){
+/*  public static boolean isValidTargetChainAccountAddress(Long chainId,String bech32Address){
+    *//*if(!WalletUtils.isValidAddress(bech32Address)){
       return false;
     }
     try {
@@ -79,6 +75,6 @@ public class AddressUtil {
     }catch (Exception e){
       return false;
     }
-    return true;
-  }
+    return true;*//*
+  }*/
 }

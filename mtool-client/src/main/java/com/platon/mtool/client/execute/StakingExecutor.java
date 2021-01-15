@@ -21,8 +21,6 @@ import org.slf4j.LoggerFactory;
 
 import java.math.BigInteger;
 
-import static com.platon.mtool.client.tools.CliConfigUtils.CLIENT_CONFIG;
-
 /**
  * 质押
  *
@@ -42,8 +40,8 @@ public class StakingExecutor extends MtoolExecutor<StakingOption> {
     return com.platon.mtool.common.web3j.Web3jUtil.getFromConfig(validatorConfig);
   }
 
-  protected StakingContract getStakingContract(Web3j web3j, Credentials credentials, Long chainId) {
-    return StakingContract.load(web3j, credentials, chainId);
+  protected StakingContract getStakingContract(Web3j web3j, Credentials credentials) {
+    return StakingContract.load(web3j, credentials);
   }
 
   @Override
@@ -59,7 +57,7 @@ public class StakingExecutor extends MtoolExecutor<StakingOption> {
 
     Credentials credentials = option.getKeystore().getCredentials();
     StakingContract stakingContract =
-        getStakingContract(web3j, credentials, CLIENT_CONFIG.getTargetChainId());
+        getStakingContract(web3j, credentials);
 
 
     StakingParam stakingParam =

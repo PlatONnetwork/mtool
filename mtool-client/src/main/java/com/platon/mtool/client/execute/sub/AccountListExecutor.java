@@ -1,9 +1,8 @@
 package com.platon.mtool.client.execute.sub;
 
-import com.alibaba.fastjson.JSON;
 import com.beust.jcommander.JCommander;
-import com.platon.crypto.Address;
 import com.platon.crypto.WalletFile;
+import com.platon.crypto.WalletUtils;
 import com.platon.mtool.client.execute.MtoolExecutor;
 import com.platon.mtool.client.options.AccountOptions.ListOption;
 import com.platon.mtool.client.tools.PrintUtils;
@@ -27,45 +26,29 @@ import java.util.stream.Stream;
  * <p>Created by liyf
  */
 public class AccountListExecutor extends MtoolExecutor<ListOption> {
-  private static final Logger logger = LoggerFactory.getLogger(AccountListExecutor.class);
+    private static final Logger logger = LoggerFactory.getLogger(AccountListExecutor.class);
 
-  public AccountListExecutor(JCommander commander, ListOption commonOption) {
-    super(commander, commonOption);
-  }
-
-  @Override
-  public void execute(ListOption option) throws Exception {
-    LogUtils.info(logger, () -> Log.newBuilder().msg(Account.LIST).kv("option", option));
-
-    List<Path> keystorePaths;
-    try (Stream<Path> paths = Files.list(ResourceUtils.getKeystorePath())) {
-      keystorePaths = paths.collect(Collectors.toList());
+    public AccountListExecutor(JCommander commander, ListOption commonOption) {
+        super(commander, commonOption);
     }
 
-    for (Path keystorePath : keystorePaths) {
-      Address address = getAddress(keystorePath);
-      if (address!=null) {
-        PrintUtils.echo(
-            "%s:\n" +
-            " mainnet: %s\n" +
-            " testnet: %s",
-            FilenameUtils.getBaseName(keystorePath.getFileName().toString()),
-                address.getMainnet(),
-                address.getTestnet()
-        );
-      }
-    }
-  }
+    @Override
+    public void execute(ListOption option) throws Exception {
+        LogUtils.info(logger, () -> Log.newBuilder().msg(Account.LIST).kv("option", option));
 
-  private Address getAddress(Path keystorePath) {
-    WalletFile walletFile;
-    try {
-      walletFile = JSON.parseObject(Files.newInputStream(keystorePath), WalletFile.class);
-    } catch (Exception e) {
-      LogUtils.info(
-          logger, () -> Log.newBuilder().msg("ignore none json file").kv("name", keystorePath));
-     walletFile = new WalletFile();
+        List<Path> keystorePaths;
+        try (Stream<Path> paths = Files.list(ResourceUtils.getKeystorePath())) {
+            keystorePaths = paths.collect(Collectors.toList());
+        }
+
+        for (Path keystorePath : keystorePaths) {
+            WalletFile walletFile = WalletUtils.loadWalletFile(keystorePath.toFile());
+            if (walletFile.getAddress() != null) {
+                PrintUtils.echo( "%s:\n" +
+                                "address: %s\n\n",
+                        FilenameUtils.getBaseName(keystorePath.getFileName().toString()), walletFile.getAddress()
+                );
+            }
+        }
     }
-    return walletFile.getAddress();
-  }
 }

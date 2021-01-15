@@ -20,8 +20,6 @@ import org.slf4j.LoggerFactory;
 
 import java.math.BigInteger;
 
-import static com.platon.mtool.client.tools.CliConfigUtils.CLIENT_CONFIG;
-
 /**
  * 声明版本提案
  *
@@ -41,8 +39,8 @@ public class DeclareVersionExecutor extends MtoolExecutor<DeclareVersionOption> 
   }
 
   protected ProposalContract getProposalContract(
-      Web3j web3j, Credentials credentials, Long chainId) {
-    return ProposalContract.load(web3j, credentials, chainId);
+      Web3j web3j, Credentials credentials) {
+    return ProposalContract.load(web3j, credentials);
   }
 
   @Override
@@ -55,7 +53,7 @@ public class DeclareVersionExecutor extends MtoolExecutor<DeclareVersionOption> 
     Credentials credentials = option.getKeystore().getCredentials();
 
     ProposalContract proposalContract =
-        getProposalContract(web3j, credentials, CLIENT_CONFIG.getTargetChainId());
+        getProposalContract(web3j, credentials);
     ProgramVersion programVersion = web3j.getProgramVersion().send().getAdminProgramVersion();
     GasProvider gasProvider =
         proposalContract.getDeclareVersionGasProvider(

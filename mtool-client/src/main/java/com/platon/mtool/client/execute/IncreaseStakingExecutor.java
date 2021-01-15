@@ -16,8 +16,6 @@ import com.platon.tx.gas.GasProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.platon.mtool.client.tools.CliConfigUtils.CLIENT_CONFIG;
-
 /**
  * 增持质押
  *
@@ -38,8 +36,8 @@ public class IncreaseStakingExecutor extends MtoolExecutor<IncreaseStakingOption
   }
 
   protected StakingContract getStakingContract(
-      Web3j web3j, Credentials credentials, Long chainId) {
-    return StakingContract.load(web3j, credentials, chainId);
+      Web3j web3j, Credentials credentials) {
+    return StakingContract.load(web3j, credentials);
   }
 
   @Override
@@ -55,7 +53,7 @@ public class IncreaseStakingExecutor extends MtoolExecutor<IncreaseStakingOption
     Credentials credentials = option.getKeystore().getCredentials();
 
     StakingContract stakingContract =
-        getStakingContract(web3j, credentials, CLIENT_CONFIG.getTargetChainId());
+        getStakingContract(web3j, credentials);
     GasProvider gasProvider =
         stakingContract.getAddStakingGasProvider(
             validatorConfig.getNodePublicKey(),
