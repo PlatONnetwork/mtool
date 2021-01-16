@@ -23,6 +23,7 @@ public abstract class CliExceptionHelp {
   private CliExceptionHelp() {}
 
   public static void stopAndPrintError(Exception e) {
+    e.printStackTrace();
     logger.error("execute", e);
     if (PrintUtils.isJunitTest()) {
       ProgressBar.stop("error occur");
