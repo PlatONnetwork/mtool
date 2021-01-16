@@ -197,6 +197,9 @@ class ExecutorTest {
     static Stream<String> cmdGenerator() {
         return Stream.of(
                 String.format(
+                        "account list"),
+
+                String.format(
                         "create_restricting --keystore %s --config %s --file %s",
                         STAKING_KEYSTORE_PATH.toAbsolutePath().toString(),
                         VALIDATOR_CONFIG_PATH.toAbsolutePath().toString(),

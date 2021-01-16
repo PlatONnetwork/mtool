@@ -34,7 +34,7 @@ public abstract class CliExecutor<T extends CommonOption> {
       }
       if (PrintUtils.isJunitTest()) {
         // 单元测试时该入口不往下执行， 要使用execute(T option)
-        return;
+        // return;
       }
       try {
         execute(commonOption);

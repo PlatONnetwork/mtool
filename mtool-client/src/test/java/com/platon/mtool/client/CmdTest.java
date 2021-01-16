@@ -69,6 +69,18 @@ class CmdTest {
   }
 
   @Test
+  void account_list() {
+    //mtool-client account list
+    String args =
+            String.format("account list");
+
+    //args = "staking --amount 10000 --keystore D:\\javalang\\Juzix-Platon\\mtool\\mtool-client\\src\\test\\resources\\cdm.json --config D:\\javalang\\Juzix-Platon\\mtool\\mtool-client\\src\\test\\resources\\validator.json --delegated_reward_rate 900 --benefit_address atp1l3mv260zc0et6d65qks2hvevmv7t0577qgvhka";
+    parser.parse(args.split(WHITE_SPACE));
+    new MtoolClient().run(parser);
+    assertTrue(true);
+  }
+
+  @Test
   void auto_staking() {
     //mtool-client staking --config /home/luodahui/mtool/validator/validator_config_151_6790.json --keystore /home/luodahui/mtool/keystore/test_staking3.json --autoamount 10000 --benefit_address atp1tafunymdk222q2wma3fmncnrkksnkys9uphfmn --delegated_reward_rate 5000 --node_name myNode4 --website www.mywebsite4.com --details myNodeDescription4 --external_id 121412312
     KEYSTORE_PATH = ResourceUtils.getResource("test_staking_luodahui.json").toAbsolutePath().toString();
