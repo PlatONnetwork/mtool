@@ -10,7 +10,6 @@ import com.platon.mtool.client.tools.ResourceUtils;
 import com.platon.mtool.common.AllCommands.Account;
 import com.platon.mtool.common.logger.Log;
 import com.platon.mtool.common.utils.LogUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,15 +37,22 @@ public class AccountListExecutor extends MtoolExecutor<ListOption> {
 
         List<Path> keystorePaths;
         try (Stream<Path> paths = Files.list(ResourceUtils.getKeystorePath())) {
-            keystorePaths = paths.collect(Collectors.toList());
+            keystorePaths = paths.filter(path ->!path.getFileName().endsWith("IGNORE.me")).collect(Collectors.toList());
+        }
+
+        if (keystorePaths.size()==0){
+            PrintUtils.echo("There' no keystore file found");
+            return;
         }
 
         for (Path keystorePath : keystorePaths) {
+            //todo: filter the file by regex to exclude the Observed Keystore.
             WalletFile walletFile = WalletUtils.loadWalletFile(keystorePath.toFile());
             if (walletFile.getAddress() != null) {
                 PrintUtils.echo( "%s:\n" +
                                 "address: %s\n\n",
-                        FilenameUtils.getBaseName(keystorePath.getFileName().toString()), walletFile.getAddress()
+                        keystorePath.getFileName().toString(), walletFile.getAddress()
+                        //FilenameUtils.getBaseName(keystorePath.getFileName().toString()), walletFile.getAddress()
                 );
             }
         }
