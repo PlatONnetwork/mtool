@@ -47,13 +47,18 @@ public class AccountListExecutor extends MtoolExecutor<ListOption> {
 
         for (Path keystorePath : keystorePaths) {
             //todo: filter the file by regex to exclude the Observed Keystore.
-            WalletFile walletFile = WalletUtils.loadWalletFile(keystorePath.toFile());
-            if (walletFile.getAddress() != null) {
-                PrintUtils.echo( "%s:\n" +
-                                "address: %s\n\n",
-                        keystorePath.getFileName().toString(), walletFile.getAddress()
-                        //FilenameUtils.getBaseName(keystorePath.getFileName().toString()), walletFile.getAddress()
-                );
+            try {
+                WalletFile walletFile = WalletUtils.loadWalletFile(keystorePath.toFile());
+                if (walletFile.getAddress() != null) {
+                    PrintUtils.echo( "%s:\n" +
+                                    "address: %s\n\n",
+                            keystorePath.getFileName().toString(), walletFile.getAddress()
+                            //FilenameUtils.getBaseName(keystorePath.getFileName().toString()), walletFile.getAddress()
+                    );
+                }
+            }catch (Exception e){
+                PrintUtils.echo( "%s is not a valid keystore.\n",
+                        keystorePath.getFileName().toString());
             }
         }
     }
