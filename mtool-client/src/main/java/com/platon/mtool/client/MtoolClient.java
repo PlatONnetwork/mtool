@@ -102,6 +102,13 @@ public class MtoolClient {
     run(parser);
   }
 
+  /**
+   * IMPORTANT:
+   * 对于在unit test中，直接调用此方法前，
+   * 要先执行CliConfigUtils.loadProperties();
+   * 以便加载自定义链参数
+   * @param parser
+   */
   public void run(BaseOptionParser parser){
 
     if (StringUtils.isEmpty(parser.getCommandName())) {
