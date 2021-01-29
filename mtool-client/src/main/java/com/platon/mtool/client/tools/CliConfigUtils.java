@@ -18,7 +18,11 @@ public class CliConfigUtils {
     private static final Logger logger = LoggerFactory.getLogger(CliConfigUtils.class);
     public static final MtoolClientConfig CLIENT_CONFIG = new MtoolClientConfig();
 
-    static {
+    private CliConfigUtils() {
+    }
+
+
+    public static void loadProperties() {
         Properties p = new Properties();
         try {
             p.load(Files.newInputStream(ResourceUtils.getRootPath().resolve("config.properties")));
@@ -35,9 +39,6 @@ public class CliConfigUtils {
             logger.error("Check the values in config file. {}", ResourceUtils.getRootPath(), e1);
             throw new MtoolClientException("Config file error. " + ResourceUtils.getKeystorePath() + " : " + e1.getMessage());
         }
-    }
-
-    private CliConfigUtils() {
     }
 
     public static class MtoolClientConfig {

@@ -8,6 +8,7 @@ import com.platon.mtool.client.execute.restricting.CreateRestrictingPlanExecutor
 import com.platon.mtool.client.parser.BaseOptionParser;
 import com.platon.mtool.client.router.AccountRouter;
 import com.platon.mtool.client.router.TxRouter;
+import com.platon.mtool.client.tools.CliConfigUtils;
 import com.platon.mtool.client.tools.PrintUtils;
 import com.platon.mtool.common.AllCommands;
 import com.platon.mtool.common.AllModules;
@@ -50,6 +51,9 @@ public class MtoolClient {
   }
 
   public void run(String[] args) {
+    //加载用户自定义配置文件，加载hrp/chain id等
+    CliConfigUtils.loadProperties();
+
     // 构建参数解析器
     BaseOptionParser parser = new BaseOptionParser("mtool");
     try {
