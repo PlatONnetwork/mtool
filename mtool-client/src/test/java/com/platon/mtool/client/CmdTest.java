@@ -2,8 +2,10 @@ package com.platon.mtool.client;
 
 
 import com.platon.mtool.client.parser.BaseOptionParser;
+import com.platon.mtool.client.tools.CliConfigUtils;
 import com.platon.mtool.client.tools.ResourceUtils;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -36,6 +38,10 @@ class CmdTest {
 
   @InjectMocks private BaseOptionParser parser = new BaseOptionParser("mtool-test");
 
+  @BeforeEach
+  void setup(){
+    CliConfigUtils.loadProperties();
+  }
   @Test
   void create_restricting() {
     String args =
@@ -56,6 +62,7 @@ class CmdTest {
     assertTrue(true);
   }
 
+
   @Test
   void staking() {
     String args =
@@ -65,6 +72,18 @@ class CmdTest {
 
     //args = "staking --amount 10000 --keystore D:\\javalang\\Juzix-Platon\\mtool\\mtool-client\\src\\test\\resources\\cdm.json --config D:\\javalang\\Juzix-Platon\\mtool\\mtool-client\\src\\test\\resources\\validator.json --delegated_reward_rate 900 --benefit_address atp1l3mv260zc0et6d65qks2hvevmv7t0577qgvhka";
     parser.parse(args.split(WHITE_SPACE));
+    assertTrue(true);
+  }
+
+  @Test
+  void account_balance() {
+
+    //mtool-client account list
+   // String args = String.format("account balance D:\\javalang\\github.com\\mtool\\mtool-client\\src\\test\\resources\\keystore_huangyun.json --config D:\\javalang\\github.com\\mtool\\mtool-client\\src\\test\\resources\\validator_huangyun.json");
+    String args = "account balance D:\\javalang\\github.com\\mtool\\mtool-client\\build\\distributions\\mtool-client-alaya_0.15.1.0\\keystore\\keystore_huangyun.json --config D:\\javalang\\github.com\\mtool\\mtool-client\\build\\distributions\\mtool-client-alaya_0.15.1.0\\validator\\validator_huangyun.json";
+    //args = "staking --amount 10000 --keystore D:\\javalang\\Juzix-Platon\\mtool\\mtool-client\\src\\test\\resources\\cdm.json --config D:\\javalang\\Juzix-Platon\\mtool\\mtool-client\\src\\test\\resources\\validator.json --delegated_reward_rate 900 --benefit_address atp1l3mv260zc0et6d65qks2hvevmv7t0577qgvhka";
+    parser.parse(args.split(WHITE_SPACE));
+    new MtoolClient().run(parser);
     assertTrue(true);
   }
 
