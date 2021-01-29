@@ -66,7 +66,7 @@ public class AccountBalanceExecutor extends MtoolExecutor<BalanceOption> {
     if (!WalletUtils.isValidAddress(address)) {
       throw new MtoolClientException("Invalid address");
     }
-    if(Bech32.checkBech32Addr(address)){
+    if(!Bech32.checkBech32Addr(address)){
       throw new MtoolClientException(address + " is not a legal address of chain["+CLIENT_CONFIG.getChainId()+"]");
     }
 
