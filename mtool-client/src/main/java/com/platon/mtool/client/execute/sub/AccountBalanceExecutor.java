@@ -67,7 +67,7 @@ public class AccountBalanceExecutor extends MtoolExecutor<BalanceOption> {
       throw new MtoolClientException("Invalid address");
     }
     if(Bech32.checkBech32Addr(address)){
-      throw new MtoolClientException("is not a legal address of chain["+CLIENT_CONFIG.getChainId()+"]");
+      throw new MtoolClientException(address + " is not a legal address of chain["+CLIENT_CONFIG.getChainId()+"]");
     }
 
     Web3j web3j = getWeb3j(option.getConfig());
