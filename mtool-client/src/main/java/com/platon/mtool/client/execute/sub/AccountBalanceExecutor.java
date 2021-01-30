@@ -63,6 +63,8 @@ public class AccountBalanceExecutor extends MtoolExecutor<BalanceOption> {
       throw MtoolClientExceptionCode.COMMAND_NOT_FOUND.create();
     }
 
+    address = com.platon.bech32.Bech32.convertToUnifiedAddress(address);
+
     if (!WalletUtils.isValidAddress(address)) {
       throw new MtoolClientException("Invalid address");
     }
