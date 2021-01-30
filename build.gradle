@@ -34,7 +34,7 @@ ext {
     // sdk version
     sdkVersion = '0.15.1.0-SNAPSHOT'
     // sdk发包时间， 无用字段， 测试部门要求添加
-    sdkTime = '2020-11-30'
+    sdkTime = '2021-01-30'
     // timestamp
     buildTimestamp = new Date().format('yyyy-MM-dd HH:mm:ss')
 }
