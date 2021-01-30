@@ -34,6 +34,7 @@ public class CreateObserveWalletExecutor extends MtoolExecutor<CreateObserveWall
     String originName = FilenameUtils.getBaseName(option.getKeystore().getFilepath());
     String observeName = originName + "_observed.json";
     Keystore keystore = new Keystore();
+    keystore.setAddress(option.getKeystore().getAddress());
     keystore.setType(Keystore.Type.OBSERVE);
     String absolutePath =
         ResourceUtils.getKeystorePath().resolve(observeName).toAbsolutePath().toString();
