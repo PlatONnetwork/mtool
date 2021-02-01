@@ -59,8 +59,7 @@ public class ObserveStakingExecutor extends MtoolExecutor<StakingOption> {
     // 检查当前金额是否满足链上的最小质押金额
     blockChainService.validAmount(web3j,"staking","stakeThreshold",option.getAmount().getAmount());
 
-    blockChainService.validSelfStakingAddress(
-        web3j, validatorConfig.getNodePublicKey(), option.getKeystore().getAddress());
+    //blockChainService.validSelfStakingAddress(web3j, validatorConfig.getNodePublicKey(), option.getKeystore().getAddress());
 
     String targetChainAddress = option.getKeystore().getAddress();
 
