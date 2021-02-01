@@ -192,8 +192,11 @@ public class BlockChainService {
      */
     public void validSelfStakingAddress(Web3j web3j, String nodeId, String address) throws Exception {
         Node node = contractUtil.getNode(web3j, nodeId);
-        if (node != null && !node.getStakingAddress().equalsIgnoreCase(address)) {
-            throw new MtoolClientException("address mismatch");
+        if(node==null){
+            throw new MtoolClientException("chain node not found, nodeId=" + nodeId);
+        }
+        if (!node.getStakingAddress().equalsIgnoreCase(address)) {
+            throw new MtoolClientException("address mismatch, node stakingAddress=" + node.getStakingAddress() + "; keystore address=" + address);
         }
     }
 
