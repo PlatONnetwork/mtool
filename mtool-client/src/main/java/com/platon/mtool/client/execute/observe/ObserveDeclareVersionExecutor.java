@@ -65,7 +65,7 @@ public class ObserveDeclareVersionExecutor extends MtoolExecutor<DeclareVersionO
     TransactionManager transactionManager =
         new MtoolTransactionManager(
             web3j, targetChainAddress);
-    ProposalContract proposalContract = ProposalContract.load(web3j);
+    ProposalContract proposalContract = ProposalContract.load(web3j, transactionManager);
     ProgramVersion programVersion = web3j.getProgramVersion().send().getAdminProgramVersion();
     GasProvider gasProvider =
         proposalContract.getDeclareVersionGasProvider(

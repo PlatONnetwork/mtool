@@ -64,7 +64,7 @@ public class ObserveIncreaseStakingExecutor extends MtoolExecutor<IncreaseStakin
     String targetChainAddress = option.getKeystore().getAddress();
     TransactionManager transactionManager =
         new MtoolTransactionManager(web3j, targetChainAddress);
-    StakingContract stakingContract = StakingContract.load(web3j);
+    StakingContract stakingContract = StakingContract.load(web3j, transactionManager);
     GasProvider gasProvider =
         stakingContract.getAddStakingGasProvider(
             validatorConfig.getNodePublicKey(),

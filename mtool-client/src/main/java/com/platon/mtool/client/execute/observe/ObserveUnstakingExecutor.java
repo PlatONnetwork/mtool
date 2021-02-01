@@ -63,7 +63,7 @@ public class ObserveUnstakingExecutor extends MtoolExecutor<UnstakingOption> {
     TransactionManager transactionManager =
         new MtoolTransactionManager(
             web3j, targetChainAddress);
-    StakingContract stakingContract = StakingContract.load(web3j);
+    StakingContract stakingContract = StakingContract.load(web3j, transactionManager);
     GasProvider gasProvider =
         stakingContract.getUnStakingGasProvider(validatorConfig.getNodePublicKey());
     blockChainService.validBalanceEnough(
