@@ -2,6 +2,7 @@ package com.platon.mtool.common.web3j;
 
 import com.alibaba.fastjson.JSON;
 import com.platon.crypto.RawTransaction;
+import com.platon.parameters.NetworkParameters;
 import com.platon.protocol.Web3j;
 import com.platon.protocol.core.DefaultBlockParameterName;
 import com.platon.protocol.core.methods.response.PlatonGetTransactionCount;
@@ -68,7 +69,7 @@ public class MtoolTransactionManager extends TransactionManager {
     entity.setCreateTime(LocalDateTime.now());
     entity.setFee(gasLimit.multiply(gasPrice));
     entity.setFrom(fromAddress);
-    //entity.setChainId(chainId);
+    entity.setChainId(NetworkParameters.getChainId());
     PlatonSendTransaction platonSendTransaction = new PlatonSendTransaction();
     platonSendTransaction.setResult(JSON.toJSONString(entity));
     return platonSendTransaction;
