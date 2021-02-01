@@ -61,7 +61,7 @@ public class ObserveCreateRestrictingPlanExecutor extends MtoolExecutor<CreateRe
         ValidatorConfig validatorConfig = option.getConfig();
         Web3j web3j = com.platon.mtool.common.web3j.Web3jUtil.getFromConfig(validatorConfig);
 
-        blockChainService.validSelfStakingAddress(web3j, validatorConfig.getNodePublicKey(), option.getKeystore().getAddress());
+        //blockChainService.validSelfStakingAddress(web3j, validatorConfig.getNodePublicKey(), option.getKeystore().getAddress());
 
         String targetChainAddress = option.getKeystore().getAddress();
 
