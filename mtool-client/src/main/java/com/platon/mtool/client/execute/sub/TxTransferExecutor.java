@@ -132,6 +132,8 @@ public class TxTransferExecutor extends MtoolExecutor<TransferOption> {
                   gasProvider.getGasLimit())
               .send();
 
+      //对观察者钱包来说，receipt.getTransactionHash()就是TransactionEntity.
+      //@see com.platon.mtool.common.web3j.MtoolTransactionManager.sendTransaction
       TransactionEntity entity =
           JSON.parseObject(receipt.getTransactionHash(), TransactionEntity.class);
       entity.setType(FuncTypeEnum.TRANSFER);
