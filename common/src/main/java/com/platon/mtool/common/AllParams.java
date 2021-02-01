@@ -8,7 +8,13 @@ package com.platon.mtool.common;
 public final class AllParams {
 
   public static final String NAME = "--name";
+  /**
+   *针对直接输入地址，或者观察者钱包
+   */
   public static final String ADDRESS = "--address";
+  /**
+   * 针对真正的keytore
+   */
   public static final String KEYSTORE = "--keystore";
   public static final String CONFIG = "--config";
   public static final String PID_ID = "--pid_id";
