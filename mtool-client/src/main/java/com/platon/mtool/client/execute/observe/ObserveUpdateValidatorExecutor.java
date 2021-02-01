@@ -72,9 +72,9 @@ public class ObserveUpdateValidatorExecutor extends MtoolExecutor<UpdateValidato
             web3j, targetChainAddress);
     StakingContract stakingContract = StakingContract.load(web3j, transactionManager);
 
-    /*blockChainService.validSelfStakingAddress(
+    blockChainService.validSelfStakingAddress(
         web3j, validatorConfig.getNodePublicKey(), option.getKeystore().getAddress());
-*/
+
     // 交易参数
     UpdateStakingParam updateStakingParam =
             new UpdateStakingParam.Builder()
