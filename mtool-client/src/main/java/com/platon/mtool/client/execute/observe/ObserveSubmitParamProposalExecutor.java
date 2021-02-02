@@ -68,7 +68,7 @@ public class ObserveSubmitParamProposalExecutor extends MtoolExecutor<SubmitPara
     String targetChainAddress = option.getKeystore().getAddress();
     TransactionManager transactionManager =
         new MtoolTransactionManager(web3j, targetChainAddress);
-    ProposalContract proposalContract = ProposalContract.load(web3j);
+    ProposalContract proposalContract = ProposalContract.load(web3j, transactionManager);
     Proposal proposal =
         Proposal.createSubmitParamProposalParam(
             validatorConfig.getNodePublicKey(),
