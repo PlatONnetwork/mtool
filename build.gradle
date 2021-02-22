@@ -11,7 +11,8 @@ buildscript {
     repositories {
         mavenLocal()
         maven {url "http://maven.aliyun.com/nexus/content/groups/public/"}
-        maven {url "http://192.168.9.39:8081/repository/maven-releases/"}
+        maven {url "https://sdk.platon.network/nexus/content/repositories/releases/"}
+        maven {url "https://sdk.platon.network/nexus/content/repositories/snapshots/"}
         mavenCentral()
         jcenter()
     }
@@ -32,7 +33,7 @@ ext {
     // Get abbreviated commit Id of HEAD
     gitAbbRevision = git.head().abbreviatedId
     // sdk version
-    sdkVersion = '0.15.1.0-SNAPSHOT'
+    sdkVersion = '0.15.1.0'
     // sdk发包时间， 无用字段， 测试部门要求添加
     sdkTime = '2021-01-30'
     // timestamp
