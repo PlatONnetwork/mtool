@@ -1,6 +1,5 @@
 package com.platon.mtool.client.execute.sub;
 
-import com.alibaba.fastjson.JSON;
 import com.beust.jcommander.JCommander;
 import com.platon.bech32.Bech32;
 import com.platon.crypto.WalletFile;
@@ -25,7 +24,6 @@ import org.slf4j.LoggerFactory;
 
 import java.math.BigInteger;
 import java.math.RoundingMode;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static com.platon.mtool.client.tools.CliConfigUtils.CLIENT_CONFIG;
@@ -58,7 +56,8 @@ public class AccountBalanceExecutor extends MtoolExecutor<BalanceOption> {
       if (!keystorePath.toFile().exists()) {
         throw MtoolClientExceptionCode.FILE_NOT_FOUND.create();
       }
-      address = getAddress(keystorePath);
+      WalletFile walletFile = WalletUtils.loadWalletFile(keystorePath.toFile());
+      address = walletFile.getAddress();
     } else {
       throw MtoolClientExceptionCode.COMMAND_NOT_FOUND.create();
     }
@@ -79,17 +78,6 @@ public class AccountBalanceExecutor extends MtoolExecutor<BalanceOption> {
     PrintUtils.echo("Balanceof: %s\nATP:%s", address, formatAmount(platonGetBalance.getBalance()));
   }
 
-  private String getAddress(Path keystorePath) {
-    WalletFile walletFile;
-    try {
-      walletFile = JSON.parseObject(Files.newInputStream(keystorePath), WalletFile.class);
-    } catch (Exception e) {
-      LogUtils.info(
-              logger, () -> Log.newBuilder().msg("ignore none json file").kv("name", keystorePath));
-      walletFile = new WalletFile();
-    }
-    return walletFile.getAddress();
-  }
 
   private static String formatAmount(BigInteger bigInteger) {
     return PlatOnUnit.vonToLat(bigInteger)

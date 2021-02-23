@@ -80,7 +80,7 @@ class CmdTest {
 
     //mtool-client account list
    // String args = String.format("account balance D:\\javalang\\github.com\\mtool\\mtool-client\\src\\test\\resources\\keystore_huangyun.json --config D:\\javalang\\github.com\\mtool\\mtool-client\\src\\test\\resources\\validator_huangyun.json");
-    String args = "account balance D:\\javalang\\github.com\\mtool\\mtool-client\\build\\distributions\\mtool-client-alaya_0.15.1.0\\keystore\\keystore_huangyun.json --config D:\\javalang\\github.com\\mtool\\mtool-client\\build\\distributions\\mtool-client-alaya_0.15.1.0\\validator\\validator_huangyun.json";
+    String args = "account balance D:\\javalang\\github.com\\mtool\\mtool-client\\src\\test\\resources\\aton14.json --config D:\\javalang\\github.com\\mtool\\mtool-client\\src\\test\\resources\\validator.json";
     //args = "staking --amount 10000 --keystore D:\\javalang\\Juzix-Platon\\mtool\\mtool-client\\src\\test\\resources\\cdm.json --config D:\\javalang\\Juzix-Platon\\mtool\\mtool-client\\src\\test\\resources\\validator.json --delegated_reward_rate 900 --benefit_address atp1l3mv260zc0et6d65qks2hvevmv7t0577qgvhka";
     parser.parse(args.split(WHITE_SPACE));
     new MtoolClient().run(parser);

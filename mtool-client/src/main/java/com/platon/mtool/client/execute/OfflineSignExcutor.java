@@ -4,6 +4,8 @@ import com.beust.jcommander.JCommander;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.platon.crypto.Credentials;
 import com.platon.crypto.TransactionEncoder;
+import com.platon.crypto.WalletFile;
+import com.platon.crypto.WalletUtils;
 import com.platon.mtool.client.ClientConsts;
 import com.platon.mtool.client.converter.KeystoreConverter;
 import com.platon.mtool.client.options.OfflineSignOption;
@@ -104,7 +106,10 @@ public class OfflineSignExcutor extends MtoolExecutor<OfflineSignOption> {
         }
         KeystoreConverter converter = new KeystoreConverter(AllParams.KEYSTORE);
         for (Path keystorePath : keystorePaths) {
-            String address = getAddress(keystorePath);
+            //String address = getAddress(keystorePath);
+            WalletFile walletFile = WalletUtils.loadWalletFile(keystorePath.toFile());
+            String address = walletFile.getAddress();
+
             if (address == null) continue;
             if (addressSet.contains(address)) {
                 Keystore keystore = new Keystore();
