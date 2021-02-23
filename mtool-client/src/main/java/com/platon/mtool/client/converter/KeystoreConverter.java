@@ -47,7 +47,7 @@ public class KeystoreConverter extends BaseConverter<Keystore> {
         return keystore;
     }
 
-    private static final String MAIN_TEST_ADDRESS_REGEX = "\\\"address\\\"\\s*:\\s*\\{\\s*\\\"mainnet\\\"\\s*:\\s*\\\"(\\S*)\\\"[^}]*\\}";
+    private static final String MAIN_TEST_ADDRESS_REGEX = "\\\"address\\\"\\s*:\\s*\\{\\s*\\\"mainnet\\\"\\s*:\\s*\\\"([A-Za-z0-9]+)\\\"[^}]*\\}";
 
     public Keystore convertObserve(Path path) {
         Keystore keystore = null;
