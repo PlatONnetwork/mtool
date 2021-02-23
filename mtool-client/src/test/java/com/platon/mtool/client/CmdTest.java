@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(MockitoExtension.class)
 class CmdTest {
 
-  private final static String ADDRESS = "atp1k92gm4sszzn59ntxlwrryj4nu2f4tpjtjkv55w";
+  private final static String ADDRESS = "lat1k92gm4sszzn59ntxlwrryj4nu2f4tpjttq6vtp";
   private static String WHITE_SPACE = "\\s+";
   private static String VALIDATOR_CONFIG_PATH =
       ResourceUtils.getResource("validator_config.json").toAbsolutePath().toString();
@@ -30,7 +30,7 @@ class CmdTest {
   private static String RESTRICTING_PLAN_PATH =
           ResourceUtils.getResource("restricting_plans.json").toAbsolutePath().toString();
 
-  private static String benefitAddress = "atp196278ns22j23awdfj9f2d4vz0pedld8a2fzwwj";
+  private static String benefitAddress = "lat196278ns22j23awdfj9f2d4vz0pedld8anl5k3a";
   private static String nodeName = "nodeNameForTest";
   private static String website = "www.website.com";
   private static String externalId = "github_commitID";
@@ -70,7 +70,7 @@ class CmdTest {
             "staking --amount 5000000 --keystore %s --config %s --benefit_address %s  --delegated_reward_rate 5000 --node_name %s --external_id %s --website %s  --details %s",
             KEYSTORE_PATH, VALIDATOR_CONFIG_PATH, benefitAddress, nodeName, externalId, website, details);
 
-    //args = "staking --amount 10000 --keystore D:\\javalang\\Juzix-Platon\\mtool\\mtool-client\\src\\test\\resources\\cdm.json --config D:\\javalang\\Juzix-Platon\\mtool\\mtool-client\\src\\test\\resources\\validator.json --delegated_reward_rate 900 --benefit_address atp1l3mv260zc0et6d65qks2hvevmv7t0577qgvhka";
+    //args = "staking --amount 10000 --keystore D:\\javalang\\Juzix-Platon\\mtool\\mtool-client\\src\\test\\resources\\cdm.json --config D:\\javalang\\Juzix-Platon\\mtool\\mtool-client\\src\\test\\resources\\validator.json --delegated_reward_rate 900 --benefit_address lat1l3mv260zc0et6d65qks2hvevmv7t0577e760fj";
     parser.parse(args.split(WHITE_SPACE));
     assertTrue(true);
   }
@@ -80,8 +80,8 @@ class CmdTest {
 
     //mtool-client account list
    // String args = String.format("account balance D:\\javalang\\github.com\\mtool\\mtool-client\\src\\test\\resources\\keystore_huangyun.json --config D:\\javalang\\github.com\\mtool\\mtool-client\\src\\test\\resources\\validator_huangyun.json");
-    String args = "account balance D:\\javalang\\github.com\\mtool\\mtool-client\\build\\distributions\\mtool-client-alaya_0.15.1.0\\keystore\\keystore_huangyun.json --config D:\\javalang\\github.com\\mtool\\mtool-client\\build\\distributions\\mtool-client-alaya_0.15.1.0\\validator\\validator_huangyun.json";
-    //args = "staking --amount 10000 --keystore D:\\javalang\\Juzix-Platon\\mtool\\mtool-client\\src\\test\\resources\\cdm.json --config D:\\javalang\\Juzix-Platon\\mtool\\mtool-client\\src\\test\\resources\\validator.json --delegated_reward_rate 900 --benefit_address atp1l3mv260zc0et6d65qks2hvevmv7t0577qgvhka";
+    String args = "account balance D:\\javalang\\github.com\\mtool\\mtool-client\\src\\test\\resources\\keystore_huangyun.json --config D:\\javalang\\github.com\\mtool\\mtool-client\\src\\test\\resources\\validator_huangyun.json";
+    //args = "staking --amount 10000 --keystore D:\\javalang\\Juzix-Platon\\mtool\\mtool-client\\src\\test\\resources\\cdm.json --config D:\\javalang\\Juzix-Platon\\mtool\\mtool-client\\src\\test\\resources\\validator.json --delegated_reward_rate 900 --benefit_address lat1tafunymdk222q2wma3fmncnrkksnkys99hp3yu";
     parser.parse(args.split(WHITE_SPACE));
     new MtoolClient().run(parser);
     assertTrue(true);
@@ -93,7 +93,7 @@ class CmdTest {
     String args =
             String.format("account list");
 
-    //args = "staking --amount 10000 --keystore D:\\javalang\\Juzix-Platon\\mtool\\mtool-client\\src\\test\\resources\\cdm.json --config D:\\javalang\\Juzix-Platon\\mtool\\mtool-client\\src\\test\\resources\\validator.json --delegated_reward_rate 900 --benefit_address atp1l3mv260zc0et6d65qks2hvevmv7t0577qgvhka";
+    //args = "staking --amount 10000 --keystore D:\\javalang\\Juzix-Platon\\mtool\\mtool-client\\src\\test\\resources\\cdm.json --config D:\\javalang\\Juzix-Platon\\mtool\\mtool-client\\src\\test\\resources\\validator.json --delegated_reward_rate 900 --benefit_address lat1l3mv260zc0et6d65qks2hvevmv7t0577e760fj";
     parser.parse(args.split(WHITE_SPACE));
     new MtoolClient().run(parser);
     assertTrue(true);
@@ -101,10 +101,10 @@ class CmdTest {
 
   @Test
   void auto_staking() {
-    //mtool-client staking --config /home/luodahui/mtool/validator/validator_config_151_6790.json --keystore /home/luodahui/mtool/keystore/test_staking3.json --autoamount 10000 --benefit_address atp1tafunymdk222q2wma3fmncnrkksnkys9uphfmn --delegated_reward_rate 5000 --node_name myNode4 --website www.mywebsite4.com --details myNodeDescription4 --external_id 121412312
+    //mtool-client staking --config /home/luodahui/mtool/validator/validator_config_151_6790.json --keystore /home/luodahui/mtool/keystore/test_staking3.json --autoamount 10000 --benefit_address lat1tafunymdk222q2wma3fmncnrkksnkys99hp3yu --delegated_reward_rate 5000 --node_name myNode4 --website www.mywebsite4.com --details myNodeDescription4 --external_id 121412312
     KEYSTORE_PATH = ResourceUtils.getResource("test_staking_luodahui.json").toAbsolutePath().toString();
     VALIDATOR_CONFIG_PATH = ResourceUtils.getResource("validator_config_luodahui.json").toAbsolutePath().toString();
-    benefitAddress = "atp1tafunymdk222q2wma3fmncnrkksnkys9uphfmn";
+    benefitAddress = "lat1tafunymdk222q2wma3fmncnrkksnkys99hp3yu";
     nodeName = "myNode4 ";
     externalId = "121412312";
     website = "http://www.mywebsite4.com/";
@@ -114,7 +114,7 @@ class CmdTest {
                     "staking --autoamount 10000 --keystore %s --config %s --benefit_address %s  --delegated_reward_rate 5000 --node_name %s --external_id %s --website %s  --details %s",
                     KEYSTORE_PATH, VALIDATOR_CONFIG_PATH, benefitAddress, nodeName, externalId, website, details);
 
-    //args = "staking --amount 10000 --keystore D:\\javalang\\Juzix-Platon\\mtool\\mtool-client\\src\\test\\resources\\cdm.json --config D:\\javalang\\Juzix-Platon\\mtool\\mtool-client\\src\\test\\resources\\validator.json --delegated_reward_rate 900 --benefit_address atp1l3mv260zc0et6d65qks2hvevmv7t0577qgvhka";
+    //args = "staking --amount 10000 --keystore D:\\javalang\\Juzix-Platon\\mtool\\mtool-client\\src\\test\\resources\\cdm.json --config D:\\javalang\\Juzix-Platon\\mtool\\mtool-client\\src\\test\\resources\\validator.json --delegated_reward_rate 900 --benefit_address lat1vr8v48qjjrh9dwvdfctqauz98a7yp5scvd0pey";
     parser.parse(args.split(WHITE_SPACE));
     new MtoolClient().run(parser);
     assertTrue(true);

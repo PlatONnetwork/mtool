@@ -24,6 +24,7 @@ import com.platon.mtool.client.options.restricting.RestrictingConfigConverter;
 import com.platon.mtool.client.service.BlockChainService;
 import com.platon.mtool.client.test.PlatonJsonHelp;
 import com.platon.mtool.client.test.PlatonMockHelp;
+import com.platon.mtool.client.tools.CliConfigUtils;
 import com.platon.mtool.client.tools.ResourceUtils;
 import com.platon.mtool.common.AllParams;
 import com.platon.mtool.common.entity.StakingAmount;
@@ -184,7 +185,7 @@ class ExecutorTest {
     private PlatonSendTransaction transaction;
     private TransactionResponse successResponse = new TransactionResponse();
 
-    private static String benefitAddress = "atp12jn6835z96ez93flwezrwu4xpv8e4zatwxj7ju";
+    private static String benefitAddress = "lat12jn6835z96ez93flwezrwu4xpv8e4zathsyxdn";
     private static String nodeName = "nodeNameForTest";
     private static String website = "www.website.com";
     private static String externalId = "github_commitID";
@@ -247,7 +248,7 @@ class ExecutorTest {
                         STAKING_KEYSTORE_PATH.toAbsolutePath().toString(),
                         VALIDATOR_CONFIG_PATH.toAbsolutePath().toString()),
                 String.format(
-                        "update_validator --node_name new_name --website new_website --delegated_reward_rate 6000 --benefit_address atp1vr8v48qjjrh9dwvdfctqauz98a7yp5sc4meext"
+                        "update_validator --node_name new_name --website new_website --delegated_reward_rate 6000 --benefit_address lat1vr8v48qjjrh9dwvdfctqauz98a7yp5scvd0pey"
                                 + " --keystore %s --config %s",
                         STAKING_KEYSTORE_PATH.toAbsolutePath().toString(),
                         VALIDATOR_CONFIG_PATH.toAbsolutePath().toString()),
@@ -288,8 +289,12 @@ class ExecutorTest {
 
     @BeforeAll
     static void beforeAll() {
+
+        CliConfigUtils.loadProperties();
+
         KeystoreConverter converter = new KeystoreConverter(AllParams.ADDRESS);
         observedKeystore = converter.convert(OBSERVE_KEYSTORE_PATH.toAbsolutePath().toString());
+
     }
 
     @BeforeEach
@@ -977,7 +982,7 @@ class ExecutorTest {
         keystore.setType(Keystore.Type.NORMAL);
         option.setKeystore(keystore);
         option.setLat(BigDecimal.ONE);
-        option.setTo("atp1k92gm4sszzn59ntxlwrryj4nu2f4tpjtjkv55w");
+        option.setTo("lat1k92gm4sszzn59ntxlwrryj4nu2f4tpjttq6vtp");
         option.setGasProvider(new DefaultGasProvider());
         TxTransferExecutor executor = Mockito.spy(txTransferExecutor);
 

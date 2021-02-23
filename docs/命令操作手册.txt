@@ -26,7 +26,7 @@ Usage: mtool [options] [command] [command options]
         * --keystore, --address
             keystore: 钱包文件，加密文件 address: 观察钱包文件
         * --amount , --restrictedamount, --autoamount
-            质押金额, 不能低于 1000000ATP. 支持账户余额(--amount)，或者锁仓余额(--restrictedamount)，或者支持锁仓+余额（首先扣除锁仓，再扣除账户余额）
+            质押金额, 不能低于 100000LAT. 支持账户余额(--amount)，或者锁仓余额(--restrictedamount)，或者支持锁仓+余额（首先扣除锁仓，再扣除账户余额）
         * --benefit_address
             收益地址。出块奖励，质押奖励将发放到此地址。
         * --delegated_reward_rate
@@ -70,7 +70,7 @@ Usage: mtool [options] [command] [command options]
         * --keystore, --address
             keystore: 钱包文件，加密文件 address: 观察钱包文件
         * --amount, --restrictedamount
-            质押金额, 不能低于 10ATP. 支持账户余额和锁仓余额
+            质押金额, 不能低于 10LAT. 支持账户余额和锁仓余额
 
     unstaking      退出质押
       Usage: unstaking [options]
@@ -295,7 +295,7 @@ Usage: mtool [options] [command] [command options]
                 --gaslimit
                   交易使用的最大gas数量
                 --gasprice
-                  交易的Gas price， ATP为单位
+                  交易的Gas price， LAT为单位
                 --help
                   显示命令帮助说明
               * --keystore, --address

@@ -82,13 +82,13 @@ public class ObserveCreateRestrictingPlanExecutor extends MtoolExecutor<CreateRe
         BigInteger totalVons = BigInteger.ZERO;
         if (option.getRestrictingConfig()!=null){
             for(RestrictingPlan plan : option.getRestrictingConfig().getPlans()){
-                //锁仓计划amoount的单位是ATP
+                //锁仓计划amoount的单位是LAT
                 BigInteger atpAmount = plan.getAmount();
                 BigInteger vonAmount = Convert.toVon(atpAmount.toString(), Convert.Unit.KPVON).toBigInteger();
                 plan.setAmount(vonAmount);
 
                 if (atpAmount.compareTo(minimumReleaseAtp)<0){
-                    throw new MtoolClientException("plan item amount less than " + minimumReleaseAtp +"(ATP)");
+                    throw new MtoolClientException("plan item amount less than " + minimumReleaseAtp +"(LAT)");
                 }
                 totalVons = totalVons.add(vonAmount);
                 /*if(plan.getEpoch().signum()<=0){

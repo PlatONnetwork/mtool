@@ -93,7 +93,7 @@ public abstract class PrintUtils {
         retValue = "y";
       } else if (regex.equals("yes|no")) {
         retValue = "yes";
-      } else if (promote.equals("Adjust Distribution amount (ATP):")) {
+      } else if (promote.equals("Adjust Distribution amount (LAT):")) {
         retValue = "5000000.000001";
       }
       echo("junit test set input: " + retValue);

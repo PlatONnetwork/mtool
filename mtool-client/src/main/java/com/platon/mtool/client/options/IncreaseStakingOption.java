@@ -10,8 +10,8 @@ import com.platon.mtool.common.AllCommands;
 import com.platon.mtool.common.AllParams;
 import com.platon.mtool.common.entity.StakingAmount;
 import com.platon.mtool.common.entity.ValidatorConfig;
-import com.platon.mtool.common.validate.StakingAmountMin;
 import com.platon.mtool.common.web3j.Keystore;
+
 import javax.validation.constraints.NotNull;
 
 /** Created by liyf. */
@@ -23,7 +23,7 @@ public class IncreaseStakingOption extends CommonOption {
   @Parameter(
       names = {AllParams.AMOUNT, AllParams.RESTRICTEDAMOUNT},
       description =
-          "increase stake amount, cannot be lower than the operatingThreshold(ATP) of target chain. support "
+          "increase stake amount, cannot be lower than the operatingThreshold(LAT) of target chain. support "
               + "for using account balances or restricted balances.",
       arity = 1,
       converter = StakingAmountConverter.class,

@@ -1,9 +1,10 @@
 package com.platon.mtool.common.exception;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
-import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /** Created by liyf. */
 class MtoolExceptionFactoryTest {
@@ -11,7 +12,7 @@ class MtoolExceptionFactoryTest {
   @Test
   void createPlatonException() {
     assertEquals(
-        "Insufficient wallet balance(Total payment: 5000000 ATP)",
+        "Insufficient wallet balance(Total payment: 5000000 LAT)",
         MtoolPlatonExceptionCode.E301111.create(BigInteger.valueOf(5000_000)).getMessage());
   }
 }

@@ -33,29 +33,4 @@ class AddressUtilTest {
     assertEquals("0xa1548dd61010a742cd66fb86324ab3e29355864a", AddressUtil.getAddressByNodeId(nodeId));
   }
 
- /* @Test
-  void getTargetChainAccountAddress() {
-    assertEquals("atp1rsd7azkcdex95slmprgs509pcyv0a0affvjdu9", AddressUtil.getTargetChainAccountAddress(NetworkParameters.MainNetParams.getChainId(),"atx1rsd7azkcdex95slmprgs509pcyv0a0afr2w800"));
-  }
-
-  @Test
-  void isValidTargetChainAccountAddress() {
-    assertFalse( AddressUtil.isValidTargetChainAccountAddress("atx1rsd7azkcdex95slmprgs509pcyv0a0afr2w800"));
-  }
-
-
-  @Test
-  void getAddress() {
-    System.out.println(NetworkParameters.getChainId());
-    System.out.println(NetworkParameters.getHrp());
-
-    System.out.println(Bech32.addressEncode(NetworkParameters.TestNetParams.getHrp(), Bech32.addressDecodeHex("atp1uqx03pam9uv6dr0pjv3tmvqml7n0sg6svhuph3")));
-
-    System.out.println(Credentials.create("5442e642898958c5d85c6dd93adf4c9f7fe606134c26394c1dfc5fae60338fe4").getAddress(201030));
-
-    System.out.println(Bech32.addressEncode(NetworkParameters.MainNetParams.getHrp(),Bech32.addressDecodeHex("lax12jn6835z96ez93flwezrwu4xpv8e4zatc4kfru")));
-    System.out.println(Bech32.addressEncode(NetworkParameters.MainNetParams.getHrp(),Bech32.addressDecodeHex("lax196278ns22j23awdfj9f2d4vz0pedld8au6xelj")));
-    System.out.println(Bech32.addressEncode(NetworkParameters.MainNetParams.getHrp(),Bech32.addressDecodeHex("lax1zqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqrzpqayr")));
-  }*/
-
-}
+ }

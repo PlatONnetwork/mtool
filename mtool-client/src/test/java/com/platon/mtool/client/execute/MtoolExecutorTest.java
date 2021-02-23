@@ -39,7 +39,7 @@ class MtoolExecutorTest {
     MtoolPlatonException e301111 = mtoolExecutor.platonException(301111, nodeId, balance);
     assertEquals(301111, e301111.getCode());
     assertEquals(
-        "Insufficient wallet balance(Total payment: 5000000.000000000000000000 ATP)",
+        "Insufficient wallet balance(Total payment: 5000000.000000000000000000 LAT)",
         e301111.getMessage());
 
     MtoolPlatonException e301115 = mtoolExecutor.platonException(301115, nodeId, balance);

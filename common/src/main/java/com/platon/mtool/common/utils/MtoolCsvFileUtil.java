@@ -527,7 +527,7 @@ public class MtoolCsvFileUtil {
       List<String> benefitAddressList, List<BigInteger> benefitAmountList) {
     StringBuilder s = new StringBuilder();
     for (int i = 0; i < benefitAddressList.size(); i++) {
-      String rewardAddressFormat = "%s (Balance: %s ATP)";
+      String rewardAddressFormat = "%s (Balance: %s LAT)";
       s.append(
           String.format(
               rewardAddressFormat,
@@ -543,14 +543,14 @@ public class MtoolCsvFileUtil {
   private static Pair<List<String> /*benefitAddressList*/, List<BigInteger> /*benefitAmountList*/>
       fromRewardAddress(String rewardAddressStr, String template) {
     // Reward address: 0xa1548dd61010a742cd66fb86324ab3e29355864a (Balance:
-    // 50000000000000000000000 ATP)
+    // 50000000000000000000000 LAT)
     Pattern pattern = Pattern.compile(String.format(template, "(.*)"));
     Matcher matcher = pattern.matcher(rewardAddressStr);
     List<String> addressList = new ArrayList<>();
     List<BigInteger> amountList = new ArrayList<>();
     if (matcher.find()) {
       String[] part = matcher.group(1).split(",");
-      Pattern benefitPattern = Pattern.compile("(^0x\\w*) \\(Balance: ([0-9.]*) ATP");
+      Pattern benefitPattern = Pattern.compile("(^0x\\w*) \\(Balance: ([0-9.]*) LAT");
       for (String s : part) {
         Matcher benefitMatcher = benefitPattern.matcher(s);
         if (benefitMatcher.find()) {

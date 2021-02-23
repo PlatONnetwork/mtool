@@ -25,7 +25,7 @@ public class StakingOption extends CommonOption {
   @Parameter(
       names = {AllParams.AMOUNT, AllParams.RESTRICTEDAMOUNT, AllParams.AUTO_AMOUNT},
       description =
-          "stake amount, cannot be lower than the stakeThreshold(ATP) of target chain. "
+          "stake amount, cannot be lower than the stakeThreshold(LAT) of target chain. "
               + "Support for using account balances or account restricted balances.",
       arity = 1,
       converter = StakingAmountConverter.class,

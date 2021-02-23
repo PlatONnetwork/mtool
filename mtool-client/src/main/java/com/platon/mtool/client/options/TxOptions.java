@@ -47,7 +47,7 @@ public class TxOptions extends CommonOption {
         required = true)
     @StakingAmountMin(
         value = "10000000000000000000",
-        message = "The delegate amount cannot be lower than 10ATP")
+        message = "The delegate amount cannot be lower than 10LAT")
     @NotNull
     private StakingAmount amount;
 

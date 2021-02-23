@@ -1,0 +1,8 @@
+{
+"nodePublicKey":"5801350aa672441894c753f41e5c7c52b2a4374e7902e52f4a8cacdc33cd1a6ca63bdb7ecda710b5a6500bfb53bb80bd046aba63fc326f11a0971b91bfb1225a",
+"blsPubKey":"b5da820382037900a8892e2803e71c204a25feaa1e2b65e107974eec97c09250206fca0d77fcc808b09d5f4665fcb9176de34ccbc900a9b75dd05fed07e1cbe1e199e72d5efca6eceb39d664c0f13b6ec4b15e216d7cd5e9e8ad41863466db15",
+  "nodeAddress": "http://127.0.0.1",
+  "nodePort": "16788",
+  "nodeRpcPort": "6788",
+  "certificate": "/path/to/ssl_ca"
+}

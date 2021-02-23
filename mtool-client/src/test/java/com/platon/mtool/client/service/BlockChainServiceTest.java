@@ -73,18 +73,11 @@ class BlockChainServiceTest {
     web3j = com.platon.mtool.common.web3j.Web3jUtil.getFromConfig(config);
   }
 
-  @Test
-  void validAddressNotSame(){
-    String address = "atp1p27qmgmdps";
-    String another = "atx1p27qzy6v5u";
-    blockChainService.validAddressNotSame(address, another);
-    assertTrue(true);
-  }
 
   @Test
   void validAddressNotSame_error(){
-    String address = "atp1p27qmgmdps";
-    String another = "atx1p27qzy6v5u";
+    String address = "lat1p27qmgmdps";
+
     assertThrows(
             MtoolClientException.class,
             () -> blockChainService.validAddressNotSame(address, address));
@@ -93,8 +86,8 @@ class BlockChainServiceTest {
 
   @Test
   void validAddressNotBeenUsed(){
-    String address = "atp1p27qmgmdps";
-    String another = "atx1p27qzy6v5u";
+    String address = "lat1p27qmgmdps";
+
     try {
       blockChainService.validAddressNotBeenUsed(web3j, address, address, config.getNodePublicKey());
     } catch (Exception e) {
@@ -140,7 +133,7 @@ class BlockChainServiceTest {
     GasProvider gasProvider = new DefaultGasProvider();
     BigInteger enoughAmount =
         stakingAmount.add(gasProvider.getGasLimit().multiply(gasProvider.getGasPrice()));
-    String address = "atp1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqz4u3luxq6";
+    String address = "lat1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqz4ugf27l4";
     assertThrows(
         MtoolClientException.class,
         () -> blockChainService.validBalanceEnough(address, stakingAmount, gasProvider, web3j, StakingAmountType.FREE_AMOUNT_TYPE));
@@ -158,7 +151,7 @@ class BlockChainServiceTest {
         .platonGetBalance(Mockito.anyString(), any());
 
     GasProvider gasProvider = new DefaultGasProvider();
-    String address = "atp1p27qmgmdps";
+    String address = "lat1p27qmgmdps";
     assertThrows(
         MtoolClientException.class,
         () -> blockChainService.validBalanceEnough(address, stakingAmount, gasProvider, web3j, StakingAmountType.RESTRICTING_AMOUNT_TYPE));

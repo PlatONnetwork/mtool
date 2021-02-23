@@ -33,7 +33,7 @@ class KeystoreConverterTest {
     assertNotNull(keystore.getAddress());
     assertEquals(Keystore.Type.NORMAL, keystore.getType());
     assertEquals(
-        "atp1cy2uat0eukfrxv897s5s8lnljfka5ewjj943gf", keystore.getCredentials().getAddress());
+        "lat1cy2uat0eukfrxv897s5s8lnljfka5ewjtnrfhx", keystore.getCredentials().getAddress());
   }
 
   @Test
@@ -42,7 +42,7 @@ class KeystoreConverterTest {
     String filepath = originPath.toAbsolutePath().toString();
 
     Keystore keystore = addressConverter.convert(filepath);
-    assertEquals("atp1cy2uat0eukfrxv897s5s8lnljfka5ewjj943gf", keystore.getAddress());
+    assertEquals("lat1cy2uat0eukfrxv897s5s8lnljfka5ewjtnrfhx", keystore.getAddress());
     assertEquals(Keystore.Type.OBSERVE, keystore.getType());
     assertNull(keystore.getCredentials());
   }

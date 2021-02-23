@@ -1,10 +1,10 @@
 {
   "benefitAddress": {
-    "mainnet": "atp1ez2s8crjswtnl448rsr0pczjm6wnzus24yyxys",
+    "mainnet": "lat1ez2s8crjswtnl448rsr0pczjm6wnzus2vjj7ml",
     "testnet": "atx1ez2s8crjswtnl448rsr0pczjm6wnzus2lzcvh6"
   },
   "blsPubKey": "f9cc02725c9f1794b59876549e799df258cd2438dfbb220a5887a15b19c6f62e80da857be46a392ebc4c8610d2699f0a8df17a50d7fac42415113dedd473ed71450284c8d845f6a1f023663153aa68d8f8360f66bf37ad865278cbcaf019c30a",
-  "chainId": "201018",
+  "chainId": "100",
   "details": "details",
   "externalId": "liyftestid",
   "nodeAddress": "http://192.168.120.127",

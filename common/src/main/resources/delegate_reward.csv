@@ -2,10 +2,10 @@ Period:block%s-block%s
 Plan:block reward(%s,%s), fee reward(%s,%s), staking reward(%s,%s), Fee payer:(%s)
 Validator: %s
 Reward address: %s
-Total reward: %s ATP
-Total block reward: %s ATP
-Total fee reward: %s ATP
-Total staking reward: %s ATP
+Total reward: %s LAT
+Total block reward: %s LAT
+Total fee reward: %s LAT
+Total staking reward: %s LAT
 Delegators: %s
-Total distribution: %s ATP
+Total distribution: %s LAT
 Delegator,Block reward,Fee reward,Staking reward,Total reward

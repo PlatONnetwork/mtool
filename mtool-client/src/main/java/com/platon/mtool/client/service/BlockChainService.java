@@ -349,7 +349,7 @@ public class BlockChainService {
             BigInteger minAmount = new BigInteger(amountStr);
             if (minAmount.compareTo(amount) > 0) {
                 BigDecimal minAmountLat = PlatOnUnit.vonToLat(minAmount);
-                throw new MtoolClientException("Amount cannot be less than " + minAmountLat.intValue() + " ATP");
+                throw new MtoolClientException("Amount cannot be less than " + minAmountLat.intValue() + " LAT");
             }
         } else {
             throw new MtoolClientException("Response error");

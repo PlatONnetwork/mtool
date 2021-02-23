@@ -14,7 +14,7 @@ import java.util.List;
  * <p>Created by liyf
  */
 public class MnemonicUtil {
-  static final String PATH = "M/44H/206H/0H/0";
+  static final String PATH = "M/44H/486H/0H/0";
 
   private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 

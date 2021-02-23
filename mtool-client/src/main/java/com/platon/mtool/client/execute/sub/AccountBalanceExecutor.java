@@ -76,7 +76,7 @@ public class AccountBalanceExecutor extends MtoolExecutor<BalanceOption> {
     PlatonGetBalance platonGetBalance =
         web3j.platonGetBalance(address, DefaultBlockParameterName.LATEST).send();
 
-    PrintUtils.echo("Balanceof: %s\nATP:%s", address, formatAmount(platonGetBalance.getBalance()));
+    PrintUtils.echo("Balanceof: %s\nLAT:%s", address, formatAmount(platonGetBalance.getBalance()));
   }
 
   private String getAddress(Path keystorePath) {

@@ -127,7 +127,7 @@ class ObserveExecutorTest {
             OBSERVE_KEYSTORE_PATH.toAbsolutePath().toString(),
             VALIDATOR_CONFIG_PATH.toAbsolutePath().toString()),
         String.format(
-            "update_validator --name asdf --url http://www.baidu.com --identity asdf --reward atp1vr8v48qjjrh9dwvdfctqauz98a7yp5sc4meext --introduction asdf --address %s --config %s",
+            "update_validator --name asdf --url http://www.baidu.com --identity asdf --reward lat1vr8v48qjjrh9dwvdfctqauz98a7yp5scvd0pey --introduction asdf --address %s --config %s",
             OBSERVE_KEYSTORE_PATH.toAbsolutePath().toString(),
             VALIDATOR_CONFIG_PATH.toAbsolutePath().toString()),
         String.format(
@@ -254,7 +254,7 @@ class ObserveExecutorTest {
   @Test
   void updateValidator() throws Exception {
     UpdateValidatorOption option = new UpdateValidatorOption();
-    option.setBenefitAddress("atp1vr8v48qjjrh9dwvdfctqauz98a7yp5sc4meext");
+    option.setBenefitAddress("lat1vr8v48qjjrh9dwvdfctqauz98a7yp5scvd0pey");
     option.setDetails("asdf");
     option.setExternalId("asdf");
     option.setNodeName("asdf");
