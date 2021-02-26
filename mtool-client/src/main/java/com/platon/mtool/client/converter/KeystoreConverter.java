@@ -4,11 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.beust.jcommander.ParameterException;
 import com.beust.jcommander.converters.BaseConverter;
-import com.platon.crypto.CipherException;
 import com.platon.crypto.Credentials;
 import com.platon.crypto.WalletUtils;
 import com.platon.mtool.client.tools.PrintUtils;
+import com.platon.mtool.common.AllCommands;
 import com.platon.mtool.common.AllParams;
+import com.platon.mtool.common.logger.Log;
 import com.platon.mtool.common.web3j.Keystore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -102,12 +103,9 @@ public class KeystoreConverter extends BaseConverter<Keystore> {
         Credentials credentials;
         try {
             credentials = WalletUtils.loadCredentials(password, pathStr);
-        } catch (IOException e) {
-            logger.error("Invalid wallet keystore file", e);
-            throw new ParameterException(getErrorString(pathStr, "Invalid wallet keystore file"));
-        } catch (CipherException e) {
-            logger.error("Incorrect password", e);
-            throw new ParameterException(getErrorString(pathStr, "Incorrect password"));
+        } catch (Exception e) {
+            logger.error("load keystore file error", e);
+            throw new ParameterException(getErrorString(pathStr, e.getMessage()));
         }
         keystore.setType(Keystore.Type.NORMAL);
         keystore.setCredentials(credentials);
@@ -118,5 +116,12 @@ public class KeystoreConverter extends BaseConverter<Keystore> {
     @Override
     protected String getErrorString(String value, String to) {
         return "\"" + getOptionName() + "\": " + value + " (" + to + " )";
+    }
+
+    public static void main(String args[]){
+        Keystore keystore = new com.platon.mtool.client.converter.KeystoreConverter("--keystore").convertKeystore("D:\\javalang\\github.com\\mtool\\mtool-client\\src\\test\\resources\\staking.keystore","123456");
+        Log.Builder builder = Log.newBuilder().msg(AllCommands.STAKING).kv("keystore", keystore);
+        String log = builder.build().getTextMsg();
+        System.out.println(log);
     }
 }
