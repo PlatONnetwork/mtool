@@ -110,7 +110,7 @@ public class OfflineSignExcutor extends MtoolExecutor<OfflineSignOption> {
                     PrintUtils.echo("Ignore files that cannot be used for offline signing: %s", keystorePath.toAbsolutePath().toString());
                     continue;
                 }
-                PrintUtils.echo("Input password for wallet please: %s", FilenameUtils.getName(keystore.getFilepath()));
+                PrintUtils.echo("Loading wallet file: %s", FilenameUtils.getName(keystore.getFilepath()));
                 Credentials credentials = converter.convert(keystore.getFilepath()).getCredentials();
                 keystore.setCredentials(credentials);
 

@@ -80,6 +80,7 @@ public class Keystore {
         try {
             fileContent = fileContent.replaceAll(MAIN_TEST_ADDRESS_REGEX, "\"address\": \"$1\"");
             keystore = JSON.parseObject(fileContent, Keystore.class);
+            keystore.setFilepath(file.getAbsolutePath());
         }catch ( Throwable t){
             throw new RuntimeException("Invalid wallet observe keystore file", t);
         }
