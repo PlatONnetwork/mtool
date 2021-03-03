@@ -4,8 +4,6 @@ import com.beust.jcommander.JCommander;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.platon.crypto.Credentials;
 import com.platon.crypto.TransactionEncoder;
-import com.platon.crypto.WalletFile;
-import com.platon.crypto.WalletUtils;
 import com.platon.mtool.client.ClientConsts;
 import com.platon.mtool.client.converter.KeystoreConverter;
 import com.platon.mtool.client.options.OfflineSignOption;
@@ -106,22 +104,17 @@ public class OfflineSignExcutor extends MtoolExecutor<OfflineSignOption> {
         }
         KeystoreConverter converter = new KeystoreConverter(AllParams.KEYSTORE);
         for (Path keystorePath : keystorePaths) {
-            //String address = getAddress(keystorePath);
-            try {
-                WalletFile walletFile = WalletUtils.loadWalletFile(keystorePath.toFile());
-
-                String address = walletFile.getAddress();
-
-                if (address == null || walletFile.getCrypto()==null) {
+            try{
+                Keystore keystore = Keystore.loadKeystore(keystorePath.toAbsolutePath().toString());
+                if(keystore==null || StringUtils.isBlank(keystore.getAddress()) || keystore.getType()== Keystore.Type.OBSERVE){
                     PrintUtils.echo("Ignore files that cannot be used for offline signing: %s", keystorePath.toAbsolutePath().toString());
                     continue;
                 }
+                PrintUtils.echo("Input password for wallet please: %s", FilenameUtils.getName(keystore.getFilepath()));
+                Credentials credentials = converter.convert(keystore.getFilepath()).getCredentials();
+                keystore.setCredentials(credentials);
 
-                if (addressSet.contains(address)) {
-                    Keystore keystore = new Keystore();
-                    keystore.setFilepath(keystorePath.toAbsolutePath().toString());
-                    keystoreMap.put(address, keystore);
-                }
+                keystoreMap.put(keystore.getAddress(), keystore);
             }catch (Exception e){
                 PrintUtils.echo("Ignore files that cannot be used for offline signing: %s", keystorePath.toAbsolutePath().toString());
             }
@@ -130,14 +123,6 @@ public class OfflineSignExcutor extends MtoolExecutor<OfflineSignOption> {
             addressSet.removeAll(keystoreMap.keySet());
             throw new MtoolClientException("Cold wallet for address not found: %s", addressSet);
         }
-        keystoreMap.forEach(
-                (address, keystore) -> {
-                    PrintUtils.echo(
-                            "Input passowrd for wallet please: %s",
-                            FilenameUtils.getName(keystore.getFilepath()));
-                    Credentials credentials = converter.convert(keystore.getFilepath()).getCredentials();
-                    keystore.setCredentials(credentials);
-                });
 
         ProgressBar.start();
         // 5. 交易签名， 记录成功数量和失败数量
