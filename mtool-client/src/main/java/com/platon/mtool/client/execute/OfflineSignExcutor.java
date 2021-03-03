@@ -107,14 +107,19 @@ public class OfflineSignExcutor extends MtoolExecutor<OfflineSignOption> {
         KeystoreConverter converter = new KeystoreConverter(AllParams.KEYSTORE);
         for (Path keystorePath : keystorePaths) {
             //String address = getAddress(keystorePath);
-            WalletFile walletFile = WalletUtils.loadWalletFile(keystorePath.toFile());
-            String address = walletFile.getAddress();
+            try {
+                WalletFile walletFile = WalletUtils.loadWalletFile(keystorePath.toFile());
 
-            if (address == null) continue;
-            if (addressSet.contains(address)) {
-                Keystore keystore = new Keystore();
-                keystore.setFilepath(keystorePath.toAbsolutePath().toString());
-                keystoreMap.put(address, keystore);
+                String address = walletFile.getAddress();
+
+                if (address == null) continue;
+                if (addressSet.contains(address)) {
+                    Keystore keystore = new Keystore();
+                    keystore.setFilepath(keystorePath.toAbsolutePath().toString());
+                    keystoreMap.put(address, keystore);
+                }
+            }catch (Exception e){
+                PrintUtils.echo("Ignore invalid keystore file: %s", keystorePath.toAbsolutePath().toString());
             }
         }
         if (addressSet.size() != keystoreMap.size()) {
