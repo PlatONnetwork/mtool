@@ -112,14 +112,18 @@ public class OfflineSignExcutor extends MtoolExecutor<OfflineSignOption> {
 
                 String address = walletFile.getAddress();
 
-                if (address == null) continue;
+                if (address == null || walletFile.getCrypto()==null) {
+                    PrintUtils.echo("Ignore files that cannot be used for offline signing: %s", keystorePath.toAbsolutePath().toString());
+                    continue;
+                }
+
                 if (addressSet.contains(address)) {
                     Keystore keystore = new Keystore();
                     keystore.setFilepath(keystorePath.toAbsolutePath().toString());
                     keystoreMap.put(address, keystore);
                 }
             }catch (Exception e){
-                PrintUtils.echo("Ignore invalid keystore file: %s", keystorePath.toAbsolutePath().toString());
+                PrintUtils.echo("Ignore files that cannot be used for offline signing: %s", keystorePath.toAbsolutePath().toString());
             }
         }
         if (addressSet.size() != keystoreMap.size()) {
