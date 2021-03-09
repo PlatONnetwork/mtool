@@ -51,7 +51,7 @@ class StakingAmountValidatorTest {
   static class MockOption {
     @StakingAmountMin(
         value = "1000000000000000000000000",
-        message = "The stake amount cannot be lower than 100000LAT")
+        message = "The stake amount cannot be lower than 1000000LAT")
     private StakingAmount amount;
 
     public MockOption(StakingAmount amount) {
