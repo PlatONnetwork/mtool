@@ -89,7 +89,7 @@ class ExecutorTest {
     private static final Path VALIDATOR_CONFIG_PATH =
             resourceDirectory.resolve("validator_config.json");
     private static final Path TRANSACTION_DETAIL_PATH =
-            resourceDirectory.resolve("csvfile/transaction_detail.csv");
+            resourceDirectory.resolve("transaction_detail.csv");
     private static final Path RESTRICTING_PLAN_PATH =
             resourceDirectory.resolve("restricting_plans.json");
     private static final Path RESTRICTING_PLAN_PATH_ERROR =

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.beust.jcommander.ParameterException;
 import com.beust.jcommander.converters.BaseConverter;
+import com.platon.crypto.CipherException;
 import com.platon.crypto.Credentials;
 import com.platon.crypto.WalletUtils;
 import com.platon.mtool.client.tools.PrintUtils;
@@ -103,9 +104,12 @@ public class KeystoreConverter extends BaseConverter<Keystore> {
         Credentials credentials;
         try {
             credentials = WalletUtils.loadCredentials(password, pathStr);
-        } catch (Exception e) {
+        } catch (IOException e) {
             logger.error("load keystore file error", e);
-            throw new ParameterException(getErrorString(pathStr, e.getMessage()));
+            throw new ParameterException(getErrorString(pathStr, "Invalid wallet keystore file"));
+        } catch (CipherException e) {
+            logger.error("Incorrect password", e);
+            throw new ParameterException(getErrorString(pathStr, "Incorrect password"));
         }
         keystore.setType(Keystore.Type.NORMAL);
         keystore.setCredentials(credentials);

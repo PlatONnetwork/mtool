@@ -2,8 +2,10 @@ package com.platon.mtool.client.converter;
 
 import com.beust.jcommander.ParameterException;
 import com.platon.mtool.client.test.MtoolParameterResolver;
+import com.platon.mtool.client.tools.CliConfigUtils;
 import com.platon.mtool.common.AllParams;
 import com.platon.mtool.common.web3j.Keystore;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.io.TempDir;
@@ -23,6 +25,11 @@ class KeystoreConverterTest {
   @TempDir protected Path tempDir;
   private KeystoreConverter keystoreConverter = new KeystoreConverter(AllParams.KEYSTORE);
   private KeystoreConverter addressConverter = new KeystoreConverter(AllParams.ADDRESS);
+
+  @BeforeEach
+  void setup(){
+    CliConfigUtils.loadProperties();
+  }
 
   @Test
   void convertKeystore() throws URISyntaxException {
