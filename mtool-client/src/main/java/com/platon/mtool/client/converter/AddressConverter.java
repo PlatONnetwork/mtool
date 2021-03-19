@@ -3,6 +3,7 @@ package com.platon.mtool.client.converter;
 import com.beust.jcommander.ParameterException;
 import com.beust.jcommander.converters.BaseConverter;
 import com.platon.bech32.Bech32;
+import com.platon.mtool.client.tools.PrintUtils;
 import com.platon.parameters.NetworkParameters;
 
 /**
@@ -25,6 +26,7 @@ public class AddressConverter extends BaseConverter<String> {
     if(Bech32.checkBech32Addr(value)){
       return value;
     }
-    throw new ParameterException(value+" is not a legal address of dest chainID:" + NetworkParameters.getChainId());
+    PrintUtils.echo(value+" is not a legal address of dest chainID:" + NetworkParameters.getChainId());
+    throw new ParameterException("Invalid " + getOptionName().replace("--", "").trim());
   }
 }
