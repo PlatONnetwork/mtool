@@ -62,7 +62,7 @@ public class KeystoreConverter extends BaseConverter<Keystore> {
         try {
             fileContent = com.platon.utils.Files.readString(file);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ParameterException("Read wallet observe keystore file Failed", e);
         }
         try {
             fileContent = fileContent.replaceAll(MAIN_TEST_ADDRESS_REGEX, "\"address\": \"$1\"");
