@@ -1,18 +1,26 @@
 package com.platon.mtool.client.converter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import com.beust.jcommander.ParameterException;
+import com.platon.mtool.client.tools.CliConfigUtils;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /** Created by liyf. */
 class PathConverterTest {
 
   private PathConverter converter = new PathConverter("--optionName");
+
+  @BeforeAll
+  static void Setup(){
+    CliConfigUtils.loadProperties();
+  }
 
   @Test
   void convert() throws URISyntaxException {

@@ -5,7 +5,7 @@ import com.platon.mtool.client.parser.BaseOptionParser;
 import com.platon.mtool.client.tools.CliConfigUtils;
 import com.platon.mtool.client.tools.ResourceUtils;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -38,16 +38,21 @@ class CmdTest {
 
   @InjectMocks private BaseOptionParser parser = new BaseOptionParser("mtool-test");
 
-  @BeforeEach
-  void setup(){
+  @BeforeAll
+  static void setup(){
     CliConfigUtils.loadProperties();
   }
   @Test
-  void create_restricting() {
-    String args =
-            String.format(
-                    "create_restricting --keystore %s --config %s --file %s",
-                    KEYSTORE_PATH, VALIDATOR_CONFIG_PATH, RESTRICTING_PLAN_PATH);
+  void help() {
+    String args = "--help";
+    parser.parse(args.split(WHITE_SPACE));
+    assertTrue(true);
+  }
+
+
+  @Test
+  void version() {
+    String args = "--version";
     parser.parse(args.split(WHITE_SPACE));
     assertTrue(true);
   }

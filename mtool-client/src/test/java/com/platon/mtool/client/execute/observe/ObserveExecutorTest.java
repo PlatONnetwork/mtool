@@ -7,6 +7,7 @@ import com.platon.mtool.client.converter.KeystoreConverter;
 import com.platon.mtool.client.converter.ValidatorConfigConverter;
 import com.platon.mtool.client.options.*;
 import com.platon.mtool.client.service.BlockChainService;
+import com.platon.mtool.client.tools.CliConfigUtils;
 import com.platon.mtool.client.tools.ReflectionUtils;
 import com.platon.mtool.common.AllParams;
 import com.platon.mtool.common.entity.ValidatorConfig;
@@ -148,8 +149,11 @@ class ObserveExecutorTest {
             VALIDATOR_CONFIG_PATH.toAbsolutePath().toString()));
   }
 
+
   @BeforeEach
   void before() throws Exception {
+    CliConfigUtils.loadProperties();
+
     // blockChainService
     doNothing().when(blockChainService).validAddressNotSame(any(), any());
     doNothing().when(blockChainService).validAddressNotBeenUsed(any(), any(), any(), any());

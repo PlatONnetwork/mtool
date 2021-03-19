@@ -2,6 +2,7 @@ package com.platon.mtool.client.execute;
 
 import com.platon.contracts.ppos.dto.BaseResponse;
 import com.platon.mtool.client.test.MtoolParameterResolver;
+import com.platon.mtool.client.tools.CliConfigUtils;
 import com.platon.mtool.common.entity.ValidatorConfig;
 import com.platon.mtool.common.exception.MtoolClientException;
 import com.platon.mtool.common.exception.MtoolException;
@@ -9,6 +10,7 @@ import com.platon.mtool.common.exception.MtoolPlatonException;
 import com.platon.mtool.common.exception.MtoolPlatonExceptionCode;
 import com.platon.mtool.common.utils.PlatOnUnit;
 import com.platon.protocol.core.methods.response.PlatonSendTransaction;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -22,6 +24,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class MtoolExecutorTest {
 
   private MtoolExecutor mtoolExecutor = new StakingExecutor(null, null);
+
+  @BeforeAll
+  static void Setup(){
+    CliConfigUtils.loadProperties();
+  }
 
   @Test
   void handleException() {

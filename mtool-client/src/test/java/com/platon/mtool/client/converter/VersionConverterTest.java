@@ -1,17 +1,25 @@
 package com.platon.mtool.client.converter;
 
+import com.beust.jcommander.ParameterException;
+import com.platon.mtool.client.tools.CliConfigUtils;
+import com.platon.mtool.common.AllParams;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import java.math.BigInteger;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import com.beust.jcommander.ParameterException;
-import com.platon.mtool.common.AllParams;
-import java.math.BigInteger;
-import org.junit.jupiter.api.Test;
 
 /** Created by liyf. */
 class VersionConverterTest {
 
   private VersionConverter converter = new VersionConverter(AllParams.NEWVERSION);
+
+  @BeforeAll
+  static void Setup(){
+    CliConfigUtils.loadProperties();
+  }
 
   @Test
   void convert() {

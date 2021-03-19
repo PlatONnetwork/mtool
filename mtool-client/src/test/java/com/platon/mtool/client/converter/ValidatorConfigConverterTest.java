@@ -3,10 +3,12 @@ package com.platon.mtool.client.converter;
 import com.alibaba.fastjson.JSON;
 import com.beust.jcommander.ParameterException;
 import com.platon.mtool.client.test.MtoolParameterResolver;
+import com.platon.mtool.client.tools.CliConfigUtils;
 import com.platon.mtool.common.AllParams;
 import com.platon.mtool.common.entity.ValidatorConfig;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.io.TempDir;
@@ -28,6 +30,11 @@ class ValidatorConfigConverterTest {
   @TempDir protected Path tempDir;
 
   private ValidatorConfigConverter converter = new ValidatorConfigConverter(AllParams.CONFIG);
+
+  @BeforeAll
+  static void Setup(){
+    CliConfigUtils.loadProperties();
+  }
 
   @Test
   void convert(ValidatorConfig config) throws URISyntaxException {

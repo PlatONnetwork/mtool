@@ -5,7 +5,7 @@ import com.platon.mtool.client.test.MtoolParameterResolver;
 import com.platon.mtool.client.tools.CliConfigUtils;
 import com.platon.mtool.common.AllParams;
 import com.platon.mtool.common.web3j.Keystore;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.io.TempDir;
@@ -26,8 +26,8 @@ class KeystoreConverterTest {
   private KeystoreConverter keystoreConverter = new KeystoreConverter(AllParams.KEYSTORE);
   private KeystoreConverter addressConverter = new KeystoreConverter(AllParams.ADDRESS);
 
-  @BeforeEach
-  void setup(){
+  @BeforeAll
+  static void Setup(){
     CliConfigUtils.loadProperties();
   }
 
@@ -109,6 +109,5 @@ class KeystoreConverterTest {
     assertThrows(com.beust.jcommander.ParameterException.class, ()->{
       keystoreConverter.convertKeystore(filepath, "123456");
     });
-
   }
 }

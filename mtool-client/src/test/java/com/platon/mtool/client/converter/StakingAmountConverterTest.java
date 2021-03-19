@@ -2,9 +2,11 @@ package com.platon.mtool.client.converter;
 
 import com.beust.jcommander.ParameterException;
 import com.platon.contracts.ppos.dto.enums.StakingAmountType;
+import com.platon.mtool.client.tools.CliConfigUtils;
 import com.platon.mtool.common.AllParams;
 import com.platon.mtool.common.entity.StakingAmount;
 import com.platon.mtool.common.utils.PlatOnUnit;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
@@ -22,6 +24,12 @@ class StakingAmountConverterTest {
   private StakingAmountConverter restrictedAmountConverter =
       new StakingAmountConverter(AllParams.RESTRICTEDAMOUNT);
   private StakingAmountConverter autoConverter = new StakingAmountConverter(AllParams.AUTO_AMOUNT);
+
+  @BeforeAll
+  static void Setup(){
+    CliConfigUtils.loadProperties();
+  }
+
   @Test
   void convert() {
     StakingAmount amount = amountCconverter.convert("1");

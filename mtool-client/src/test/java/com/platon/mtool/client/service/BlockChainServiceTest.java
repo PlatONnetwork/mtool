@@ -9,6 +9,7 @@ import com.platon.crypto.Credentials;
 import com.platon.mtool.client.converter.ValidatorConfigConverter;
 import com.platon.mtool.client.test.MtoolParameterResolver;
 import com.platon.mtool.client.test.PlatonMockHelp;
+import com.platon.mtool.client.tools.CliConfigUtils;
 import com.platon.mtool.client.tools.ContractUtil;
 import com.platon.mtool.common.entity.ValidatorConfig;
 import com.platon.mtool.common.exception.MtoolClientException;
@@ -45,7 +46,7 @@ class BlockChainServiceTest {
   @InjectMocks
   private BlockChainService blockChainService = BlockChainService.singleton();
 
-  //@Mock
+  @Mock
   private Web3j web3j;
 
   @Mock
@@ -56,9 +57,12 @@ class BlockChainServiceTest {
 
   private ValidatorConfig config = null;
   private String proposalID = "0x00000000000000000000000000000000000000886d5ba2d3dfb2e2f6a1814f22";
+  private static String nodeAddress = "lat196278ns22j23awdfj9f2d4vz0pedld8anl5k3a";
 
   @BeforeEach
   public void setup(){
+    CliConfigUtils.loadProperties();
+
     // 把节点工具替换为mock对象
     //blockChainService.setNodeUtil(nodeUtil);
     ValidatorConfigConverter validatorConfigConverter = new ValidatorConfigConverter("config");
@@ -70,7 +74,7 @@ class BlockChainServiceTest {
     } catch (URISyntaxException e) {
       e.printStackTrace();
     }
-    web3j = com.platon.mtool.common.web3j.Web3jUtil.getFromConfig(config);
+    //web3j = com.platon.mtool.common.web3j.Web3jUtil.getFromConfig(config);
   }
 
 
@@ -98,7 +102,7 @@ class BlockChainServiceTest {
   @Test
   void queryRestrictingBalance(){
     try {
-      blockChainService.queryRestrictingBalanceAvailableForStakingOrDelegation(config.getNodeAddress(), web3j);
+      blockChainService.queryRestrictingBalanceAvailableForStakingOrDelegation(nodeAddress, web3j);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -106,11 +110,10 @@ class BlockChainServiceTest {
 
   @Test
   void validProposalExist(){
-    try {
-      blockChainService.validProposalExist(web3j, proposalID);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+
+    MtoolClientException exception =
+            assertThrows(MtoolClientException.class, () -> blockChainService.validProposalExist(web3j, proposalID));
+    assertEquals("proposal not found", exception.getMessage());
   }
 
   @Test

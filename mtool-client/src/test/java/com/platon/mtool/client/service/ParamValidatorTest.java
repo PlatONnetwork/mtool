@@ -1,9 +1,11 @@
 package com.platon.mtool.client.service;
 
 import com.alibaba.fastjson.JSON;
+import com.platon.mtool.client.tools.CliConfigUtils;
 import com.platon.mtool.common.entity.ValidatorConfig;
 import com.platon.mtool.common.exception.MtoolClientException;
 import com.platon.mtool.common.validate.UpdateValidatorChecks;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -18,6 +20,12 @@ class ParamValidatorTest {
   private BlockChainService blockChainService = BlockChainService.singleton();
 
   private static Path resourceDirectory = Paths.get("src", "test", "resources");
+
+  @BeforeAll
+  static void beforeAll() {
+
+    CliConfigUtils.loadProperties();
+  }
 
   private ValidatorConfig mockConfig() throws IOException {
     return JSON.parseObject(

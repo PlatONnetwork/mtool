@@ -2,7 +2,9 @@ package com.platon.mtool.client.converter;
 
 import com.beust.jcommander.ParameterException;
 import com.platon.contracts.ppos.dto.enums.VoteOption;
+import com.platon.mtool.client.tools.CliConfigUtils;
 import com.platon.mtool.common.AllParams;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,6 +14,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class VoteOptionConverterTest {
 
   private VoteOptionConverter converter = new VoteOptionConverter(AllParams.OPINION);
+
+  @BeforeAll
+  static void Setup(){
+    CliConfigUtils.loadProperties();
+  }
 
   @Test
   void convert() {

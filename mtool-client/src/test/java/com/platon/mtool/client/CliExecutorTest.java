@@ -1,20 +1,28 @@
 package com.platon.mtool.client;
 
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import com.platon.mtool.client.execute.IncreaseStakingExecutor;
 import com.platon.mtool.client.execute.StakingExecutor;
 import com.platon.mtool.client.options.IncreaseStakingOption;
 import com.platon.mtool.client.options.StakingOption;
 import com.platon.mtool.client.parser.BaseOptionParser;
+import com.platon.mtool.client.tools.CliConfigUtils;
 import com.platon.mtool.common.entity.StakingAmount;
 import com.platon.mtool.common.utils.PlatOnUnit;
-import java.math.BigInteger;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.math.BigInteger;
+
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /** Created by liyf. */
 class CliExecutorTest {
+
+  @BeforeAll
+  static void Setup(){
+    CliConfigUtils.loadProperties();
+  }
 
   @Test
   void showHelp() {

@@ -42,13 +42,10 @@ import com.platon.tx.Transfer;
 import com.platon.tx.gas.DefaultGasProvider;
 import com.platon.tx.gas.GasProvider;
 import org.apache.commons.beanutils.BeanUtils;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -276,7 +273,7 @@ class ExecutorTest {
         );
     }
 
-    @ParameterizedTest
+    /*@ParameterizedTest
     @MethodSource("cmdGenerator")
     void allCommand(String args) {
         try {
@@ -285,7 +282,7 @@ class ExecutorTest {
             Assertions.fail(e);
         }
         assertTrue(true);
-    }
+    }*/
 
     @BeforeAll
     static void beforeAll() {
