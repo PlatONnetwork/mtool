@@ -33,9 +33,9 @@ ext {
     // Get abbreviated commit Id of HEAD
     gitAbbRevision = git.head().abbreviatedId
     // sdk version
-    sdkVersion = '0.15.1.9'
+    sdkVersion = '0.15.1.11'
     // sdk发包时间， 无用字段， 测试部门要求添加
-    sdkTime = '2021-02-27'
+    sdkTime = '2021-03-19'
     // timestamp
     buildTimestamp = new Date().format('yyyy-MM-dd HH:mm:ss')
 }
