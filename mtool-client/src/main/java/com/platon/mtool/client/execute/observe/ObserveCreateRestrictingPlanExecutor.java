@@ -119,6 +119,8 @@ public class ObserveCreateRestrictingPlanExecutor extends MtoolExecutor<CreateRe
         PlatonSendTransaction transaction = restrictingPlanContract.createRestrictingPlanReturnTransaction(createRestrictingParam.getAccount(), Arrays.asList(createRestrictingParam.getPlans()), gasProvider).send();
 
         //获取交易数据json
+        //就是 transaction.getResult()，
+        // todo:这个需要在SDK再抽象，重构，支持转账交易，内置合约交易。
         TransactionEntity entity = JSON.parseObject(transaction.getTransactionHash(), TransactionEntity.class);
         entity.setType(FuncTypeEnum.CREATE_RESTRICTING);
         entity.setAccountType("");

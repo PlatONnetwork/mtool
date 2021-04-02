@@ -103,10 +103,10 @@ public class CreateRestrictingPlanExecutor extends MtoolExecutor<CreateRestricti
         //检查账户余额是否够付手续费（gasLimit*gasPrice)
         blockChainService.validBalanceEnough(option.getKeystore().getAddress(), totalVons, gasProvider, web3j, StakingAmountType.FREE_AMOUNT_TYPE);
 
-        //准备交易对象
+        //发送交易
         PlatonSendTransaction transaction = restrictingPlanContract.createRestrictingPlanReturnTransaction(createRestrictingParam.getAccount(), Arrays.asList(createRestrictingParam.getPlans()), gasProvider).send();
 
-        //发送交易
+        //获取交易回执
         TransactionResponse response = restrictingPlanContract.getTransactionResponse(transaction).send();
 
         LogUtils.info(logger, () -> Log.newBuilder().msg(AllCommands.CREATE_RESTRICTING).kv("transaction", transaction));

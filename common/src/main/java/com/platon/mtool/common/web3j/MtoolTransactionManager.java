@@ -71,6 +71,9 @@ public class MtoolTransactionManager extends TransactionManager {
     entity.setFrom(fromAddress);
     entity.setChainId(NetworkParameters.getChainId());
     PlatonSendTransaction platonSendTransaction = new PlatonSendTransaction();
+
+    //复用result，观察者钱包sendTx的结果，就是tx本身。
+    //todo: sdk做出修改，增加createTx(), signTx()，和sendTx()，getTxReceipt()，组合成多种应用场景
     platonSendTransaction.setResult(JSON.toJSONString(entity));
     return platonSendTransaction;
   }
