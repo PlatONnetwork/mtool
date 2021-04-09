@@ -110,15 +110,19 @@ public class OfflineSignExcutor extends MtoolExecutor<OfflineSignOption> {
                     PrintUtils.echo("Ignore files that cannot be used for offline signing: %s", keystorePath.toAbsolutePath().toString());
                     continue;
                 }
-                PrintUtils.echo("Loading wallet file: %s", FilenameUtils.getName(keystore.getFilepath()));
-                Credentials credentials = converter.convert(keystore.getFilepath()).getCredentials();
-                keystore.setCredentials(credentials);
+                if(addressSet.contains(keystore.getAddress()) && !keystoreMap.containsKey(keystore.getAddress())){    //是需要的钱包文件，并且没有加载过
+                    PrintUtils.echo("Loading wallet file: %s", FilenameUtils.getName(keystore.getFilepath()));
+                    Credentials credentials = converter.convert(keystore.getFilepath()).getCredentials();
+                    keystore.setCredentials(credentials);
 
-                keystoreMap.put(keystore.getAddress(), keystore);
+                    keystoreMap.put(keystore.getAddress(), keystore);
+                }
             }catch (Exception e){
                 PrintUtils.echo("Ignore files that cannot be used for offline signing: %s", keystorePath.toAbsolutePath().toString());
             }
         }
+
+        //保证：keystoreMap.size()<=addressSet.size()
         if (addressSet.size() != keystoreMap.size()) {
             addressSet.removeAll(keystoreMap.keySet());
             throw new MtoolClientException("Cold wallet for address not found: %s", addressSet);
