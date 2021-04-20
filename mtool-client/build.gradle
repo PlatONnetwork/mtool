@@ -63,14 +63,14 @@ task copyValidator {
     outputs.file new File("$buildDir/resources/main/validator/restricting_plans.json.example")
 }
 
-task copyKeystore {
+/*task copyKeystore {
     def validatorDir = file("$buildDir/keystore")
     outputs.dir validatorDir
     doLast {
         validatorDir.mkdirs()
         new File(validatorDir, 'IGNORE.me').write("keystore")
     }
-}
+}*/
 
 task copyConfig {
     outputs.file new File("$buildDir/resources/main/config.properties")
@@ -78,6 +78,9 @@ task copyConfig {
 
 distributions {
     main {
+        /*project.file("$buildDir/transaction_signature").mkdirs()
+        project.file("$buildDir/transaction_details").mkdirs()*/
+
         contents {
             from(copyLicense) {
                 into ''
@@ -85,11 +88,24 @@ distributions {
             from(copyValidator) {
                 into 'validator'
             }
-            from(copyKeystore) {
+            /*from(copyKeystore) {
                 into 'keystore'
-            }
+            }*/
             from(copyConfig) {
                 into ''
+            }
+
+            //create empty folders in distribution root
+            into('') {
+                //create empty folders root directory in distribution root
+                def emptyRoot = new File("$buildDir/emptyFoldersRoot")
+                emptyRoot.mkdirs()
+
+                //create empty folders
+                project.file("$buildDir/emptyFoldersRoot/transaction_signature").mkdirs()
+                project.file("$buildDir/emptyFoldersRoot/transaction_details").mkdirs()
+                project.file("$buildDir/emptyFoldersRoot/keystore").mkdirs()
+                from {emptyRoot}
             }
         }
     }
