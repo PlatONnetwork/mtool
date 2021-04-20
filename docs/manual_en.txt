@@ -1,0 +1,367 @@
+Usage: mtool [options] [command] [command options]
+  Options:
+    --help, -h
+      Show command help
+    --version, -v
+      Show version
+  Commands:
+    create_restricting      Create restricting plan
+      Usage: create_restricting [options]
+        Options:
+        * --config
+            file name,load node and validator configuration information file.
+        * --file
+            the restricting plan JSON file.
+          --help
+            Show command help
+        * --keystore, --address
+            keystore: file name,load wallet encrypted file. must be the
+            original wallet that created the validator to pay the stake.pay
+            the txn fee. address: Online device wallet address.
+
+    staking      Create validator, submit information,stake LAT
+      Usage: staking [options]
+        Options:
+        * --benefit_address
+            validator's wallet address to receive reward.
+        * --config
+            file name,load node and validator configuration information file.
+        * --delegated_reward_rate
+            Delegated reward ratio, range [0, 10000], unit: ‱, 500 meaning 5%
+            Default: 0
+        * --details
+            validator description (in English recommended), less than 280
+            bytes.
+        * --external_id
+            third party ID. such as public key base64 encoded. less than 70
+            bytes.
+          --help
+            Show command help
+        * --keystore, --address
+            keystore: file name,load wallet encrypted file. must be the
+            original wallet that created the validator to pay the stake.pay
+            the txn fee. address: Online device wallet address.
+        * --node_name
+            node name. less than 30 bytes.
+        * --amount, --restrictedamount, --autoamount
+            stake amount, cannot be lower than the stakeThreshold(LAT) of
+            target chain. Support for using account balances or account
+            restricted balances.
+        * --website
+            node website URL. less than 140 bytes.
+
+    update_validator      Update validator information
+      Usage: update_validator [options]
+        Options:
+          --benefit_address
+            validator's wallet address to receive reward.
+        * --config
+            file name,load node and validator configuration information file.
+          --delegated_reward_rate
+            Delegated reward ratio, range [0, 10000], unit: ‱, 500 meaning 5%
+          --details
+            validator description (in English recommended), less than 280
+            bytes.
+          --external_id
+            third party ID. such as public key base64 encoded. less than 70
+            bytes.
+          --help
+            Show command help
+        * --keystore, --address
+            keystore: file name,load wallet encrypted file. must be the
+            original wallet that created the validator to pay the stake.pay
+            the txn fee. address: Online device wallet address.
+          --node_name
+            node name. less than 30 bytes.
+          --website
+            node website URL. less than 140 bytes.
+
+    increasestaking      increase validator’s stake
+      Usage: increasestaking [options]
+        Options:
+        * --config
+            file name,load node and validator configuration information file.
+          --help
+            Show command help
+        * --keystore, --address
+            keystore: file name,load wallet encrypted file. must be the
+            original wallet that created the validator to pay the stake.pay
+            the txn fee. address: Online device wallet address.
+        * --amount, --restrictedamount
+            increase stake amount, cannot be lower than the
+            operatingThreshold(LAT) of target chain. support for using account
+            balances or restricted balances.
+
+    unstaking      Exit the validator and redeem the stake
+      Usage: unstaking [options]
+        Options:
+        * --config
+            file name,load node and validator configuration information file.
+          --help
+            Show command help
+        * --keystore, --address
+            keystore: file name,load wallet encrypted file. must be the
+            original wallet that created the validator to pay the stake.pay
+            the txn fee. address: Online device wallet address.
+
+    submit_versionproposal      submit the version proposal
+      Usage: submit_versionproposal [options]
+        Options:
+        * --config
+            file name,load node and validator configuration information file.
+        * --end_voting_rounds
+            voting consensus rounds,a consensus round is about 8 minutes.
+          --help
+            Show command help
+        * --keystore, --address
+            keystore: file name,load wallet encrypted file. must be the
+            original wallet that created the validator to pay the stake.pay
+            the txn fee. address: Online device wallet address.
+        * --newversion
+            the version number of the target upgrade, such as 1.0.1
+        * --pid_id
+            proposal pip number in github.
+
+    vote_versionproposal      Vote for the version proposal
+      Usage: vote_versionproposal [options]
+        Options:
+        * --config
+            file name,load node and validator configuration information file.
+          --help
+            Show command help
+        * --keystore, --address
+            keystore: file name,load wallet encrypted file. must be the
+            original wallet that created the validator to pay the stake.pay
+            the txn fee. address: Online device wallet address.
+        * --proposalid
+            version proposal ID of target voting
+
+    declare_version      Declare the version for the node
+      Usage: declare_version [options]
+        Options:
+        * --config
+            file name,load node and validator configuration information file.
+          --help
+            Show command help
+        * --keystore, --address
+            keystore: file name,load wallet encrypted file. must be the
+            original wallet that created the validator to pay the stake.pay
+            the txn fee. address: Online device wallet address.
+
+    submit_cancelproposal      submit the cancel proposal
+      Usage: submit_cancelproposal [options]
+        Options:
+        * --config
+            file name,load node and validator configuration information file.
+        * --end_voting_rounds
+            voting consensus rounds,a consensus round is about 8 minutes.
+          --help
+            Show command help
+        * --keystore, --address
+            keystore: file name,load wallet encrypted file. must be the
+            original wallet that created the validator to pay the stake.pay
+            the txn fee. address: Online device wallet address.
+        * --pid_id
+            proposal pip number in github.
+        * --proposalid
+            proposal ID of target cancellation.only cancel the version
+            proposal.
+
+    submit_textproposal      submit the text proposal
+      Usage: submit_textproposal [options]
+        Options:
+        * --config
+            file name,load node and validator configuration information file.
+          --help
+            Show command help
+        * --keystore, --address
+            keystore: file name,load wallet encrypted file. must be the
+            original wallet that created the validator to pay the stake.pay
+            the txn fee. address: Online device wallet address.
+        * --pid_id
+            proposal pip number in github.
+
+    vote_cancelproposal      vote for the cancel proposal
+      Usage: vote_cancelproposal [options]
+        Options:
+        * --config
+            file name,load node and validator configuration information file.
+          --help
+            Show command help
+        * --keystore, --address
+            keystore: file name,load wallet encrypted file. must be the
+            original wallet that created the validator to pay the stake.pay
+            the txn fee. address: Online device wallet address.
+        * --opinion
+            Voting opinion.support input:yes,no,abstain.
+            Possible Values: [YEAS, NAYS, ABSTENTIONS]
+        * --proposalid
+            version proposal ID of target voting
+
+    vote_textproposal      vote for the text proposal
+      Usage: vote_textproposal [options]
+        Options:
+        * --config
+            file name,load node and validator configuration information file.
+          --help
+            Show command help
+        * --keystore, --address
+            keystore: file name,load wallet encrypted file. must be the
+            original wallet that created the validator to pay the stake.pay
+            the txn fee. address: Online device wallet address.
+        * --opinion
+            Voting opinion.support input:yes,no,abstain.
+            Possible Values: [YEAS, NAYS, ABSTENTIONS]
+        * --proposalid
+            version proposal ID of target voting
+
+    create_observewallet      create observe wallet for cold wallet
+      Usage: create_observewallet [options]
+        Options:
+          --help
+            Show command help
+        * --keystore
+            file name,load wallet encrypted file. must be the original wallet
+            that created the validator to pay the stake.pay the txn fee.
+
+    offlinesign      Sign the transaction(s）generated on online device
+      Usage: offlinesign [options]
+        Options:
+        * --filelocation
+            Offline device signed transaction file location
+          --help
+            Show command help
+
+    send_signedtx      Send the signed transaction(s) to the blockchain
+      Usage: send_signedtx [options]
+        Options:
+        * --config
+            file name,load node and validator configuration information file.
+        * --filelocation
+            Offline device signed transaction file location
+          --help
+            Show command help
+
+    submit_paramproposal      submit the parameter proposal
+      Usage: submit_paramproposal [options]
+        Options:
+        * --config
+            file name,load node and validator configuration information file.
+          --help
+            Show command help
+        * --keystore, --address
+            keystore: file name,load wallet encrypted file. must be the
+            original wallet that created the validator to pay the stake.pay
+            the txn fee. address: Online device wallet address.
+        * --module
+            Module of governance parameters.
+        * --paramname
+            Governable parameter names. Pay attention to uppercase and
+            lowercase letters.
+        * --paramvalue
+            The new value of the parameter. Note the parameter value range.
+        * --pid_id
+            proposal pip number in github.
+
+    vote_paramproposal      vote for the parameter proposal
+      Usage: vote_paramproposal [options]
+        Options:
+        * --config
+            file name,load node and validator configuration information file.
+          --help
+            Show command help
+        * --keystore, --address
+            keystore: file name,load wallet encrypted file. must be the
+            original wallet that created the validator to pay the stake.pay
+            the txn fee. address: Online device wallet address.
+        * --opinion
+            Voting opinion.support input:yes,no,abstain.
+            Possible Values: [YEAS, NAYS, ABSTENTIONS]
+        * --proposalid
+            version proposal ID of target voting
+
+    account      Manage accounts
+      Usage: account [options]       [command] [command options]
+        Options:
+          --help
+            Show command help
+        Commands:
+          new      Create account
+            Usage: new [options] accountName
+              Options:
+                --help
+                  Show command help
+
+          recover      Restore Account
+            Usage: recover [options] accountName
+              Options:
+                --help
+                  Show command help
+                -k, --key
+                  Account recovery with private key
+                  Default: false
+                -m, --mnemonics
+                  Account recovery with mnemonics
+                  Default: false
+
+          list      View account list
+            Usage: list [options]
+              Options:
+                --help
+                  Show command help
+
+          balance      Check account balance
+            Usage: balance [options] keystorename
+              Options:
+                -a, --address
+                  address
+              * --config
+                  file name,load node and validator configuration information
+                  file.
+                --help
+                  Show command help
+
+
+    tx      Manage transactions
+      Usage: tx [options]       [command] [command options]
+        Options:
+          --help
+            Show command help
+        Commands:
+          transfer      Transfer LAT
+            Usage: transfer [options]
+              Options:
+              * --amount
+                  Send amount
+              * --config
+                  file name,load node and validator configuration information
+                  file.
+                --gaslimit
+                  The maximum number of gas allowed to be consumed in this
+                  transaction
+                --gasprice
+                  Gas price of this transaction
+                --help
+                  Show command help
+              * --keystore, --address
+                  keystore: file name,load wallet encrypted file. must be the
+                  original wallet that created the validator to pay the
+                  stake.pay the txn fee. address: Online device wallet
+                  address.
+              * --recipient
+                  Receiving account address
+
+          delegate      Initiate delegation, delegate staked node
+            Usage: delegate [options]
+              Options:
+              * --config
+                  file name,load node and validator configuration information
+                  file.
+                --help
+                  Show command help
+              * --keystore, --address
+                  Send account keystore
+              * --node_id
+                  Nodeid,hex 0x begins
+              * --amount, --restrictedamount, --autoamount
+                  Send amountQ
