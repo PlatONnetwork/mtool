@@ -1,5 +1,7 @@
 package com.platon.mtool.client.tools;
 
+import com.platon.utils.Strings;
+
 import java.io.Console;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
@@ -63,7 +65,12 @@ public abstract class PrintUtils {
   }
 
   public static String interact(String promote) {
-    return interact(promote, ".*");
+    String s = interact(promote, ".*");
+    if(Strings.isBlank(s)){
+      return s;
+    }else{
+      return s.trim().replaceAll("\\s+", " ");
+    }
   }
 
   /**
@@ -121,5 +128,14 @@ public abstract class PrintUtils {
     RuntimeMXBean runtimeMxBean = ManagementFactory.getRuntimeMXBean();
     List<String> arguments = runtimeMxBean.getInputArguments();
     return arguments.contains("-DjunitTest");
+  }
+
+  public static void main(String[] args) {
+    String mnemonic1 = "cannon script cream entire dynamic organ hen fetch surround trim arrange narrow";
+    String mnemonic2 = "cannon script cream entire dynamic organ hen fetch surround trim arrange narrow ";
+    String mnemonic3 = "cannon script cream entire dynamic organ hen fetch surround  trim arrange  narrow ";
+    System.out.println(mnemonic1.trim().replaceAll("\\s+", " ") + "|");
+    System.out.println(mnemonic2.trim().replaceAll("\\s+", " ") + "|");
+    System.out.println(mnemonic3.trim().replaceAll("\\s+", " ") + "|");
   }
 }
