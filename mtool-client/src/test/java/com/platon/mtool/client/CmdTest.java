@@ -82,10 +82,11 @@ class CmdTest {
 
   @Test
   void account_balance() {
-
+    KEYSTORE_PATH = ResourceUtils.getResource("keystore_huangyun.json").toAbsolutePath().toString();
+    VALIDATOR_CONFIG_PATH = ResourceUtils.getResource("validator_huangyun.json").toAbsolutePath().toString();
     //mtool-client account list
-   // String args = String.format("account balance D:\\javalang\\github.com\\mtool\\mtool-client\\src\\test\\resources\\keystore_huangyun.json --config D:\\javalang\\github.com\\mtool\\mtool-client\\src\\test\\resources\\validator_huangyun.json");
-    String args = "account balance D:\\javalang\\github.com\\mtool\\mtool-client\\src\\test\\resources\\keystore_huangyun.json --config D:\\javalang\\github.com\\mtool\\mtool-client\\src\\test\\resources\\validator_huangyun.json";
+   // String args = String.format("account balance E:\Java\mtool-platon\mtool-client\src\test\resources\\keystore_huangyun.json --config E:\Java\mtool-platon\mtool-client\src\test\resources\\validator_huangyun.json");
+    String args = "account balance "+KEYSTORE_PATH+" --config "+VALIDATOR_CONFIG_PATH;
     //args = "staking --amount 10000 --keystore D:\\javalang\\Juzix-Platon\\mtool\\mtool-client\\src\\test\\resources\\cdm.json --config D:\\javalang\\Juzix-Platon\\mtool\\mtool-client\\src\\test\\resources\\validator.json --delegated_reward_rate 900 --benefit_address lat1tafunymdk222q2wma3fmncnrkksnkys99hp3yu";
     parser.parse(args.split(WHITE_SPACE));
     new MtoolClient().run(parser);
