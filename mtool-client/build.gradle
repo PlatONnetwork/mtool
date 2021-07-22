@@ -66,6 +66,9 @@ task copyValidator {
 task copyKeystore {
     outputs.file new File("$buildDir/resources/main/keystore")
 }
+task copyManual  {
+    outputs.file new File("$projectDir/doc")
+}
 
 task copyConfig {
     outputs.file new File("$buildDir/resources/main/config.properties")
@@ -86,9 +89,9 @@ distributions {
             from(copyKeystore) {
                 into 'keystore'
             }
-            /*from(copyKeystore) {
-                into 'keystore'
-            }*/
+            from(copyManual) {
+                into ''
+            }
             from(copyConfig) {
                 into ''
             }
