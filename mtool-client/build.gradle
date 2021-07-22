@@ -64,7 +64,10 @@ task copyValidator {
 }
 
 task copyKeystore {
-    outputs.file new File("$buildDir/resources/main/keystore")
+    outputs.file new File("$projectDir/example/example_observed.json")
+}
+task copyIgnore {
+    outputs.file new File("$projectDir/example/IGNORE")
 }
 task copyManual  {
     outputs.file new File("$projectDir/doc")
@@ -76,9 +79,6 @@ task copyConfig {
 
 distributions {
     main {
-        /*project.file("$buildDir/transaction_signature").mkdirs()
-        project.file("$buildDir/transaction_details").mkdirs()*/
-
         contents {
             from(copyLicense) {
                 into ''
@@ -88,6 +88,12 @@ distributions {
             }
             from(copyKeystore) {
                 into 'keystore'
+            }
+            from(copyIgnore) {
+                into 'transaction_details'
+            }
+            from(copyIgnore) {
+                into 'transaction_signature'
             }
             from(copyManual) {
                 into ''
