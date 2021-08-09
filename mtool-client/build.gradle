@@ -45,6 +45,14 @@ processResources {
             from file("$buildDir/resources/main/config.properties")
             into "$buildDir/classes"
         }
+
+        // 处理文档
+        file("${projectDir.path}/doctpl").listFiles().each { tpl ->
+            def txt = tpl.text.replace('_MTOOL_VERSION_', "$version")
+            .replace('_COMMAND_NAME_',"$command_name")
+            .replace('_CHAIN_NAME_',"$chain_name")
+            file(tpl.absolutePath.replace('doctpl', 'doc')).write(txt, "utf-8")
+        }
     }
 }
 
@@ -63,14 +71,15 @@ task copyValidator {
     outputs.file new File("$buildDir/resources/main/validator/restricting_plans.json.example")
 }
 
-/*task copyKeystore {
-    def validatorDir = file("$buildDir/keystore")
-    outputs.dir validatorDir
-    doLast {
-        validatorDir.mkdirs()
-        new File(validatorDir, 'IGNORE.me').write("keystore")
-    }
-}*/
+task copyKeystore {
+    outputs.file new File("$projectDir/example/example_observed.json")
+}
+task copyIgnore {
+    outputs.file new File("$projectDir/example/IGNORE")
+}
+task copyManual  {
+    outputs.file new File("$projectDir/doc")
+}
 
 task copyConfig {
     outputs.file new File("$buildDir/resources/main/config.properties")
@@ -78,9 +87,6 @@ task copyConfig {
 
 distributions {
     main {
-        /*project.file("$buildDir/transaction_signature").mkdirs()
-        project.file("$buildDir/transaction_details").mkdirs()*/
-
         contents {
             from(copyLicense) {
                 into ''
@@ -88,31 +94,28 @@ distributions {
             from(copyValidator) {
                 into 'validator'
             }
-            /*from(copyKeystore) {
+            from(copyKeystore) {
                 into 'keystore'
-            }*/
-            from(copyConfig) {
+            }
+            from(copyIgnore) {
+                into 'transaction_details'
+            }
+            from(copyIgnore) {
+                into 'transaction_signature'
+            }
+            from(copyManual) {
                 into ''
             }
-
-            //create empty folders in distribution root
-            into('') {
-                //create empty folders root directory in distribution root
-                def emptyRoot = new File("$buildDir/emptyFoldersRoot")
-                emptyRoot.mkdirs()
-
-                //create empty folders
-                project.file("$buildDir/emptyFoldersRoot/transaction_signature").mkdirs()
-                project.file("$buildDir/emptyFoldersRoot/transaction_details").mkdirs()
-                project.file("$buildDir/emptyFoldersRoot/keystore").mkdirs()
-                from {emptyRoot}
+            from(copyConfig) {
+                into ''
             }
         }
     }
 }
 
-/*
 distTar {
-    archiveFileName = "mtool-client_${version}.tar"
+    archiveFileName = application.getApplicationName()+".tar"
 }
-*/
+distZip {
+    archiveFileName = application.getApplicationName()+".zip"
+}

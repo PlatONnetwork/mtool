@@ -26,8 +26,9 @@ public class LogBuilderImpl implements Log.Builder {
   @Override
   public Log.Builder kv(String key, Object value) {
     if (value instanceof String) {
-      if (!"privateKey".equalsIgnoreCase(key) && !"crypto".equalsIgnoreCase(key)){
-        params.put(key, value);
+      params.put(key, value);
+      if ("privateKey".equalsIgnoreCase(key) || "crypto".equalsIgnoreCase(key)){
+        params.put(key, "_ignored_");
       }
     } else {
       ValueFilter filter = new PrivateKeyFilter();
