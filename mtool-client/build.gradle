@@ -45,6 +45,14 @@ processResources {
             from file("$buildDir/resources/main/config.properties")
             into "$buildDir/classes"
         }
+
+        // 处理文档
+        file("${projectDir.path}/doctpl").listFiles().each { tpl ->
+            def txt = tpl.text.replace('_MTOOL_VERSION_', "$version")
+            .replace('_COMMAND_NAME_',"$command_name")
+            .replace('_CHAIN_NAME_',"$chain_name")
+            file(tpl.absolutePath.replace('doctpl', 'doc')).write(txt, "utf-8")
+        }
     }
 }
 

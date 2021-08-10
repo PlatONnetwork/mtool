@@ -62,10 +62,13 @@ public class TxDelegateExecutor extends MtoolExecutor<TxOptions.DelegateOption> 
       DelegateContract delegateContract =
           getDelegateContract(web3j, credentials);
       GasProvider gasProvider =
-          delegateContract.getDelegateGasProvider(
-              option.getNodeId(),
-              option.getAmount().getAmountType(),
-              option.getAmount().getAmount());
+          checkGasPrice(
+                  delegateContract.getDelegateGasProvider(
+                  option.getNodeId(),
+                  option.getAmount().getAmountType(),
+                  option.getAmount().getAmount())
+          );
+
       GasProvider gasProviderEst =
           new GasProvider() {
             @Override
@@ -106,10 +109,11 @@ public class TxDelegateExecutor extends MtoolExecutor<TxOptions.DelegateOption> 
         DelegateContract delegateContract =
           getDelegateContract(web3j, targetChainAddress);
       GasProvider gasProvider =
-          delegateContract.getDelegateGasProvider(
-              option.getNodeId(),
-              option.getAmount().getAmountType(),
-              option.getAmount().getAmount());
+          checkGasPrice(delegateContract.getDelegateGasProvider(
+                  option.getNodeId(),
+                  option.getAmount().getAmountType(),
+                  option.getAmount().getAmount()));
+
       GasProvider gasProviderEst =
           new GasProvider() {
             @Override
