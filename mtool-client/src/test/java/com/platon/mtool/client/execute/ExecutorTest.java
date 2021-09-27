@@ -529,7 +529,7 @@ class ExecutorTest {
                 .thenReturn(new RemoteCall<>(() -> transaction));
         when(stakingContract.getTransactionResponse(any()))
                 .thenReturn(new RemoteCall<>(() -> successResponse));
-        // when
+        doReturn(mock(GasProvider.class)).when(stakingExecutor).checkGasPrice(any());
         stakingExecutor.execute(option);
         assertTrue(true);
     }
@@ -558,7 +558,7 @@ class ExecutorTest {
                 .thenReturn(new RemoteCall<>(() -> transaction));
         when(stakingContract.getTransactionResponse(any()))
                 .thenReturn(new RemoteCall<>(() -> successResponse));
-        // when
+        doReturn(mock(GasProvider.class)).when(stakingExecutor).checkGasPrice(any());
         stakingExecutor.execute(option);
         assertTrue(true);
     }
@@ -585,7 +585,7 @@ class ExecutorTest {
                 .thenReturn(new RemoteCall<>(() -> transaction));
         when(stakingContract.getTransactionResponse(any()))
                 .thenReturn(new RemoteCall<>(() -> successResponse));
-        // when
+        doReturn(mock(GasProvider.class)).when(stakingExecutor).checkGasPrice(any());
         stakingExecutor.execute(option);
         assertTrue(true);
     }
@@ -612,7 +612,7 @@ class ExecutorTest {
                 .thenReturn(new RemoteCall<>(() -> transaction));
         when(stakingContract.getTransactionResponse(any()))
                 .thenReturn(new RemoteCall<>(() -> successResponse));
-        // when
+        doReturn(mock(GasProvider.class)).when(stakingExecutor).checkGasPrice(any());
         stakingExecutor.execute(option);
         assertTrue(true);
     }
@@ -639,7 +639,7 @@ class ExecutorTest {
                 .thenReturn(new RemoteCall<>(() -> transaction));
         when(stakingContract.getTransactionResponse(any()))
                 .thenReturn(new RemoteCall<>(() -> successResponse));
-
+        doReturn(mock(GasProvider.class)).when(executor).checkGasPrice(any());
         executor.execute(option);
         assertTrue(true);
     }
@@ -666,7 +666,7 @@ class ExecutorTest {
                 .thenReturn(new RemoteCall<>(() -> transaction));
         when(proposalContract.getTransactionResponse(any()))
                 .thenReturn(new RemoteCall<>(() -> successResponse));
-
+        doReturn(mock(GasProvider.class)).when(executor).checkGasPrice(any());
         executor.execute(option);
         assertTrue(true);
     }
@@ -694,12 +694,13 @@ class ExecutorTest {
         doReturn(stakingContract)
                 .when(increaseStakingExecutor)
                 .getStakingContract(any(), any());
-
+        GasProvider gp = mock(GasProvider.class);
+        doReturn(gp).when(increaseStakingExecutor).checkGasPrice(any());
         when(stakingContract.addStakingReturnTransaction(any(), any(), any(), any()))
                 .thenReturn(new RemoteCall<>(() -> transaction));
         when(stakingContract.getTransactionResponse(any()))
                 .thenReturn(new RemoteCall<>(() -> successResponse));
-
+        doReturn(mock(GasProvider.class)).when(increaseStakingExecutor).checkGasPrice(any());
         increaseStakingExecutor.execute(option);
         assertTrue(true);
     }
@@ -726,7 +727,7 @@ class ExecutorTest {
                 .thenReturn(new RemoteCall<>(() -> transaction));
         when(proposalContract.getTransactionResponse(any()))
                 .thenReturn(new RemoteCall<>(() -> successResponse));
-
+        doReturn(mock(GasProvider.class)).when(executor).checkGasPrice(any());
         executor.execute(option);
         assertTrue(true);
     }
@@ -755,7 +756,7 @@ class ExecutorTest {
                 .thenReturn(new RemoteCall<>(() -> transaction));
         when(proposalContract.getTransactionResponse(any()))
                 .thenReturn(new RemoteCall<>(() -> successResponse));
-
+        doReturn(mock(GasProvider.class)).when(executor).checkGasPrice(any());
         executor.execute(option);
         assertTrue(true);
     }
@@ -784,7 +785,7 @@ class ExecutorTest {
                 .thenReturn(new RemoteCall<>(() -> transaction));
         when(proposalContract.getTransactionResponse(any()))
                 .thenReturn(new RemoteCall<>(() -> successResponse));
-
+        doReturn(mock(GasProvider.class)).when(executor).checkGasPrice(any());
         executor.execute(option);
         assertTrue(true);
     }
@@ -814,7 +815,7 @@ class ExecutorTest {
                 .thenReturn(new RemoteCall<>(() -> transaction));
         when(proposalContract.getTransactionResponse(any()))
                 .thenReturn(new RemoteCall<>(() -> successResponse));
-
+        doReturn(mock(GasProvider.class)).when(executor).checkGasPrice(any());
         executor.execute(option);
         assertTrue(true);
     }
@@ -848,6 +849,7 @@ class ExecutorTest {
 
         option.setNodeName("testNewNodeName");
         option.setExternalId("");
+        doReturn(mock(GasProvider.class)).when(executor).checkGasPrice(any());
         executor.execute(option);
         assertTrue(true);
     }
@@ -875,7 +877,7 @@ class ExecutorTest {
                 .thenReturn(new RemoteCall<>(() -> transaction));
         when(proposalContract.getTransactionResponse(any()))
                 .thenReturn(new RemoteCall<>(() -> successResponse));
-
+        doReturn(mock(GasProvider.class)).when(executor).checkGasPrice(any());
         executor.execute(option);
         assertTrue(true);
     }
@@ -902,7 +904,7 @@ class ExecutorTest {
                 .thenReturn(new RemoteCall<>(() -> transaction));
         when(proposalContract.getTransactionResponse(any()))
                 .thenReturn(new RemoteCall<>(() -> successResponse));
-
+        doReturn(mock(GasProvider.class)).when(executor).checkGasPrice(any());
         executor.execute(option);
         assertTrue(true);
     }
@@ -930,7 +932,7 @@ class ExecutorTest {
                 .thenReturn(new RemoteCall<>(() -> transaction));
         when(proposalContract.getTransactionResponse(any()))
                 .thenReturn(new RemoteCall<>(() -> successResponse));
-
+        doReturn(mock(GasProvider.class)).when(executor).checkGasPrice(any());
         executor.execute(option);
         assertTrue(true);
     }
@@ -958,7 +960,7 @@ class ExecutorTest {
                 .thenReturn(new RemoteCall<>(() -> transaction));
         when(proposalContract.getTransactionResponse(any()))
                 .thenReturn(new RemoteCall<>(() -> successResponse));
-
+        doReturn(mock(GasProvider.class)).when(executor).checkGasPrice(any());
         executor.execute(option);
         assertTrue(true);
     }

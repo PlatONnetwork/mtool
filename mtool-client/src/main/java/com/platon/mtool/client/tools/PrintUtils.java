@@ -66,7 +66,7 @@ public abstract class PrintUtils {
 
   public static String interact(String promote) {
     String s = interact(promote, ".*");
-    if(Strings.isBlank(s)){
+    if(s==null||Strings.isBlank(s)){
       return s;
     }else{
       return s.trim().replaceAll("\\s+", " ");

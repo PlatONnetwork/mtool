@@ -16,6 +16,7 @@ import java.util.concurrent.TimeoutException;
  *
  * <p>Created by liyf.
  */
+
 public abstract class CliExceptionHelp {
 
   private static final Logger logger = LoggerFactory.getLogger(CliExceptionHelp.class);
@@ -23,7 +24,6 @@ public abstract class CliExceptionHelp {
   private CliExceptionHelp() {}
 
   public static void stopAndPrintError(Exception e) {
-    e.printStackTrace();
     logger.error("execute", e);
     if (PrintUtils.isJunitTest()) {
       ProgressBar.stop("error occur");
